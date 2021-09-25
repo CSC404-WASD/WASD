@@ -50,6 +50,12 @@ public class PlayerMovement : MonoBehaviour
         var movementHorizontal = _right * horizontalSpeed * Time.deltaTime * _movementInput.x;
         var movementVertical = _up * verticalSpeed * Time.deltaTime * _movementInput.z;
 
+        var movement = movementHorizontal + movementVertical;
+        if (movement.Equals(Vector3.zero))
+        {
+            return;
+        }
         _transform.position += movementHorizontal + movementVertical;
+        _transform.forward = Vector3.Normalize(movementHorizontal + movementVertical);
     }
 }
