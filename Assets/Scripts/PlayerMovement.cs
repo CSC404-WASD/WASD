@@ -41,8 +41,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        _movementInput.x = Input.GetAxis("Horizontal");
-        _movementInput.z = Input.GetAxis("Vertical");
+        _movementInput.x = Input.GetAxisRaw("Horizontal");
+        _movementInput.z = Input.GetAxisRaw("Vertical");
     }
 
     private void FixedUpdate()
@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-        _transform.position += movementHorizontal + movementVertical;
-        _transform.forward = Vector3.Normalize(movementHorizontal + movementVertical);
+        _transform.position += movement;
+        _transform.forward = Vector3.Normalize(movement);
     }
 }
