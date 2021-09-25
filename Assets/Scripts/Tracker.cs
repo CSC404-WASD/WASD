@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tracker : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class Tracker : MonoBehaviour
     float sTime = 0.0f;
     float aTime = 0.0f;
     float dTime = 0.0f;
+
+    public Text displayText;
     // Update is called once per frame
     void Update()
     {
@@ -34,5 +37,6 @@ public class Tracker : MonoBehaviour
         }
         det = wTime*sTime - aTime*dTime;
 
+        displayText.text = "W: " + wTime.ToString()[0] + " A: " + sTime.ToString()[0] + " S: " + aTime.ToString()[0] + " D: " + dTime.ToString()[0];
     }
 }
