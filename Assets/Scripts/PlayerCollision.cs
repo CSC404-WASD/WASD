@@ -11,7 +11,7 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.collider.CompareTag("Obstacle"))
+        if (other.collider.CompareTag("Projectile"))
         {
             // put in losing state
             Destroy(this.gameObject);
