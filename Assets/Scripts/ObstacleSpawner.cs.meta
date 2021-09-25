@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: cfe79927a48a8dd44b975a9526905789
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - obstacle: {fileID: 2892597211935366614, guid: a17e07ef32c37aa468ba89ff10a6df09, type: 3}
+  - flower: {fileID: 3893479351942721418, guid: 69f1d8da133aa5443894caa63ebb8ad4, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
