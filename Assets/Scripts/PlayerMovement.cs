@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     // General attributes
     private Transform _transform;
+    private Rigidbody _rigidbody;
     private Camera _mainCamera;
 
     // Movement
@@ -21,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     // Constants
     private void Start()
     {
+        _rigidbody = GetComponent<Rigidbody>();
         _transform = GetComponent<Transform>();
 
         _movementInput = new Vector3(0, 0, 0);
@@ -55,7 +57,8 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-        _transform.position += movement;
+        
+        _rigidbody.MovePosition(_transform.position + movement);
         _transform.forward = Vector3.Normalize(movement);
     }
 }
