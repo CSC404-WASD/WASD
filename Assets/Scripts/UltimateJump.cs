@@ -22,8 +22,7 @@ public class UltimateJump : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown ("Jump") && jumperchad.velocity.y == 0){
-
+        if (Input.GetButton("Jump") &&(jumperchad.velocity.y <= 0.1f) && (jumperchad.velocity.y >= -0.1f)){
             jumperchad.velocity = jumpV*upSpeed;
             //jumperchad.AddForce(jumpV*upSpeed, ForceMode.Impulse);
             jumps += 1;
