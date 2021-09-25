@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     // General attributes
     private Transform _transform;
+    private Rigidbody _rigidbody;
     private Camera _mainCamera;
 
     // Movement
@@ -21,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     // Constants
     private void Start()
     {
+        _rigidbody = GetComponent<Rigidbody>();
         _transform = GetComponent<Transform>();
 
         _movementInput = new Vector3(0, 0, 0);
@@ -41,8 +43,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        _movementInput.x = Input.GetAxis("Horizontal");
-        _movementInput.z = Input.GetAxis("Vertical");
+        _movementInput.x = Input.GetAxisRaw("Horizontal");
+        _movementInput.z = Input.GetAxisRaw("Vertical");
     }
 
     private void FixedUpdate()
@@ -50,6 +52,13 @@ public class PlayerMovement : MonoBehaviour
         var movementHorizontal = _right * horizontalSpeed * Time.deltaTime * _movementInput.x;
         var movementVertical = _up * verticalSpeed * Time.deltaTime * _movementInput.z;
 
-        _transform.position += movementHorizontal + movementVertical;
+        var movement = movementHorizontal + movementVertical;
+        if (movement.Equals(Vector3.zero))
+        {
+            return;
+        }
+        
+        _rigidbody.MovePosition(_transform.position + movement);
+        _transform.forward = Vector3.Normalize(movement);
     }
 }
