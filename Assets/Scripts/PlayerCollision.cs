@@ -16,5 +16,11 @@ public class PlayerCollision : MonoBehaviour
             // put in losing state
             Destroy(this.gameObject);
         }
+
+        if (other.collider.CompareTag("Enemy"))
+        {
+            // put in losing state
+            Destroy(this.gameObject);
+        }
     }
 }
