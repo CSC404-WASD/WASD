@@ -7,9 +7,16 @@ public class DynamicEnemyAI : MonoBehaviour
     private GameObject player;
     private Rigidbody myRigidbody;
     private Vector3 unitVectTowardPlayer;
+
+
+    [Header("Movement")]
     public float walkImpulse = 8.0f;
     public float walkMaxSpeed = 8.0f;
     public float absMaxSpeed = 10.0f;
+
+    [Header("Combat")]
+    public float meleeDamage = 1.0f;
+    public float hitPoints = 3.0f;
 
     // Start is called before the first frame update
     void Start()
