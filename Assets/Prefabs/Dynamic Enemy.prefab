@@ -126,5 +126,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8a0980d1e917af46ba3cb2177601973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkImpulse: 1
+  walkImpulse: 20
   walkMaxSpeed: 8
+  absMaxSpeed: 10

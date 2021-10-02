@@ -7,8 +7,9 @@ public class DynamicEnemyAI : MonoBehaviour
     private GameObject player;
     private Rigidbody myRigidbody;
     private Vector3 unitVectTowardPlayer;
-    public float walkImpulse = 1.0f;
+    public float walkImpulse = 8.0f;
     public float walkMaxSpeed = 8.0f;
+    public float absMaxSpeed = 10.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -30,11 +31,21 @@ public class DynamicEnemyAI : MonoBehaviour
             // Calculate unit vect toward player
             unitVectTowardPlayer = (player.transform.position - this.transform.position).normalized;
 
+            // Get rid of the y component
+            unitVectTowardPlayer.y = 0;
+            unitVectTowardPlayer = unitVectTowardPlayer.normalized;
+
             // Only walk if not already moving fast enough toward player
-            if (myRigidbody.velocity.magnitude < walkMaxSpeed)
+            if (Vector3.Dot(myRigidbody.velocity, unitVectTowardPlayer) < walkMaxSpeed)
             {
-                myRigidbody.AddForce(unitVectTowardPlayer * walkImpulse, ForceMode.VelocityChange);
+                myRigidbody.velocity = new Vector3(unitVectTowardPlayer.x * walkImpulse, myRigidbody.velocity.y, unitVectTowardPlayer.z * walkImpulse);
             }
+        }
+
+        // Should not move faster than absMaxSpeed
+        if(myRigidbody.velocity.magnitude <= absMaxSpeed)
+        {
+            myRigidbody.velocity = myRigidbody.velocity.normalized * absMaxSpeed;
         }
     }
 }
