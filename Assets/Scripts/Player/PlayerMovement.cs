@@ -60,17 +60,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // If stunned, make movement 0.
-        if (_stats.isStunned())
-        {
-            var movement = Vector3(0,0,0);
-        }
-        else
+        var movement = new Vector3(0,0,0);
+        
+        if(!_stats.isStunned())
         {
             // Calculate x and z movement from input
             var movementHorizontal = _right * horizontalRelativeSpeed * Time.deltaTime * _movementInput.x;
             var movementVertical = _up * verticalRelativeSpeed * Time.deltaTime * _movementInput.z;
-            var movement = Vector3.Normalize(movementHorizontal + movementVertical) * moveSpeed;
+            movement = Vector3.Normalize(movementHorizontal + movementVertical) * moveSpeed;
         }
 
         // Rotate character in the right direction. Make sure to do this before adding y movement.
