@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
     [Range(0, 20)] [SerializeField] private float verticalSpeed = 10.0f;
 
     private Vector3 _up, _right;
+
+    private PlayerStats _stats;
     
     // Constants
     private void Start()
@@ -28,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
         _movementInput = new Vector3(0, 0, 0);
 
         _mainCamera = Camera.main;
+        _stats = PlayerStats.instance;
         if (_mainCamera == null)
         {
             print("Main camera not set (ensure that camera has MainCamera tag).");
@@ -53,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
         var movementVertical = _up * verticalSpeed * Time.deltaTime * _movementInput.z;
 
         var movement = movementHorizontal + movementVertical;
-        if (movement.Equals(Vector3.zero))
+        if (movement.Equals(Vector3.zero) || _stats.isStunned())
         {
             return;
         }

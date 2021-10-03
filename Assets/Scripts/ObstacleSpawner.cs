@@ -32,7 +32,7 @@ public class ObstacleSpawner : MonoBehaviour
         // Update variables
         _nextSpawnTime = Time.time + _spawnPeriod;
 
-        Debug.Log("Spawning object");
+        //Debug.Log("Spawning object");
 
         Instantiate(projectile, this.transform.position, this.transform.rotation);
     }
