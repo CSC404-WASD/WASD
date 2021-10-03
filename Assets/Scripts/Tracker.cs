@@ -8,8 +8,6 @@ public class Tracker : MonoBehaviour
 {
     private PlayerStats stats;
 
-    float det = 0.0f;
-
     public Text displayText;
     public Text powerText;
     void Start()
@@ -19,7 +17,6 @@ public class Tracker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //det = wTime*sTime - aTime*dTime;
 
         displayText.text = String.Format("Horizontal:{0:0.0} \nVertical:{1:0.0}", stats.getHorizontalCharge(), stats.getVerticalCharge());
         // can hide this if doesnt end up being implemented
