@@ -60,16 +60,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Skip everything if stunned.
+        // If stunned, make movement 0.
         if (_stats.isStunned())
         {
-            return;
+            var movement = Vector3(0,0,0);
         }
-
-        // Calculate x and z movement from input
-        var movementHorizontal = _right * horizontalRelativeSpeed * Time.deltaTime * _movementInput.x;
-        var movementVertical = _up * verticalRelativeSpeed * Time.deltaTime * _movementInput.z;
-        var movement = Vector3.Normalize(movementHorizontal + movementVertical) * moveSpeed;
+        else
+        {
+            // Calculate x and z movement from input
+            var movementHorizontal = _right * horizontalRelativeSpeed * Time.deltaTime * _movementInput.x;
+            var movementVertical = _up * verticalRelativeSpeed * Time.deltaTime * _movementInput.z;
+            var movement = Vector3.Normalize(movementHorizontal + movementVertical) * moveSpeed;
+        }
 
         // Rotate character in the right direction. Make sure to do this before adding y movement.
         if (!movement.Equals(Vector3.zero))
@@ -87,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit groundRaycastHit;
         _onGround = Physics.Raycast(_rigidbody.position, Vector3.down, out groundRaycastHit, maxGroundDistanceForJump);
         Debug.DrawRay(_rigidbody.position, Vector3.down * maxGroundDistanceForJump, Color.green);
-        if (_onGround && _jumpInput)
+        if (_onGround && _jumpInput && !_stats.isStunned())
         {
             _rigidbody.AddForce(0, jumpHeight, 0, ForceMode.Impulse);
         }
