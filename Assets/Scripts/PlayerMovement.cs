@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,10 +13,16 @@ public class PlayerMovement : MonoBehaviour
 
     // Movement
     private Vector3 _movementInput;
+    private bool _jumpInput = false;
+    private bool _onGround = false;
+    
 
-    [Header("Speed")]
-    [Range(0, 20)] [SerializeField] private float horizontalSpeed = 10.0f;
-    [Range(0, 20)] [SerializeField] private float verticalSpeed = 10.0f;
+    [Header("Movement")]
+    [Range(0, 1)] [SerializeField] private float horizontalRelativeSpeed = 1.0f;
+    [Range(0, 1)] [SerializeField] private float verticalRelativeSpeed = 1.0f;
+    [Range(0, 100)] [SerializeField] private float moveSpeed = 0.5f;
+    [Range(0, 100)] [SerializeField] private float maxGroundDistanceForJump = 5f;
+    [Range(0, 100)] [SerializeField] private float jumpHeight = 0.5f;
 
     private Vector3 _up, _right;
     
@@ -45,20 +52,28 @@ public class PlayerMovement : MonoBehaviour
     {
         _movementInput.x = Input.GetAxisRaw("Horizontal");
         _movementInput.z = Input.GetAxisRaw("Vertical");
+        _jumpInput = Input.GetButton("Jump");
     }
 
     private void FixedUpdate()
     {
-        var movementHorizontal = _right * horizontalSpeed * Time.deltaTime * _movementInput.x;
-        var movementVertical = _up * verticalSpeed * Time.deltaTime * _movementInput.z;
+        var movementHorizontal = _right * horizontalRelativeSpeed * Time.deltaTime * _movementInput.x;
+        var movementVertical = _up * verticalRelativeSpeed * Time.deltaTime * _movementInput.z;
 
-        var movement = movementHorizontal + movementVertical;
-        if (movement.Equals(Vector3.zero))
+        var movement = Vector3.Normalize(movementHorizontal + movementVertical);
+
+        _rigidbody.velocity = movement * moveSpeed;
+        if (!movement.Equals(Vector3.zero))
         {
-            return;
+            _transform.forward = movement;
         }
-        
-        _rigidbody.MovePosition(_transform.position + movement);
-        _transform.forward = Vector3.Normalize(movement);
+
+        RaycastHit groundRaycastHit;
+        _onGround = Physics.Raycast(_rigidbody.position, Vector3.down, out groundRaycastHit, maxGroundDistanceForJump);
+        Debug.DrawRay(_rigidbody.position, Vector3.down * maxGroundDistanceForJump, Color.green);
+        if (_onGround && _jumpInput)
+        {
+            _rigidbody.AddForce(0, jumpHeight, 0, ForceMode.Impulse);
+        }
     }
 }
