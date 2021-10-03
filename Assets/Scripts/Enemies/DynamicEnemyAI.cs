@@ -14,10 +14,6 @@ public class DynamicEnemyAI : MonoBehaviour
     public float walkMaxSpeed = 8.0f;
     public float absMaxSpeed = 10.0f;
 
-    [Header("Combat")]
-    public float meleeDamage = 1.0f;
-    public float hitPoints = 3.0f;
-
     // Start is called before the first frame update
     void Start()
     {

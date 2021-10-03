@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
     [Range(0, 100)] [SerializeField] private float jumpHeight = 0.5f;
 
     private Vector3 _up, _right;
+
+    private PlayerStats _stats;
     
     // Constants
     private void Start()
@@ -35,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
         _movementInput = new Vector3(0, 0, 0);
 
         _mainCamera = Camera.main;
+        _stats = PlayerStats.instance;
         if (_mainCamera == null)
         {
             print("Main camera not set (ensure that camera has MainCamera tag).");
@@ -57,6 +60,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Skip everything if stunned.
+        if (_stats.isStunned())
+        {
+            return;
+        }
+
         // Calculate x and z movement from input
         var movementHorizontal = _right * horizontalRelativeSpeed * Time.deltaTime * _movementInput.x;
         var movementVertical = _up * verticalRelativeSpeed * Time.deltaTime * _movementInput.z;
