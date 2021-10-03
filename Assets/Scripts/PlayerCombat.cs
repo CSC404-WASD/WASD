@@ -23,27 +23,36 @@ public class PlayerCombat : MonoBehaviour
     void Update()
     {
         //fix buttons for controller use later
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.W)) {
+        if (Input.GetKeyDown(KeyCode.U) && Input.GetKey(KeyCode.W)) {
             PerformWAttack();
         }
     }
 
     private void PerformWAttack() {
+
+        // check vertical charge
         float vCharge = stats.getVerticalCharge();
+
+        // attack if cooldown refreshed and charge above threshold
         if (vCharge > wThreshold && nextWAttackTime <= Time.time) {
+
+            // if enough charge, subtract. else, set to 0 and stun
             if (vCharge >= chargeConsumption) {
                 stats.setVerticalDiff(-1f * chargeConsumption);
-            } else {
+            } 
+            else {
                 stats.setVerticalDiff(-1.0f * vCharge);
                 stats.setStunned(true, chargeConsumption - vCharge);
             }
-            stats.isAttacking = true;
 
+            // execute attack
+            stats.isAttacking = true;
             Collider[] hitColliders = Physics.OverlapBox(attackPoint.position, attackRange, Quaternion.identity, enemyLayers);
             attackIndicator.SetActive(true);
             foreach(Collider enemy in hitColliders) {
                 Destroy(enemy.gameObject);
             }
+
             //delay next attack
             nextWAttackTime = Time.time + 0.5f;
             StartCoroutine(HideCube(0.25f));

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -406,6 +406,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 792802611}
+    - target: {fileID: 8186876162936510305, guid: 554b9a95b4924445283006b81ccc4ca6, type: 3}
+      propertyPath: orthographic size
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8186876162936510307, guid: 554b9a95b4924445283006b81ccc4ca6, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1014,21 +1018,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1877072829475352699, guid: 9e20cc8164b7d4494bff5fd4d343d273, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877072829475352701, guid: 9e20cc8164b7d4494bff5fd4d343d273, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1877072829475352703, guid: 9e20cc8164b7d4494bff5fd4d343d273, type: 3}
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1877072829475352703, guid: 9e20cc8164b7d4494bff5fd4d343d273, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877072829475352703, guid: 9e20cc8164b7d4494bff5fd4d343d273, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877072829475352703, guid: 9e20cc8164b7d4494bff5fd4d343d273, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877072829475352703, guid: 9e20cc8164b7d4494bff5fd4d343d273, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5
+      value: 5.255
       objectReference: {fileID: 0}
     - target: {fileID: 1877072829475352703, guid: 9e20cc8164b7d4494bff5fd4d343d273, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.5
+      value: 1.577
       objectReference: {fileID: 0}
     - target: {fileID: 1877072829475352703, guid: 9e20cc8164b7d4494bff5fd4d343d273, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5
+      value: 4.207
       objectReference: {fileID: 0}
     - target: {fileID: 1877072829475352703, guid: 9e20cc8164b7d4494bff5fd4d343d273, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1167,7 +1191,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b742b7f8c89784d978decbabe1de3026, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
