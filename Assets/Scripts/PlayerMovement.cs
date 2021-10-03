@@ -57,17 +57,24 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Calculate x and z movement from input
         var movementHorizontal = _right * horizontalRelativeSpeed * Time.deltaTime * _movementInput.x;
         var movementVertical = _up * verticalRelativeSpeed * Time.deltaTime * _movementInput.z;
+        var movement = Vector3.Normalize(movementHorizontal + movementVertical) * moveSpeed;
 
-        var movement = Vector3.Normalize(movementHorizontal + movementVertical);
-
-        _rigidbody.velocity = movement * moveSpeed;
+        // Rotate character in the right direction. Make sure to do this before adding y movement.
         if (!movement.Equals(Vector3.zero))
         {
             _transform.forward = movement;
         }
 
+        // Factor in y movement from jump and physics engine gravity.
+        movement.y = _rigidbody.velocity.y;
+
+        // Set rigidbody velocity
+        _rigidbody.velocity = movement;
+
+        // Jump code
         RaycastHit groundRaycastHit;
         _onGround = Physics.Raycast(_rigidbody.position, Vector3.down, out groundRaycastHit, maxGroundDistanceForJump);
         Debug.DrawRay(_rigidbody.position, Vector3.down * maxGroundDistanceForJump, Color.green);
