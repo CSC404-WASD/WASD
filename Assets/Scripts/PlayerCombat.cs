@@ -5,14 +5,14 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour
 {
     PlayerStats stats;
-    GameObject player;
 
     public Transform attackPoint;
     public Vector3 attackRange = new Vector3(0.5f, 0.5f, 0.25f);
     //cube is just a visual for now, once animation is added can be removed
-    public GameObject cube;
+    public GameObject attackIndicator;
     public LayerMask enemyLayers;
     public float chargeConsumption = 3.0f;
+    public float wThreshold = 0.0f;
 
     float nextWAttackTime = 0f;
     void Start()
@@ -30,7 +30,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void PerformWAttack() {
         float vCharge = stats.getVerticalCharge();
-        if (vCharge > 0f && nextWAttackTime <= Time.time) {
+        if (vCharge > wThreshold && nextWAttackTime <= Time.time) {
             if (vCharge >= chargeConsumption) {
                 stats.setVerticalDiff(-1f * chargeConsumption);
             } else {
@@ -40,7 +40,7 @@ public class PlayerCombat : MonoBehaviour
             stats.isAttacking = true;
 
             Collider[] hitColliders = Physics.OverlapBox(attackPoint.position, attackRange, Quaternion.identity, enemyLayers);
-            cube.SetActive(true);
+            attackIndicator.SetActive(true);
             foreach(Collider enemy in hitColliders) {
                 Destroy(enemy.gameObject);
             }
@@ -60,7 +60,7 @@ public class PlayerCombat : MonoBehaviour
 
     IEnumerator HideCube(float time) {
         yield return new WaitForSeconds(time);
-        cube.SetActive(false);
+        attackIndicator.SetActive(false);
         stats.isAttacking = false;
     }
 

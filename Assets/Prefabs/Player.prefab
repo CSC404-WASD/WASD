@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1877072829475352698}
   - component: {fileID: 5610665549283444297}
   - component: {fileID: 191388054058101668}
+  - component: {fileID: 6300060019761875117}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -158,10 +159,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 7399128055630178589}
   attackRange: {x: 2, y: 0.5, z: 1}
-  cube: {fileID: 4758731653378077616}
+  attackIndicator: {fileID: 4758731653378077616}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 64
+  chargeConsumption: 3
+  wThreshold: 0
 --- !u!114 &191388054058101668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,6 +175,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e3db9deff9d34a378d183b8b2c30b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAttacking: 0
+--- !u!114 &6300060019761875117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877072829475352696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4896419c4c676d043af53c41b1836075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4581820491434330640

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9030622023830392904}
   - component: {fileID: 540121193519523435}
   - component: {fileID: 1603971442357290617}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Dynamic Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -129,3 +129,5 @@ MonoBehaviour:
   walkImpulse: 20
   walkMaxSpeed: 8
   absMaxSpeed: 10
+  meleeDamage: 1
+  hitPoints: 3
