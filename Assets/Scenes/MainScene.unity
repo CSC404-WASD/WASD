@@ -1235,17 +1235,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4758731653378077616, guid: 9e20cc8164b7d4494bff5fd4d343d273, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5471360944418091581, guid: 9e20cc8164b7d4494bff5fd4d343d273, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.175
+      objectReference: {fileID: 0}
+    - target: {fileID: 5471360944418091581, guid: 9e20cc8164b7d4494bff5fd4d343d273, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.175
+      objectReference: {fileID: 0}
     - target: {fileID: 5610665549283444297, guid: 9e20cc8164b7d4494bff5fd4d343d273, type: 3}
       propertyPath: wCooldown
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5610665549283444297, guid: 9e20cc8164b7d4494bff5fd4d343d273, type: 3}
       propertyPath: attackRange.x
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5610665549283444297, guid: 9e20cc8164b7d4494bff5fd4d343d273, type: 3}
       propertyPath: attackRange.z
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5610665549283444297, guid: 9e20cc8164b7d4494bff5fd4d343d273, type: 3}
       propertyPath: chargeConsumption
