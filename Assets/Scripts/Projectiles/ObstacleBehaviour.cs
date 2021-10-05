@@ -17,9 +17,9 @@ public class ObstacleBehaviour : MonoBehaviour
         transform.Translate(movement);
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
-        if(!other.collider.CompareTag("Enemy") && !other.collider.CompareTag("Cannon"))
+        if(!other.CompareTag("Enemy") && !other.CompareTag("Cannon"))
         {
             Destroy(this.gameObject);
         }
