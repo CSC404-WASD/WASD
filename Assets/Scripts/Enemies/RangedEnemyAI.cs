@@ -6,23 +6,29 @@ public class RangedEnemyAI : MonoBehaviour
 {
     private GameObject player;
     private Rigidbody myRigidbody;
-    private Vector3 unitVectTowardPlayer;
+    private ObstacleSpawner myProjectileSpawner;
+    private Vector3 distTowardPlayer;
 
 
     [Header("Movement")]
-    public float walkImpulse = 8.0f;
+    public float walkVelocity = 8.0f;
     public float walkMaxSpeed = 8.0f;
     public float absMaxSpeed = 10.0f;
+    public float shootingRadius = 15.0f;
+    public float shootingRadiusError = 2.0f;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindWithTag("Player");
         myRigidbody = GetComponent<Rigidbody>();
+        myProjectileSpawner = GetComponent<ObstacleSpawner>();
     }
 
     void FixedUpdate()
     {
+        Vector3 walkMovement = new Vector3(0,0,0);
+
         // Check if player is still alive
         if (player == null)
         {
@@ -31,22 +37,45 @@ public class RangedEnemyAI : MonoBehaviour
         }
         else
         {
-            // Calculate unit vect toward player
-            unitVectTowardPlayer = (player.transform.position - this.transform.position).normalized;
+            // Calculate dist toward player
+            distTowardPlayer = (player.transform.position - this.transform.position);
 
             // Get rid of the y component
-            unitVectTowardPlayer.y = 0;
-            unitVectTowardPlayer = unitVectTowardPlayer.normalized;
+            distTowardPlayer.y = 0;
 
-            // Only walk if not already moving fast enough toward player
-            if (Vector3.Dot(myRigidbody.velocity, unitVectTowardPlayer) < walkMaxSpeed)
+            Vector3 unitVectTowardPlayer = distTowardPlayer.normalized;
+            this.transform.forward = unitVectTowardPlayer; // Rotate enemy
+
+
+            // If dist is already in shooting radius, don't walk; shoot
+            if (distTowardPlayer.magnitude > shootingRadius - shootingRadiusError && distTowardPlayer.magnitude < shootingRadius + shootingRadiusError)
             {
-                myRigidbody.velocity = new Vector3(unitVectTowardPlayer.x * walkImpulse, myRigidbody.velocity.y, unitVectTowardPlayer.z * walkImpulse);
+                myProjectileSpawner.SetActive(true);
+            }
+            // Otherwise, walk into shooting position
+            else
+            {
+                myProjectileSpawner.SetActive(false);
+                // Move toward player if far
+                if(distTowardPlayer.magnitude > shootingRadius + shootingRadiusError)
+                {
+                    walkMovement.x = unitVectTowardPlayer.x * walkVelocity;
+                    walkMovement.z = unitVectTowardPlayer.z * walkVelocity;
+                }
+                // Move away from player if close
+                else
+                {
+                    walkMovement.x = -unitVectTowardPlayer.x * walkVelocity;
+                    walkMovement.z = -unitVectTowardPlayer.z * walkVelocity;
+                }
             }
         }
 
+        // Execute movement
+        myRigidbody.velocity = new Vector3(walkMovement.x, myRigidbody.velocity.y, walkMovement.z);
+
         // Should not move faster than absMaxSpeed
-        if(myRigidbody.velocity.magnitude <= absMaxSpeed)
+        if(myRigidbody.velocity.magnitude >= absMaxSpeed)
         {
             myRigidbody.velocity = myRigidbody.velocity.normalized * absMaxSpeed;
         }

@@ -9,6 +9,7 @@ public class ObstacleSpawner : MonoBehaviour
     public float _spawnPeriod = 5;
 
     private float _nextSpawnTime;
+    private bool _bActive = true;
 
 
     // Start is called before the first frame update
@@ -21,7 +22,7 @@ public class ObstacleSpawner : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (Time.time >= _nextSpawnTime)
+        if (Time.time >= _nextSpawnTime && _bActive)
         {
             Spawn();
         }
@@ -35,5 +36,10 @@ public class ObstacleSpawner : MonoBehaviour
         //Debug.Log("Spawning object");
 
         Instantiate(projectile, this.transform.position, this.transform.rotation);
+    }
+
+    public void SetActive(bool bActive)
+    {
+        _bActive = bActive;
     }
 }
