@@ -144,5 +144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfe79927a48a8dd44b975a9526905789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 9001103379814989271, guid: ec5e816f7ca923e4287b9162a9395084, type: 3}
+  projectile: {fileID: 572828782583823250, guid: 866bee2e683c6a74bb58c78ce11fc184, type: 3}
   _spawnPeriod: 2.5
+  rotationX: 0
+  rotationY: 0
+  rotationZ: 0
