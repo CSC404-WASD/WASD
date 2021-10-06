@@ -423,8 +423,8 @@ MonoBehaviour:
   horizontalRelativeSpeed: 1
   verticalRelativeSpeed: 1
   moveSpeed: 20
-  maxGroundDistanceForJump: 5
-  jumpHeight: 100
+  maxGroundDistanceForJump: 1.5
+  jumpHeight: 6.3
 --- !u!114 &6288091146896908261
 MonoBehaviour:
   m_ObjectHideFlags: 0
