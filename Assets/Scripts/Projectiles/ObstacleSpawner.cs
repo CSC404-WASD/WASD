@@ -11,12 +11,18 @@ public class ObstacleSpawner : MonoBehaviour
     private float _nextSpawnTime;
     private bool _bActive = true;
 
+    public float rotationX = 0;
+    public float rotationY = 0;
+    public float rotationZ = 0;
+    private Quaternion _shootOffset;
+
 
     // Start is called before the first frame update
     void Start()
     {
         // Update variables
         _nextSpawnTime = Time.time + _spawnPeriod;
+        _shootOffset = Quaternion.Euler(rotationX, rotationY, rotationZ);
     }
 
     // Update is called once per frame
@@ -35,7 +41,7 @@ public class ObstacleSpawner : MonoBehaviour
 
         //Debug.Log("Spawning object");
 
-        Instantiate(projectile, this.transform.position, this.transform.rotation);
+        Instantiate(projectile, this.transform.position, _shootOffset * this.transform.rotation);
     }
 
     public void SetActive(bool bActive)
