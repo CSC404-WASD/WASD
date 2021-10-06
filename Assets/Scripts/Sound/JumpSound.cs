@@ -2,13 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpSound : MonoBehaviour
+public class JumpSound : SoundEffect
 {
     // Start is called before the first frame update
     int check = 0;
     private bool _onGround = false;
+    private Rigidbody _rigidbody;
+    [Range(0, 100)] [SerializeField] private float maxGroundDistanceForJump = 5f;
+
+
     void Start()
     {
+        _rigidbody = GetComponent<Rigidbody>();
+
         audiosource = FindObjectOfType<AudioSource>();
         audiosource.loop = true;
         audiosource.clip = clips[0];
@@ -17,18 +23,17 @@ public class JumpSound : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        RaycastHit groundRaycastHit;
         _onGround = Physics.Raycast(_rigidbody.position, Vector3.down, out groundRaycastHit, maxGroundDistanceForJump);
         //Jump
-        if(Input.GetButton("Jump")!=0 && check == 0 ){
+        if(Input.GetButton("Jump") && check == 0 ){
             check = 1;
-            audiosource.clip = clips[0];//Random.Range(0, clips.Length)];
+            audiosource.clip = clips[0];
             audiosource.Play();
         }
-        
-        elif(_onGround && check = 1){
+        else if( _onGround && check == 1){
             check = 0;
-            audisource.clip = clips[1];
+            audiosource.clip = clips[1];
             audiosource.Play();
         }
 
