@@ -26,7 +26,7 @@ public class JumpSound : SoundEffect
         RaycastHit groundRaycastHit;
         _onGround = Physics.Raycast(_rigidbody.position, Vector3.down, out groundRaycastHit, maxGroundDistanceForJump);
         //Jump
-        if(Input.GetButton("Jump") && check == 0 ){
+        if(Input.GetButton("Jump") && check == 0 && _onGround){
             check = 1;
             audiosource.clip = clips[0];
             audiosource.Play();

@@ -86,6 +86,7 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit groundRaycastHit;
         _onGround = Physics.Raycast(_rigidbody.position, Vector3.down, out groundRaycastHit, maxGroundDistanceForJump);
         Debug.DrawRay(_rigidbody.position, Vector3.down * maxGroundDistanceForJump, Color.green);
+        Debug.Log(_rigidbody.position);
         if (_onGround && _jumpInput && !_stats.isStunned())
         {
             _rigidbody.AddForce(0, jumpHeight, 0, ForceMode.Impulse);
