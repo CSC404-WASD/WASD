@@ -13,16 +13,12 @@ public class PlayerMovement : MonoBehaviour
 
     // Movement
     private Vector3 _movementInput;
-    private bool _jumpInput = false;
-    private bool _onGround = false;
     
 
     [Header("Movement")]
     [Range(0, 1)] [SerializeField] private float horizontalRelativeSpeed = 1.0f;
     [Range(0, 1)] [SerializeField] private float verticalRelativeSpeed = 1.0f;
     [Range(0, 100)] [SerializeField] private float moveSpeed = 0.5f;
-    [Range(0, 100)] [SerializeField] private float maxGroundDistanceForJump = 5f;
-    [Range(0, 100)] [SerializeField] private float jumpHeight = 0.5f;
 
     private Vector3 _up, _right;
 
@@ -55,7 +51,6 @@ public class PlayerMovement : MonoBehaviour
     {
         _movementInput.x = Input.GetAxisRaw("Horizontal");
         _movementInput.z = Input.GetAxisRaw("Vertical");
-        _jumpInput = Input.GetButton("Jump");
     }
 
     private void FixedUpdate()
@@ -81,15 +76,5 @@ public class PlayerMovement : MonoBehaviour
 
         // Set rigidbody velocity
         _rigidbody.velocity = movement;
-
-        // Jump code
-        RaycastHit groundRaycastHit;
-        _onGround = Physics.Raycast(_rigidbody.position, Vector3.down, out groundRaycastHit, maxGroundDistanceForJump);
-        Debug.DrawRay(_rigidbody.position, Vector3.down * maxGroundDistanceForJump, Color.green);
-        Debug.Log(_rigidbody.position);
-        if (_onGround && _jumpInput && !_stats.isStunned())
-        {
-            _rigidbody.AddForce(0, jumpHeight, 0, ForceMode.Impulse);
-        }
     }
 }
