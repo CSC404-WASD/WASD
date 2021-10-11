@@ -23,8 +23,12 @@ public class PlayerCombat : MonoBehaviour
 
     void Update()
     {
-        //fix buttons for controller use later
+        
+        //testing with ps4 controller on mac, button 6 = press left trigger button 7 = press right trigger
+        // can also use axis 5 for a val between -1 and 1 (left trigger), or axis 6 for rt
         if (Input.GetKeyDown(KeyCode.U) && Input.GetKey(KeyCode.W)) {
+            PerformWAttack();
+        } else if (Input.GetAxis("Vertical") > 0 && Input.GetKeyDown(KeyCode.JoystickButton6)) {
             PerformWAttack();
         }
     }
