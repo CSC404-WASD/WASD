@@ -8,6 +8,7 @@ public class Tracker : MonoBehaviour
 {
     private PlayerStats stats;
 
+    public Slider rightSlider, leftSlider, upSlider, downSlider;
     public Text displayText;
     public Text powerText;
     void Start()
@@ -17,6 +18,8 @@ public class Tracker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        var horizontalCharge = stats.getHorizontalCharge();
+        var verticalCharge = stats.getVerticalCharge();
 
         displayText.text = String.Format("Horizontal:{0:0.0} \nVertical:{1:0.0}", stats.getHorizontalCharge(), stats.getVerticalCharge());
         // can hide this if doesnt end up being implemented
@@ -28,5 +31,11 @@ public class Tracker : MonoBehaviour
         } else {
             powerText.text = "";
         }
+
+
+        rightSlider.value = Math.Max(0, horizontalCharge);
+        leftSlider.value = Math.Min(0, horizontalCharge) * -1;
+        upSlider.value = Math.Max(0, verticalCharge);
+        downSlider.value = Math.Min(0, verticalCharge) * -1;
     }
 }
