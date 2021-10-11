@@ -10,7 +10,7 @@ public class DynamicEnemyAI : MonoBehaviour
 
 
     [Header("Movement")]
-    public float walkImpulse = 8.0f;
+    public float walkVelocity = 8.0f;
     public float walkMaxSpeed = 8.0f;
     public float absMaxSpeed = 10.0f;
 
@@ -41,12 +41,12 @@ public class DynamicEnemyAI : MonoBehaviour
             // Only walk if not already moving fast enough toward player
             if (Vector3.Dot(myRigidbody.velocity, unitVectTowardPlayer) < walkMaxSpeed)
             {
-                myRigidbody.velocity = new Vector3(unitVectTowardPlayer.x * walkImpulse, myRigidbody.velocity.y, unitVectTowardPlayer.z * walkImpulse);
+                myRigidbody.velocity = new Vector3(unitVectTowardPlayer.x * walkVelocity, myRigidbody.velocity.y, unitVectTowardPlayer.z * walkVelocity);
             }
         }
 
         // Should not move faster than absMaxSpeed
-        if(myRigidbody.velocity.magnitude <= absMaxSpeed)
+        if(myRigidbody.velocity.magnitude >= absMaxSpeed)
         {
             myRigidbody.velocity = myRigidbody.velocity.normalized * absMaxSpeed;
         }

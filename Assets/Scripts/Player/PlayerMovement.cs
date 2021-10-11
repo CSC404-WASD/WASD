@@ -13,16 +13,12 @@ public class PlayerMovement : MonoBehaviour
 
     // Movement
     private Vector3 _movementInput;
-    private bool _jumpInput = false;
-    private bool _onGround = false;
     
 
     [Header("Movement")]
     [Range(0, 1)] [SerializeField] private float horizontalRelativeSpeed = 1.0f;
     [Range(0, 1)] [SerializeField] private float verticalRelativeSpeed = 1.0f;
     [Range(0, 100)] [SerializeField] private float moveSpeed = 0.5f;
-    [Range(0, 100)] [SerializeField] private float maxGroundDistanceForJump = 5f;
-    [Range(0, 100)] [SerializeField] private float jumpHeight = 0.5f;
 
     private Vector3 _up, _right;
 
@@ -55,21 +51,19 @@ public class PlayerMovement : MonoBehaviour
     {
         _movementInput.x = Input.GetAxisRaw("Horizontal");
         _movementInput.z = Input.GetAxisRaw("Vertical");
-        _jumpInput = Input.GetButton("Jump");
     }
 
     private void FixedUpdate()
     {
-        // Skip everything if stunned.
-        if (_stats.isStunned())
+        var movement = new Vector3(0,0,0);
+        
+        if(!_stats.isStunned())
         {
-            return;
+            // Calculate x and z movement from input
+            var movementHorizontal = _right * horizontalRelativeSpeed * Time.deltaTime * _movementInput.x;
+            var movementVertical = _up * verticalRelativeSpeed * Time.deltaTime * _movementInput.z;
+            movement = Vector3.Normalize(movementHorizontal + movementVertical) * moveSpeed;
         }
-
-        // Calculate x and z movement from input
-        var movementHorizontal = _right * horizontalRelativeSpeed * Time.deltaTime * _movementInput.x;
-        var movementVertical = _up * verticalRelativeSpeed * Time.deltaTime * _movementInput.z;
-        var movement = Vector3.Normalize(movementHorizontal + movementVertical) * moveSpeed;
 
         // Rotate character in the right direction. Make sure to do this before adding y movement.
         if (!movement.Equals(Vector3.zero))
@@ -82,14 +76,5 @@ public class PlayerMovement : MonoBehaviour
 
         // Set rigidbody velocity
         _rigidbody.velocity = movement;
-
-        // Jump code
-        RaycastHit groundRaycastHit;
-        _onGround = Physics.Raycast(_rigidbody.position, Vector3.down, out groundRaycastHit, maxGroundDistanceForJump);
-        Debug.DrawRay(_rigidbody.position, Vector3.down * maxGroundDistanceForJump, Color.green);
-        if (_onGround && _jumpInput)
-        {
-            _rigidbody.AddForce(0, jumpHeight, 0, ForceMode.Impulse);
-        }
     }
 }

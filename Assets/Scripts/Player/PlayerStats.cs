@@ -12,6 +12,8 @@ public class PlayerStats : MonoBehaviour
     private bool stunned = false;
     private float stunTime = 0.0f;
     public bool isAttacking = false;
+    public float maxVerCharge = 1.0f;
+    public float maxHorCharge = 1.0f;
 
     private void Awake() {
         if (_instance != null && _instance != this) {
@@ -46,6 +48,23 @@ public class PlayerStats : MonoBehaviour
             horCharge += Time.deltaTime;
         }
 
+        // Check maximums
+        if(verCharge > maxVerCharge)
+        {
+            verCharge = maxVerCharge;
+        }
+        if(verCharge < -maxVerCharge)
+        {
+            verCharge = -maxVerCharge;
+        }
+        if(horCharge > maxHorCharge)
+        {
+            horCharge = maxHorCharge;
+        }
+        if(horCharge < -maxHorCharge)
+        {
+            horCharge = -maxHorCharge;
+        }
     }
 
     public void setStunned(bool stun = false, float time = 0.0f) {

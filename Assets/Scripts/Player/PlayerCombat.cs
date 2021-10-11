@@ -11,8 +11,9 @@ public class PlayerCombat : MonoBehaviour
     //cube is just a visual for now, once animation is added can be removed
     public GameObject attackIndicator;
     public LayerMask enemyLayers;
-    public float chargeConsumption = 3.0f;
+    public float chargeConsumption = 0.3f;
     public float wThreshold = 0.0f;
+    public float wCooldown = 0.25f;
 
     float nextWAttackTime = 0f;
     void Start()
@@ -54,7 +55,7 @@ public class PlayerCombat : MonoBehaviour
             }
 
             //delay next attack
-            nextWAttackTime = Time.time + 0.5f;
+            nextWAttackTime = Time.time + wCooldown;
             StartCoroutine(HideCube(0.25f));
         }
     }

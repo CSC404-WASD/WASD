@@ -13,12 +13,15 @@ public class ObstacleBehaviour : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Vector3 movement = this.transform.rotation * new Vector3(0, 0, moveSpeed);
+        Vector3 movement = new Vector3(0, 0, moveSpeed) * Time.deltaTime;
         transform.Translate(movement);
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
-        Destroy(this.gameObject);
+        if(!other.CompareTag("Enemy") && !other.CompareTag("Cannon"))
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

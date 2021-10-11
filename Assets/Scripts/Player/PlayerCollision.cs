@@ -11,13 +11,16 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.collider.CompareTag("Projectile"))
+        if (other.collider.CompareTag("Enemy"))
         {
             // put in losing state
             Destroy(this.gameObject);
         }
+    }
 
-        if (other.collider.CompareTag("Enemy"))
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Projectile"))
         {
             // put in losing state
             Destroy(this.gameObject);
