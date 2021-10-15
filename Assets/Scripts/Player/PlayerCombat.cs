@@ -16,10 +16,11 @@ public class PlayerCombat : MonoBehaviour
     public float wThreshold = 0.0f;
     public float aThreshold = 0.0f;
     public float wCooldown = 0.25f;
+    public float aCooldown = 0.25f;
     public float dashCooldown = 0.25f;
 
     float nextWAttackTime = 0f;
-    float nextADashTime = 0f;
+    float nextATime = 0f;
     void Start()
     {
         stats = PlayerStats.instance;
@@ -32,7 +33,7 @@ public class PlayerCombat : MonoBehaviour
             PerformWAttack();
         }
 
-        if (Input.GetKeyDown(KeyCode.A) && Input.GetKey(KeyCode.H) && !stats.isAttacking) {
+        if (Input.GetKeyDown(KeyCode.H) && Input.GetKey(KeyCode.A) && !stats.isAttacking) {
             PerformADash();
         }
     }
@@ -74,7 +75,7 @@ public class PlayerCombat : MonoBehaviour
         hCharge = -hCharge;
 
         // attack if cooldown refreshed and charge above threshold
-        if (hCharge > AThreshold && nextAAttackTime <= Time.time) {
+        if (hCharge > aThreshold && nextATime <= Time.time) {
 
             // if enough charge, subtract. else, set to 0 and stun
             if (hCharge >= aChargeConsumption) {
@@ -90,7 +91,8 @@ public class PlayerCombat : MonoBehaviour
             // dash code here
 
             //delay next dash
-            nextAAttackTime = Time.time + aCooldown;
+            nextATime = Time.time + aCooldown;
+            stats.isAttacking = false;
         }
     }
 

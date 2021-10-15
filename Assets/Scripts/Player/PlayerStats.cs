@@ -91,6 +91,10 @@ public class PlayerStats : MonoBehaviour
     public void setVerticalDiff(float val) {
         verCharge += val;
     }
+
+    public void setHorizontalDiff(float val) {
+        horCharge += val;
+    }
     
     public float getStunTime() {
         return stunTime;
