@@ -406,9 +406,14 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 64
-  chargeConsumption: 1
+  wChargeConsumption: 0.3
+  aChargeConsumption: 0.3
   wThreshold: 0
+  aThreshold: 0
   wCooldown: 1
+  aCooldown: 0.25
+  dashCooldown: 1
+  dashLength: 0.25
 --- !u!114 &6842797108138270625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,8 +429,7 @@ MonoBehaviour:
   horizontalRelativeSpeed: 1
   verticalRelativeSpeed: 1
   moveSpeed: 20
-  maxGroundDistanceForJump: 1.5
-  jumpHeight: 6.3
+  dashSpeed: 50
 --- !u!114 &6288091146896908261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,6 +443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAttacking: 0
+  isDashing: 0
   maxVerCharge: 3
   maxHorCharge: 3
 --- !u!54 &6911353594610702922

@@ -17,7 +17,8 @@ public class PlayerCombat : MonoBehaviour
     public float aThreshold = 0.0f;
     public float wCooldown = 0.25f;
     public float aCooldown = 0.25f;
-    public float dashCooldown = 0.25f;
+    public float dashCooldown = 1.0f;
+    public float dashLength = 0.5f;
 
     float nextWAttackTime = 0f;
     float nextATime = 0f;
@@ -33,7 +34,7 @@ public class PlayerCombat : MonoBehaviour
             PerformWAttack();
         }
 
-        if (Input.GetKeyDown(KeyCode.H) && Input.GetKey(KeyCode.A) && !stats.isAttacking) {
+        if (Input.GetKeyDown(KeyCode.H) && Input.GetKey(KeyCode.A) && !stats.isDashing) {
             PerformADash();
         }
     }
@@ -87,12 +88,11 @@ public class PlayerCombat : MonoBehaviour
             }
 
             // execute dash
-            stats.isAttacking = true;
-            // dash code here
+            stats.isDashing = true;
 
             //delay next dash
             nextATime = Time.time + aCooldown;
-            stats.isAttacking = false;
+            StartCoroutine(FinishDash(dashLength));
         }
     }
 
@@ -110,5 +110,8 @@ public class PlayerCombat : MonoBehaviour
         stats.isAttacking = false;
     }
 
-
+    IEnumerator FinishDash(float time) {
+        yield return new WaitForSeconds(time);
+        stats.isDashing = false;
+    }
 }

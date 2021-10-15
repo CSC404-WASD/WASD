@@ -12,6 +12,7 @@ public class PlayerStats : MonoBehaviour
     private bool stunned = false;
     private float stunTime = 0.0f;
     public bool isAttacking = false;
+    public bool isDashing = false;
     public float maxVerCharge = 1.0f;
     public float maxHorCharge = 1.0f;
 
