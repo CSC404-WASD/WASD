@@ -11,7 +11,7 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.collider.CompareTag("Enemy"))
+        if (other.collider.CompareTag("Enemy") || other.collider.CompareTag("Strong Enemy"))
         {
             // put in losing state
             Destroy(this.gameObject);

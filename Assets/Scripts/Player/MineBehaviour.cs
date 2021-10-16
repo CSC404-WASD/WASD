@@ -21,6 +21,8 @@ public class MineBehaviour : MonoBehaviour
         if (other.collider.CompareTag("Enemy") || other.collider.CompareTag("Strong Enemy"))
         {
             Destroy(this.gameObject);
+            //I'm not exactly sure how to access isactive from enemy collision right now
+            Destroy(other.gameObject);
         }
     }
 
@@ -29,6 +31,12 @@ public class MineBehaviour : MonoBehaviour
         yield return new WaitForSeconds(time);
         isActive = true;
         GetComponent<Renderer>().material = activateMaterial;
+        StartCoroutine(DeactivateMine(30.0f));
+    }
+
+    IEnumerator DeactivateMine(float time) {
+        yield return new WaitForSeconds(time);
+        Destroy(this.gameObject);
     }
 
 }

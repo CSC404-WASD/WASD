@@ -406,9 +406,13 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 64
-  chargeConsumption: 1
-  wThreshold: 0
-  wCooldown: 1
+  upChargeConsumption: 1
+  upThreshold: 0
+  upCooldown: 0.25
+  downChargeConsumption: 1.5
+  downThreshold: 1
+  downCooldown: 2
+  downMine: {fileID: 0}
 --- !u!114 &6842797108138270625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,8 +428,6 @@ MonoBehaviour:
   horizontalRelativeSpeed: 1
   verticalRelativeSpeed: 1
   moveSpeed: 20
-  maxGroundDistanceForJump: 1.5
-  jumpHeight: 6.3
 --- !u!114 &6288091146896908261
 MonoBehaviour:
   m_ObjectHideFlags: 0

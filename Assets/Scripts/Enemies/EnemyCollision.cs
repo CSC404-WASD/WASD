@@ -7,9 +7,9 @@ public class EnemyCollision : MonoBehaviour
     // Start is called before the first frame update
     private void OnCollisionEnter(Collision other)
     {
-        if (other.collider.CompareTag("Mine"))
-        {
-            Destroy(this.gameObject);
-        }
+        // if (other.collider.CompareTag("Mine") )
+        // {
+        //     Destroy(this.gameObject);
+        // }
     }
 }

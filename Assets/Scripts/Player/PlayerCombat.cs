@@ -83,7 +83,7 @@ public class PlayerCombat : MonoBehaviour
         if (vCharge > downThreshold && nextDownAttackTime <= Time.time) {
 
             // if enough charge, add consumption. else, set to 0 and stun
-            if (vCharge >= upChargeConsumption) {
+            if (vCharge >= downChargeConsumption) {
                 stats.setVerticalDiff(downChargeConsumption);
             } 
             else {
@@ -91,7 +91,7 @@ public class PlayerCombat : MonoBehaviour
                 stats.setStunned(true, downChargeConsumption - vCharge);
             }
 
-            Instantiate(downMine, this.transform.position, Quaternion.identity);
+            Instantiate(downMine, this.transform.position + new Vector3(1,0,1), Quaternion.identity);
 
             //delay next attack
             nextDownAttackTime = Time.time + downCooldown;
