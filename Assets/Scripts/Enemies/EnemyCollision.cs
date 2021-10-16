@@ -11,5 +11,6 @@ public class EnemyCollision : MonoBehaviour
         // {
         //     Destroy(this.gameObject);
         // }
+        Debug.Log("is this thing on");
     }
 }

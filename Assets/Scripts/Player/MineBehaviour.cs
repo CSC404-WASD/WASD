@@ -12,13 +12,15 @@ public class MineBehaviour : MonoBehaviour
         StartCoroutine(ActivateMine(2.0f));
     }
 
-    private void OnCollisionEnter(Collision other)
+    //triggers on contact w/ enemy when active
+    private void OnTriggerEnter(Collider other)
     {
         if (!isActive) {
             return;
         }
-        //can also use layers, using tag here since it looks better than layer = 6
-        if (other.collider.CompareTag("Enemy") || other.collider.CompareTag("Strong Enemy"))
+        //can also use tags compare tag to make it look neater, but i figure other combat also uses layers
+        //so im doing this for now 6= enemies 7 = strong enemies
+        if (other.gameObject.layer == 6 || other.gameObject.layer == 7)
         {
             Destroy(this.gameObject);
             //I'm not exactly sure how to access isactive from enemy collision right now
@@ -30,7 +32,10 @@ public class MineBehaviour : MonoBehaviour
     IEnumerator ActivateMine(float time) {
         yield return new WaitForSeconds(time);
         isActive = true;
+        //change mine colour when active
         GetComponent<Renderer>().material = activateMaterial;
+        //make mine not solid when active
+        GetComponent<CapsuleCollider>().isTrigger = true;
         StartCoroutine(DeactivateMine(30.0f));
     }
 
