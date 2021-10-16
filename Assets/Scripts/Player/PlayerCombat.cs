@@ -11,11 +11,18 @@ public class PlayerCombat : MonoBehaviour
     //cube is just a visual for now, once animation is added can be removed
     public GameObject attackIndicator;
     public LayerMask enemyLayers;
-    public float chargeConsumption = 0.3f;
-    public float wThreshold = 0.0f;
-    public float wCooldown = 0.25f;
+    public float upChargeConsumption = 0.3f;
+    public float upThreshold = 0.0f;
+    public float upCooldown = 0.25f;
+    public float downChargeConsumption = 1.5f;
+    public float downThreshold = 1.0f;
+    public float downCooldown = 2.0f;
 
-    float nextWAttackTime = 0f;
+    //object to spawn
+    public GameObject downMine;
+
+    float nextUpAttackTime = 0f;
+    float nextDownAttackTime = 0f;
     void Start()
     {
         stats = PlayerStats.instance;
@@ -27,27 +34,31 @@ public class PlayerCombat : MonoBehaviour
         //testing with ps4 controller on mac, button 6 = press left trigger button 7 = press right trigger
         // can also use axis 5 for a val between -1 and 1 (left trigger), or axis 6 for rt
         if (Input.GetKeyDown(KeyCode.U) && Input.GetKey(KeyCode.W)) {
-            PerformWAttack();
+            PerformUpAttack();
         } else if (Input.GetAxis("Vertical") > 0 && Input.GetKeyDown(KeyCode.JoystickButton3)) {
-            PerformWAttack();
+            PerformUpAttack();
+        } 
+        //joystick button 1 = x (down) for ps4 controller, b (right) for xbox360 thanks devs
+        if (Input.GetKey(KeyCode.J) || Input.GetKeyDown(KeyCode.JoystickButton1)) {
+            PerformDownAttack();
         }
     }
 
-    private void PerformWAttack() {
+    private void PerformUpAttack() {
 
         // check vertical charge
         float vCharge = stats.getVerticalCharge();
 
         // attack if cooldown refreshed and charge above threshold
-        if (vCharge > wThreshold && nextWAttackTime <= Time.time) {
+        if (vCharge > upThreshold && nextUpAttackTime <= Time.time) {
 
             // if enough charge, subtract. else, set to 0 and stun
-            if (vCharge >= chargeConsumption) {
-                stats.setVerticalDiff(-1f * chargeConsumption);
+            if (vCharge >= upChargeConsumption) {
+                stats.setVerticalDiff(-1f * upChargeConsumption);
             } 
             else {
                 stats.setVerticalDiff(-1.0f * vCharge);
-                stats.setStunned(true, chargeConsumption - vCharge);
+                stats.setStunned(true, upChargeConsumption - vCharge);
             }
 
             // execute attack
@@ -59,8 +70,31 @@ public class PlayerCombat : MonoBehaviour
             }
 
             //delay next attack
-            nextWAttackTime = Time.time + wCooldown;
+            nextUpAttackTime = Time.time + upCooldown;
             StartCoroutine(HideCube(0.25f));
+        }
+    }
+
+    private void PerformDownAttack() {
+        // check vertical charge and convert to positive (if in down) for easy use
+        float vCharge = stats.getVerticalCharge() * -1;
+
+        // attack if cooldown refreshed and charge above threshold
+        if (vCharge > downThreshold && nextDownAttackTime <= Time.time) {
+
+            // if enough charge, add consumption. else, set to 0 and stun
+            if (vCharge >= upChargeConsumption) {
+                stats.setVerticalDiff(downChargeConsumption);
+            } 
+            else {
+                stats.setVerticalDiff(vCharge);
+                stats.setStunned(true, downChargeConsumption - vCharge);
+            }
+
+            Instantiate(downMine, this.transform.position, Quaternion.identity);
+
+            //delay next attack
+            nextDownAttackTime = Time.time + downCooldown;
         }
     }
 
