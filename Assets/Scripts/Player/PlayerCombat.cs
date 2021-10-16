@@ -28,7 +28,7 @@ public class PlayerCombat : MonoBehaviour
         // can also use axis 5 for a val between -1 and 1 (left trigger), or axis 6 for rt
         if (Input.GetKeyDown(KeyCode.U) && Input.GetKey(KeyCode.W)) {
             PerformWAttack();
-        } else if (Input.GetAxis("Vertical") > 0 && Input.GetKeyDown(KeyCode.JoystickButton6)) {
+        } else if (Input.GetAxis("Vertical") > 0 && Input.GetKeyDown(KeyCode.JoystickButton3)) {
             PerformWAttack();
         }
     }
