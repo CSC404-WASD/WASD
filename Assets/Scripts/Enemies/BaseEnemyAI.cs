@@ -22,16 +22,10 @@ public class BaseEnemyAI : MonoBehaviour
         if (stunned)
         {
             stunTime -= Time.deltaTime;
-            print("stunned " + stunTime);
             if (stunTime <= 0)
             {
-                print("done stun");
                 stunned = false;
             }
-        }
-        else
-        {
-            print("Not stunned");
         }
     }
 
