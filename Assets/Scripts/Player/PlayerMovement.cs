@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     [Range(0, 1)] [SerializeField] private float horizontalRelativeSpeed = 1.0f;
     [Range(0, 1)] [SerializeField] private float verticalRelativeSpeed = 1.0f;
     [Range(0, 100)] [SerializeField] private float moveSpeed = 0.5f;
+    [Range(0, 100)] [SerializeField] private float dashSpeed = 1.0f;
 
     private Vector3 _up, _right;
 
@@ -49,8 +50,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        _movementInput.x = Input.GetAxisRaw("Horizontal");
-        _movementInput.z = Input.GetAxisRaw("Vertical");
+        // Preserve last movement input if dashing
+        if(!_stats.isDashing) {
+            _movementInput.x = Input.GetAxisRaw("Horizontal");
+            _movementInput.z = Input.GetAxisRaw("Vertical");
+        }
     }
 
     private void FixedUpdate()
@@ -62,7 +66,13 @@ public class PlayerMovement : MonoBehaviour
             // Calculate x and z movement from input
             var movementHorizontal = _right * horizontalRelativeSpeed * Time.deltaTime * _movementInput.x;
             var movementVertical = _up * verticalRelativeSpeed * Time.deltaTime * _movementInput.z;
-            movement = Vector3.Normalize(movementHorizontal + movementVertical) * moveSpeed;
+            // Speed up if dashing
+            if(_stats.isDashing){
+                movement = Vector3.Normalize(movementHorizontal + movementVertical) * dashSpeed;
+            }
+            else {
+                movement = Vector3.Normalize(movementHorizontal + movementVertical) * moveSpeed;
+            }
         }
 
         // Rotate character in the right direction. Make sure to do this before adding y movement.

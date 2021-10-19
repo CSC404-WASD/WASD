@@ -14,19 +14,30 @@ public class PlayerCombat : MonoBehaviour
     //cube is just a visual for now, once animation is added can be removed
     public GameObject attackIndicator;
     public LayerMask enemyLayers;
-    public float chargeConsumption = 0.3f;
-    public float dChargeConsumption = 0.3f;
+    public float wChargeConsumption = 0.3f;
     public float wThreshold = 0.0f;
-    public float dThreshold = 0f;
     public float wCooldown = 0.25f;
+    public float aChargeConsumption = 0.3f;
+
+    public float aThreshold = 0.0f;
+    public float aCooldown = 0.25f;
+    public float dashCooldown = 1.0f;
+    public float dashLength = 0.5f;
+
+
+
+    float nextWAttackTime = 0f;
+    float nextATime = 0f;
+
+    public float dChargeConsumption = 0.3f;
+    public float dThreshold = 0f;
     public float dCooldown = 0.25f;
 
     public float knockbackRadius = 1000f;
     public float knockbackPower = 10f;
     public float knockbackStun = 1f; // how long to stun enemy on knockback
-
-    float nextWAttackTime = 0f;
     private float nextDTime = 0f;
+
     void Start()
     {
         stats = PlayerStats.instance;
@@ -35,18 +46,21 @@ public class PlayerCombat : MonoBehaviour
 
     void Update()
     {
-        //testing with ps4 controller on mac, button 6 = press left trigger button 7 = press right trigger
-        // can also use axis 5 for a val between -1 and 1 (left trigger), or axis 6 for rt
-        if (Input.GetKeyDown(KeyCode.U) && Input.GetKey(KeyCode.W)) {
+        //fix buttons for controller use later
+        if (Input.GetKeyDown(KeyCode.U) && Input.GetKey(KeyCode.W) && !stats.isAttacking && !stats.isDashing) {
+
             PerformWAttack();
-        } else if (Input.GetAxis("Vertical") > 0 && Input.GetKeyDown(KeyCode.JoystickButton3)) {
+        } else if (Input.GetAxis("Vertical") > 0 && Input.GetKeyDown(KeyCode.JoystickButton3) && !stats.isAttacking && !stats.isDashing) {
             PerformWAttack();
         }
 
-
-        if (Input.GetKeyDown(KeyCode.K) && !stats.isAttacking)
+        if (Input.GetKeyDown(KeyCode.K) && !stats.isAttacking && !stats.isDashing)
         {
             PerformDKnockback();
+        }
+
+        if (Input.GetKeyDown(KeyCode.H) && Input.GetKey(KeyCode.A) && !stats.isDashing && !stats.isAttacking) {
+            PerformADash();
         }
     }
 
@@ -59,12 +73,12 @@ public class PlayerCombat : MonoBehaviour
         if (vCharge > wThreshold && nextWAttackTime <= Time.time) {
 
             // if enough charge, subtract. else, set to 0 and stun
-            if (vCharge >= chargeConsumption) {
-                stats.setVerticalDiff(-1f * chargeConsumption);
+            if (vCharge >= wChargeConsumption) {
+                stats.setVerticalDiff(-1f * wChargeConsumption);
             } 
             else {
                 stats.setVerticalDiff(-1.0f * vCharge);
-                stats.setStunned(true, chargeConsumption - vCharge);
+                stats.setStunned(true, wChargeConsumption - vCharge);
             }
 
             // execute attack
@@ -81,6 +95,31 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
+    private void PerformADash() {
+        // check horizontal charge
+        float hCharge = stats.getHorizontalCharge();
+        hCharge = -hCharge;
+
+        // attack if cooldown refreshed and charge above threshold
+        if (hCharge > aThreshold && nextATime <= Time.time) {
+
+            // if enough charge, subtract. else, set to 0 and stun
+            if (hCharge >= aChargeConsumption) {
+                stats.setHorizontalDiff(1f * aChargeConsumption); // reversed
+            } 
+            else {
+                stats.setVerticalDiff(1f * hCharge);
+                stats.setStunned(true, aChargeConsumption - hCharge); // reversed
+            }
+
+            // execute dash
+            stats.isDashing = true;
+
+            //delay next dash
+            nextATime = Time.time + aCooldown;
+            StartCoroutine(FinishDash(dashLength));
+        }
+    }
     private void PerformDKnockback()
     {
         var charge = stats.getHorizontalCharge();
@@ -137,5 +176,8 @@ public class PlayerCombat : MonoBehaviour
         stats.isAttacking = false;
     }
 
-
+    IEnumerator FinishDash(float time) {
+        yield return new WaitForSeconds(time);
+        stats.isDashing = false;
+    }
 }
