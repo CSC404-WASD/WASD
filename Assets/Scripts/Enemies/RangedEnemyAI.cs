@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangedEnemyAI : MonoBehaviour
+public class RangedEnemyAI : BaseEnemyAI
 {
-    private GameObject player;
     private Rigidbody myRigidbody;
     private ObstacleSpawner myProjectileSpawner;
     private Vector3 distTowardPlayer;
@@ -20,13 +19,16 @@ public class RangedEnemyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindWithTag("Player");
         myRigidbody = GetComponent<Rigidbody>();
         myProjectileSpawner = GetComponent<ObstacleSpawner>();
     }
 
     void FixedUpdate()
     {
+        if (stunned)
+        {
+            return;
+        }
         Vector3 walkMovement = new Vector3(0,0,0);
 
         // Check if player is still alive

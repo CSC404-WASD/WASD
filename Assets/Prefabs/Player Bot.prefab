@@ -413,6 +413,11 @@ MonoBehaviour:
   downThreshold: 1
   downCooldown: 2
   downMine: {fileID: 0}
+  aChargeConsumption: 0.3
+  aThreshold: 0
+  aCooldown: 0.25
+  dashCooldown: 1
+  dashLength: 0.25
 --- !u!114 &6842797108138270625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -428,6 +433,7 @@ MonoBehaviour:
   horizontalRelativeSpeed: 1
   verticalRelativeSpeed: 1
   moveSpeed: 20
+  dashSpeed: 50
 --- !u!114 &6288091146896908261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,6 +447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAttacking: 0
+  isDashing: 0
   maxVerCharge: 3
   maxHorCharge: 3
 --- !u!54 &6911353594610702922

@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {   
+    PlayerStats stats;
+
     public void Start()
     {
+        stats = PlayerStats.instance;
     }
 
     private void OnCollisionEnter(Collision other)
@@ -20,7 +23,7 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Projectile"))
+        if (other.CompareTag("Projectile") && !stats.isDashing)
         {
             // put in losing state
             Destroy(this.gameObject);

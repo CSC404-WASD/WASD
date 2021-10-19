@@ -2,20 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KinematicEnemyAI : MonoBehaviour
+public class KinematicEnemyAI : BaseEnemyAI
 {
-    private GameObject player;
     private Vector3 velTowardPlayer;
     public float enemySpeed = 10.0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindWithTag("Player");
     }
 
     void FixedUpdate()
     {
+        if (stunned)
+        {
+            return;
+        }
         // Check if player is still alive
         if (player == null)
         {

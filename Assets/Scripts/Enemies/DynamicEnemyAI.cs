@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DynamicEnemyAI : MonoBehaviour
+public class DynamicEnemyAI : BaseEnemyAI
 {
-    private GameObject player;
     private Rigidbody myRigidbody;
     private Vector3 unitVectTowardPlayer;
 
@@ -17,12 +16,15 @@ public class DynamicEnemyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindWithTag("Player");
         myRigidbody = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
     {
+        if (stunned)
+        {
+            return;
+        }
         // Check if player is still alive
         if (player == null)
         {
@@ -39,7 +41,7 @@ public class DynamicEnemyAI : MonoBehaviour
             unitVectTowardPlayer = unitVectTowardPlayer.normalized;
 
             // Only walk if not already moving fast enough toward player
-            if (Vector3.Dot(myRigidbody.velocity, unitVectTowardPlayer) < walkMaxSpeed)
+            if (!stunned && Vector3.Dot(myRigidbody.velocity, unitVectTowardPlayer) < walkMaxSpeed)
             {
                 myRigidbody.velocity = new Vector3(unitVectTowardPlayer.x * walkVelocity, myRigidbody.velocity.y, unitVectTowardPlayer.z * walkVelocity);
             }
