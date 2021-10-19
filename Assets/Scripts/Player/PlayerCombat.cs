@@ -27,21 +27,21 @@ public class PlayerCombat : MonoBehaviour
     //object to spawn
     public GameObject downMine;
 
-    public float aChargeConsumption = 0.3f;
-    public float aThreshold = 0.0f;
-    public float aCooldown = 0.25f;
+    public float leftChargeConsumption = 0.3f;
+    public float leftThreshold = 0.0f;
+    public float leftCooldown = 0.25f;
     public float dashCooldown = 1.0f;
     public float dashLength = 0.5f;
-    float nextATime = 0f;
+    float nextLeftTime = 0f;
 
-    public float dChargeConsumption = 0.3f;
-    public float dThreshold = 0f;
-    public float dCooldown = 0.25f;
+    public float rightChargeConsumption = 0.3f;
+    public float rightThreshold = 0f;
+    public float rightCooldown = 0.25f;
 
     public float knockbackRadius = 1000f;
     public float knockbackPower = 10f;
     public float knockbackStun = 1f; // how long to stun enemy on knockback
-    private float nextDTime = 0f;
+    private float nextRightTime = 0f;
 
     void Start()
     {
@@ -56,6 +56,7 @@ public class PlayerCombat : MonoBehaviour
         // can also use axis 5 for a val between -1 and 1 (left trigger), or axis 6 for rt
         if (Input.GetKeyDown(KeyCode.U) && Input.GetKey(KeyCode.W) && !stats.isAttacking && !stats.isDashing) {
             PerformUpAttack();
+        // button 3 is triangle on ps (up) and y on xbox360 (up)
         } else if (Input.GetAxis("Vertical") > 0 && Input.GetKeyDown(KeyCode.JoystickButton3) && !stats.isAttacking && !stats.isDashing) {
             PerformUpAttack();
         } 
@@ -64,12 +65,16 @@ public class PlayerCombat : MonoBehaviour
             PerformDownAttack();
         }
 
-        if (Input.GetKeyDown(KeyCode.K) && !stats.isAttacking && !stats.isDashing)
+        //button 2 is right (circle) on ps4 and left (x) on xbox360
+        if ((Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.JoystickButton2)) && !stats.isAttacking && !stats.isDashing)
         {
             PerformDKnockback();
         }
 
         if (Input.GetKeyDown(KeyCode.H) && Input.GetKey(KeyCode.A) && !stats.isDashing && !stats.isAttacking) {
+            PerformADash();
+        //button 0 is left on ps4(square) and down (a) on xbox360
+        } else if (Input.GetAxis("Horizontal") < 0 && Input.GetKeyDown(KeyCode.JoystickButton0) && !stats.isDashing && !stats.isAttacking) {
             PerformADash();
         }
     }
@@ -134,22 +139,22 @@ public class PlayerCombat : MonoBehaviour
         hCharge = -hCharge;
 
         // attack if cooldown refreshed and charge above threshold
-        if (hCharge > aThreshold && nextATime <= Time.time) {
+        if (hCharge > leftThreshold && nextLeftTime <= Time.time) {
 
             // if enough charge, subtract. else, set to 0 and stun
-            if (hCharge >= aChargeConsumption) {
-                stats.setHorizontalDiff(1f * aChargeConsumption); // reversed
+            if (hCharge >=leftChargeConsumption) {
+                stats.setHorizontalDiff(1f * leftChargeConsumption); // reversed
             } 
             else {
                 stats.setVerticalDiff(1f * hCharge);
-                stats.setStunned(true, aChargeConsumption - hCharge); // reversed
+                stats.setStunned(true,leftChargeConsumption - hCharge); // reversed
             }
 
             // execute dash
             stats.isDashing = true;
 
             //delay next dash
-            nextATime = Time.time + aCooldown;
+            nextLeftTime = Time.time + leftCooldown;
             StartCoroutine(FinishDash(dashLength));
         }
     }
@@ -159,16 +164,19 @@ public class PlayerCombat : MonoBehaviour
         var charge = stats.getHorizontalCharge();
         
         // charge above threshold and cooldown up
-        if (charge <= dThreshold || nextDTime > Time.time)
+        if (charge <= rightThreshold || nextRightTime > Time.time)
         {
             return;
         }
             
         // stun if not enough charge
-        if (charge < dChargeConsumption)
+        
+        if (charge < rightChargeConsumption)
         {
-            stats.setStunned(true, dChargeConsumption = charge);
+            stats.setStunned(true, rightChargeConsumption - charge);
             return;
+        } else {
+            stats.setHorizontalDiff(-1f * rightChargeConsumption); // reversed
         }
         
         // find entities to knock back
@@ -192,7 +200,7 @@ public class PlayerCombat : MonoBehaviour
         }
         
         // delay next knockback
-        nextDTime = Time.time + dCooldown;
+        nextRightTime = Time.time + rightCooldown;
         stats.isAttacking = false;
     }
 
