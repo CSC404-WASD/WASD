@@ -9,6 +9,7 @@ TagManager:
   - Cannon
   - Strong Enemy
   - Mine
+  - SFX Audio Source
   layers:
   - Default
   - TransparentFX

@@ -25,7 +25,6 @@ public class EnemyController : MonoBehaviour
 
     public void addEnemy() {
         numEnemies++;
-        Debug.Log(numEnemies.ToString() + " lmao");
     }
 
     public void removeEnemy() {
@@ -34,6 +33,5 @@ public class EnemyController : MonoBehaviour
         if (numEnemies == 0) {
             gameController.WinGame();
         }
-        Debug.Log(numEnemies.ToString() + " kek");
     }    
 }

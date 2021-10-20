@@ -26,6 +26,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 408bef5b79f7d4a74b2535bc6b865de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _explodeClip: {fileID: 8300000, guid: a19e2ce8ce21a43838583a8935a1b8fc, type: 3}
   activateMaterial: {fileID: 2100000, guid: 306720d85dd064dac9c192de0a55b794, type: 2}
 --- !u!1001 &3530168355778636706
 PrefabInstance:
