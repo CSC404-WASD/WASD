@@ -6,10 +6,12 @@ using UnityEngine;
 public class PlayerCollision : MonoBehaviour
 {   
     PlayerStats stats;
+    private PlayerAudio _playerAudio;
 
     public void Start()
     {
         stats = PlayerStats.instance;
+        _playerAudio = GetComponent<PlayerAudio>();
     }
 
     private void OnCollisionEnter(Collision other)
@@ -18,6 +20,7 @@ public class PlayerCollision : MonoBehaviour
         {
             // put in losing state
             Destroy(this.gameObject);
+            _playerAudio.PlayDeathSound();
         }
     }
 
@@ -27,6 +30,7 @@ public class PlayerCollision : MonoBehaviour
         {
             // put in losing state
             Destroy(this.gameObject);
+            _playerAudio.PlayDeathSound();
         }
     }
 }

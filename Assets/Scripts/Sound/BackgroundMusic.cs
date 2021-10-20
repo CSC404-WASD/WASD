@@ -8,7 +8,7 @@ public class BackgroundMusic : SoundEffect
     int counter = 0;
     void Start()
     {
-        audiosource = FindObjectOfType<AudioSource>();
+        audiosource = GetComponent<AudioSource>();
         audiosource.loop = false;
         audiosource.clip = clips[counter];
         audiosource.Play();

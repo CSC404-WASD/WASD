@@ -7,7 +7,7 @@ public class MovementSound : SoundEffect
     // Start is called before the first frame update
     void Start()
     {
-        audiosource = FindObjectOfType<AudioSource>();
+        audiosource = GetComponent<AudioSource>();
         audiosource.loop = true;
         audiosource.clip = clips[0];
         audiosource.Stop();

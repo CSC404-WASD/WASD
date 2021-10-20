@@ -8,6 +8,7 @@ public class PlayerCombat : MonoBehaviour
     PlayerStats stats;
 
     public Rigidbody rigidbody;
+    private PlayerAudio _playerAudio;
     
     public Transform attackPoint;
     public Vector3 attackRange = new Vector3(0.5f, 0.5f, 0.25f);
@@ -47,6 +48,7 @@ public class PlayerCombat : MonoBehaviour
     {
         stats = PlayerStats.instance;
         rigidbody = GetComponent<Rigidbody>();
+        _playerAudio = GetComponent<PlayerAudio>();
     }
 
     void Update()
@@ -107,6 +109,7 @@ public class PlayerCombat : MonoBehaviour
             }
 
             //delay next attack
+            _playerAudio.PlayUpSound();
             nextUpAttackTime = Time.time + upCooldown;
             StartCoroutine(HideCube(0.25f));
         }
@@ -130,6 +133,7 @@ public class PlayerCombat : MonoBehaviour
 
             Instantiate(downMine, this.transform.position + new Vector3(1,0,1), Quaternion.identity);
 
+            _playerAudio.PlayDownSound();
             //delay next attack
             nextDownAttackTime = Time.time + downCooldown;
         }
@@ -155,6 +159,7 @@ public class PlayerCombat : MonoBehaviour
             // execute dash
             stats.isDashing = true;
 
+            _playerAudio.PlayLeftSound();
             //delay next dash
             nextLeftTime = Time.time + leftCooldown;
             StartCoroutine(FinishDash(dashLength));
@@ -201,6 +206,7 @@ public class PlayerCombat : MonoBehaviour
             }
         }
         
+        _playerAudio.PlayRightSound();
         // delay next knockback
         nextRightTime = Time.time + rightCooldown;
         stats.isAttacking = false;
