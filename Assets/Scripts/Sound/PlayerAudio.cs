@@ -52,7 +52,8 @@ public class PlayerAudio : MonoBehaviour
         if (_audioSource != null) {
             _audioSource.clip = _rightClip;
             _audioSource.loop = false;
-            _audioSource.Play();
+            //this one allows multiple clips to be played from same audio source, not sure if we'll need
+            _audioSource.PlayOneShot(_audioSource.clip, 0.5f);
         }
     }
 

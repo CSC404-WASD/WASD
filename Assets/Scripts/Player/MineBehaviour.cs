@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class MineBehaviour : MonoBehaviour
 {
+
+    private AudioSource _audioSource;
+    [SerializeField]
+    private AudioClip _explodeClip;
+
     private bool isActive = false;
     public Material activateMaterial;
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(ActivateMine(2.0f));
+        _audioSource = GameObject.FindWithTag("SFX Audio Source").GetComponent<AudioSource>();
     }
 
     //triggers on contact w/ enemy when active
@@ -22,6 +28,7 @@ public class MineBehaviour : MonoBehaviour
         //so im doing this for now 6= enemies 7 = strong enemies
         if (other.gameObject.layer == 6 || other.gameObject.layer == 7)
         {
+            PlayExplodeSound();
             Destroy(this.gameObject);
             //I'm not exactly sure how to access isactive from enemy collision right now
             Destroy(other.gameObject);
@@ -42,5 +49,13 @@ public class MineBehaviour : MonoBehaviour
     IEnumerator DeactivateMine(float time) {
         yield return new WaitForSeconds(time);
         Destroy(this.gameObject);
+    }
+
+    public void PlayExplodeSound() {
+        if (_audioSource != null) {
+            _audioSource.clip = _explodeClip;
+            _audioSource.loop = false;
+            _audioSource.Play();
+        }
     }
 }

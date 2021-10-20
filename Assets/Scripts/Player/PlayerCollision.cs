@@ -18,9 +18,9 @@ public class PlayerCollision : MonoBehaviour
     {
         if (other.collider.CompareTag("Enemy") || other.collider.CompareTag("Strong Enemy"))
         {
+            _playerAudio.PlayDeathSound();
             // put in losing state
             Destroy(this.gameObject);
-            _playerAudio.PlayDeathSound();
         }
     }
 
@@ -28,9 +28,9 @@ public class PlayerCollision : MonoBehaviour
     {
         if (other.CompareTag("Projectile") && !stats.isDashing)
         {
+            _playerAudio.PlayDeathSound();
             // put in losing state
             Destroy(this.gameObject);
-            _playerAudio.PlayDeathSound();
         }
     }
 }
