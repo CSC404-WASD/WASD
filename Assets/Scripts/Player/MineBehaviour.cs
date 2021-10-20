@@ -30,8 +30,8 @@ public class MineBehaviour : MonoBehaviour
         {
             PlayExplodeSound();
             Destroy(this.gameObject);
-            //I'm not exactly sure how to access isactive from enemy collision right now
-            Destroy(other.gameObject);
+            var enemyAI = other.GetComponent<BaseEnemyAI>();
+            enemyAI.Die();
         }
     }
 

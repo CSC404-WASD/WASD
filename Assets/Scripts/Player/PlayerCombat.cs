@@ -56,7 +56,7 @@ public class PlayerCombat : MonoBehaviour
         
         //testing with ps4 controller on mac, button 6 = press left trigger button 7 = press right trigger
         // can also use axis 5 for a val between -1 and 1 (left trigger), or axis 6 for rt
-        if (Input.GetKeyDown(KeyCode.U) && Input.GetKey(KeyCode.W) && !stats.isAttacking && !stats.isDashing) {
+        if (Input.GetKeyDown(KeyCode.U) && !stats.isAttacking && !stats.isDashing) {
             PerformUpAttack();
         // button 3 is triangle on ps (up) and y on xbox360 (up)
         } else if (Input.GetAxis("Vertical") > 0 && Input.GetKeyDown(KeyCode.JoystickButton3) && !stats.isAttacking && !stats.isDashing) {
@@ -73,7 +73,7 @@ public class PlayerCombat : MonoBehaviour
             PerformDKnockback();
         }
 
-        if (Input.GetKeyDown(KeyCode.H) && Input.GetKey(KeyCode.A) && !stats.isDashing && !stats.isAttacking) {
+        if (Input.GetKeyDown(KeyCode.H) && !stats.isDashing && !stats.isAttacking) {
             PerformADash();
         //button 0 is left on ps4(square) and down (a) on xbox360
         } else if (Input.GetAxis("Horizontal") < 0 && Input.GetKeyDown(KeyCode.JoystickButton0) && !stats.isDashing && !stats.isAttacking) {
