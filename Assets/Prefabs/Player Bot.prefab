@@ -400,20 +400,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f434b64a0308c4f048fb988d145053ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rigidbody: {fileID: 0}
   attackPoint: {fileID: 1209418372181982417}
   attackRange: {x: 5, y: 0.1, z: 5}
   attackIndicator: {fileID: 5440464042939631149}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 64
-  wChargeConsumption: 0.3
+  upChargeConsumption: 1
+  upThreshold: 0
+  upCooldown: 0.25
+  downChargeConsumption: 1.5
+  downThreshold: 1
+  downCooldown: 2
+  downMine: {fileID: 4340560450993231603, guid: 1be873c2652df45259d02c6db7b3942b, type: 3}
   aChargeConsumption: 0.3
-  wThreshold: 0
   aThreshold: 0
-  wCooldown: 1
   aCooldown: 0.25
   dashCooldown: 1
   dashLength: 0.25
+  dChargeConsumption: 0.3
+  dThreshold: 0
+  dCooldown: 0.25
+  knockbackRadius: 1000
+  knockbackPower: 10
+  knockbackStun: 1
 --- !u!114 &6842797108138270625
 MonoBehaviour:
   m_ObjectHideFlags: 0

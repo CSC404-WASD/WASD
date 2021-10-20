@@ -1,0 +1,47 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MineBehaviour : MonoBehaviour
+{
+    private bool isActive = false;
+    public Material activateMaterial;
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine(ActivateMine(2.0f));
+    }
+
+    //triggers on contact w/ enemy when active
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!isActive) {
+            return;
+        }
+        //can also use tags compare tag to make it look neater, but i figure other combat also uses layers
+        //so im doing this for now 6= enemies 7 = strong enemies
+        if (other.gameObject.layer == 6 || other.gameObject.layer == 7)
+        {
+            Destroy(this.gameObject);
+            //I'm not exactly sure how to access isactive from enemy collision right now
+            Destroy(other.gameObject);
+        }
+    }
+
+    //wait time seconds till mine is active
+    IEnumerator ActivateMine(float time) {
+        yield return new WaitForSeconds(time);
+        isActive = true;
+        //change mine colour when active
+        GetComponent<Renderer>().material = activateMaterial;
+        //make mine not solid when active
+        GetComponent<CapsuleCollider>().isTrigger = true;
+        StartCoroutine(DeactivateMine(30.0f));
+    }
+
+    IEnumerator DeactivateMine(float time) {
+        yield return new WaitForSeconds(time);
+        Destroy(this.gameObject);
+    }
+
+}
