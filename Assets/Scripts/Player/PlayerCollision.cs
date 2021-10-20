@@ -6,16 +6,19 @@ using UnityEngine;
 public class PlayerCollision : MonoBehaviour
 {   
     PlayerStats stats;
+    private PlayerAudio _playerAudio;
 
     public void Start()
     {
         stats = PlayerStats.instance;
+        _playerAudio = GetComponent<PlayerAudio>();
     }
 
     private void OnCollisionEnter(Collision other)
     {
         if (other.collider.CompareTag("Enemy") || other.collider.CompareTag("Strong Enemy"))
         {
+            _playerAudio.PlayDeathSound();
             // put in losing state
             Destroy(this.gameObject);
         }
@@ -25,6 +28,7 @@ public class PlayerCollision : MonoBehaviour
     {
         if (other.CompareTag("Projectile") && !stats.isDashing)
         {
+            _playerAudio.PlayDeathSound();
             // put in losing state
             Destroy(this.gameObject);
         }

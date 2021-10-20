@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class EnemyCollision : MonoBehaviour
 {
-    // Start is called before the first frame update
+    //ideally enemy kills itself on collision and not the mine
     private void OnCollisionEnter(Collision other)
     {
         // if (other.collider.CompareTag("Mine") )
         // {
         //     Destroy(this.gameObject);
         // }
-        Debug.Log("is this thing on");
+        //Debug.Log("is this thing on");
     }
 }
