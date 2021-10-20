@@ -31,6 +31,9 @@ public class Tracker : MonoBehaviour
         } else {
             powerText.text = "";
         }
+        if (stats == null) {
+            powerText.text = "Press P/Options (PS4 controller) to restart!";
+        }
 
 
         rightSlider.value = Math.Max(0, horizontalCharge);
