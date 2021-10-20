@@ -19,6 +19,7 @@ public class RangedEnemyAI : BaseEnemyAI
     // Start is called before the first frame update
     void Start()
     {
+        base.Start();
         myRigidbody = GetComponent<Rigidbody>();
         myProjectileSpawner = GetComponent<ObstacleSpawner>();
     }

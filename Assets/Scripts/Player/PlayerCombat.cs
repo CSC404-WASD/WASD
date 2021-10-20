@@ -86,7 +86,9 @@ public class PlayerCombat : MonoBehaviour
             Collider[] hitColliders = Physics.OverlapBox(attackPoint.position, attackRange, Quaternion.identity, enemyLayers);
             attackIndicator.SetActive(true);
             foreach(Collider enemy in hitColliders) {
-                Destroy(enemy.gameObject);
+                //might want to make an Enemy file for this
+                var enemyAI = enemy.GetComponent<BaseEnemyAI>();
+                enemyAI.Die();
             }
 
             //delay next attack
