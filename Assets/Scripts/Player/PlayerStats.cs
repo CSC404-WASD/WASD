@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     private static PlayerStats _instance;
+    
 
     public static PlayerStats instance {get {return _instance;}}
     private float verCharge = 0.0f;
@@ -16,12 +17,19 @@ public class PlayerStats : MonoBehaviour
     public float maxVerCharge = 1.0f;
     public float maxHorCharge = 1.0f;
 
+    public float meterChargeFactor = 1.0f;
+    private Vector3 lastPosition;
+    private float moveSpeed;
+
     private void Awake() {
         if (_instance != null && _instance != this) {
             Destroy(this.gameObject);
         } else {
             _instance = this;
         }
+
+        lastPosition = this.transform.position;
+        moveSpeed = GetComponent<PlayerMovement>().GetMoveSpeed();
     }
     // Update is called once per frame
     void Update()
@@ -33,23 +41,21 @@ public class PlayerStats : MonoBehaviour
             }
             return;
         }
-        if(Input.GetAxisRaw("Vertical") > 0) {
-            verCharge += Time.deltaTime;
-            //sCharge = 0f;
-        }
-        else if(Input.GetAxisRaw("Vertical") < 0) {
-            verCharge -= Time.deltaTime;
-            //sCharge += Time.deltaTime;
-        }
 
-        if(Input.GetAxisRaw("Horizontal") < 0) {
-            horCharge -= Time.deltaTime;
-        }
-        if(Input.GetAxisRaw("Horizontal") > 0) {
-            horCharge += Time.deltaTime;
-        }
+        // Update meters
+        if (!isDashing)
+        {
+            // Figure out change in position in camera frame.
+            Vector3 deltaPositionC = Quaternion.Euler(0,-45, 0) * (this.transform.position - lastPosition);
 
-        // Check maximums
+            // Bars still use time as a unit (by calculating dist/speed), with optional factor.
+            // This calculation makes moving diagonally build both meters slower than moving in one dir.
+            verCharge += deltaPositionC.z / moveSpeed * meterChargeFactor;
+            horCharge += deltaPositionC.x / moveSpeed * meterChargeFactor;
+        }
+        lastPosition = this.transform.position;
+
+        // Check meter maximums
         if(verCharge > maxVerCharge)
         {
             verCharge = maxVerCharge;

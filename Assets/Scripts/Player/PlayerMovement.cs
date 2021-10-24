@@ -87,4 +87,9 @@ public class PlayerMovement : MonoBehaviour
         // Set rigidbody velocity
         _rigidbody.velocity = movement;
     }
+
+    public float GetMoveSpeed()
+    {
+        return moveSpeed;
+    }
 }
