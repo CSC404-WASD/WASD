@@ -55,9 +55,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1603971442357290617, guid: dddd987d8fe11644eb2148af9f26e413, type: 3}
+      propertyPath: walkMaxSpeed
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1603971442357290617, guid: dddd987d8fe11644eb2148af9f26e413, type: 3}
+      propertyPath: walkVelocity
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 1936285793580592483, guid: dddd987d8fe11644eb2148af9f26e413, type: 3}
       propertyPath: m_Name
-      value: Dynamic Strong Enemy Variant
+      value: Dynamic Strong Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 1936285793580592483, guid: dddd987d8fe11644eb2148af9f26e413, type: 3}
       propertyPath: m_Layer
