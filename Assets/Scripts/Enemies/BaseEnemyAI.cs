@@ -10,7 +10,7 @@ public class BaseEnemyAI : MonoBehaviour
 
     protected bool stunned = false;
     private float stunTime = 0f;
-    protected bool active = false;
+    public bool active = true;
     
     // Start is called before the first frame update
     public void Start()
