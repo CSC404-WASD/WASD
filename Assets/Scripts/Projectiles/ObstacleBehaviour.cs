@@ -5,9 +5,12 @@ using UnityEngine;
 public class ObstacleBehaviour : MonoBehaviour
 {
     public float moveSpeed = 0.2f;
+    public float lifetime = 15.0f;
+    private float spawnTime;
 
     void Start()
     {
+        spawnTime = Time.time;
     }
 
     // Update is called once per frame
@@ -15,6 +18,11 @@ public class ObstacleBehaviour : MonoBehaviour
     {
         Vector3 movement = new Vector3(0, 0, moveSpeed) * Time.deltaTime;
         transform.Translate(movement);
+
+        if (Time.time - spawnTime > lifetime)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
