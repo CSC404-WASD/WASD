@@ -27,9 +27,9 @@ public class MenuController : MonoBehaviour
     void Update() {
         if(Time.time - lastPress > maxFreq)
         {
-            if (Input.GetAxis("Vertical") < 0 && lastAxis > -1) {
+            if (Input.GetAxis("Vertical") < -0.05 && lastAxis > -1) {
                 MoveCursorDown();
-            } else if (Input.GetAxis("Vertical") > 0 && lastAxis < 1) {
+            } else if (Input.GetAxis("Vertical") > 0.05 && lastAxis < 1) {
                 MoveCursorUp();
             //keyboard support
             } else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
