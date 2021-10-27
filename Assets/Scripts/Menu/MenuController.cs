@@ -22,10 +22,9 @@ public class MenuController : MonoBehaviour
     }
 
     void Update() {
-        Debug.Log(clayout.dpadVertical());
-        if ((Input.GetAxis("Vertical") < 0 || clayout.dpadVertical() < 0)&& lastAxis > -1) {
+        if (Input.GetAxis("Vertical") < 0 && lastAxis > -1) {
             MoveCursorDown();
-        } else if ((Input.GetAxis("Vertical") < 0 || clayout.dpadVertical() > 0) && lastAxis < 1) {
+        } else if (Input.GetAxis("Vertical") > 0 && lastAxis < 1) {
             MoveCursorUp();
         //keyboard support
         } else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
@@ -34,11 +33,10 @@ public class MenuController : MonoBehaviour
             MoveCursorDown();
         }
 
-        if (Input.GetAxis("Vertical") > -0.01 && Input.GetAxis("Vertical") < 0.01) {
+        if (Input.GetAxis("Vertical") > -0.05 && Input.GetAxis("Vertical") < 0.05) {
             lastAxis = 0;
         }
 
-        //joystick button 1 = x (down) for ps4 controller, b (right) for xbox360 thanks devs
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(clayout.downButton())) {
             if (currentOption == null) {
                 currentOption = 0;
@@ -46,7 +44,7 @@ public class MenuController : MonoBehaviour
                 ClickMenuOption();
             }
         }
-        //button 2 is right (circle) on ps4 and left (x) on xbox360
+
         else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(clayout.rightButton())) {
             //already on top
             if (parent.name != "MenuOptionsParent") {
@@ -105,12 +103,8 @@ public class MenuController : MonoBehaviour
             ToggleOptions(options, false);
             LoadContainer(parent);
         } else if (menuOptionData.menuType == MenuType.Controller) {
-            //#var layouts = FindObjectsOfType<ControllerLayouts>();
-            //#if (layouts.Length > 0){
-            //    clayout = layouts[0];
             clayout.toggleLayout();
             options[currentOption].GetComponent<Text>().text = String.Format("Current Controller: {0}", clayout.cType) ;
-            //}
         }
     }
 
