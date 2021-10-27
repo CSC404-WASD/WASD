@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MineScene.unity
     guid: 897e799933c81458da8c1bb7e0a564fe
+  - enabled: 1
+    path: Assets/Scenes/W_Tutorial.unity
+    guid: 606c36e67eb9c0f4799bf93c35ad998a
+  - enabled: 1
+    path: Assets/Scenes/SandboxScene.unity
+    guid: d9c26345744847a4cb74afca827f9523
   m_configObjects: {}
