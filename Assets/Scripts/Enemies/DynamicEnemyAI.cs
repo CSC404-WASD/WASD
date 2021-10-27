@@ -22,7 +22,7 @@ public class DynamicEnemyAI : BaseEnemyAI
 
     void FixedUpdate()
     {
-        if (stunned)
+        if (stunned || !active)
         {
             return;
         }

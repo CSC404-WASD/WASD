@@ -458,6 +458,7 @@ MonoBehaviour:
   isDashing: 0
   maxVerCharge: 3
   maxHorCharge: 3
+  meterChargeFactor: 1
 --- !u!54 &6911353594610702922
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -472,7 +473,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 1
 --- !u!65 &40627678301843472
 BoxCollider:
