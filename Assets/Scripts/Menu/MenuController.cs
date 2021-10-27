@@ -8,14 +8,26 @@ using UnityEngine.SceneManagement;
 public class MenuController : MonoBehaviour
 {
     private int currentOption;
-    public GameObject[] currentOptions;
+    private GameObject[] options;
+    //give a parent that holds all initial menu options
+    public GameObject parent;
     private int lastAxis = 0;
+
+    void Start() {
+        //find the menu options in the parent
+        LoadContainer(parent);
+    }
 
     void Update() {
         if (Input.GetAxis("Vertical") < 0 && lastAxis > -1) {
             MoveCursorDown();
         } else if (Input.GetAxis("Vertical") > 0 && lastAxis < 1) {
             MoveCursorUp();
+        //keyboard support
+        } else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
+            MoveCursorUp();
+        } else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) {
+            MoveCursorDown();
         }
 
         if (Input.GetAxis("Vertical") > -0.01 && Input.GetAxis("Vertical") < 0.01) {
@@ -23,16 +35,29 @@ public class MenuController : MonoBehaviour
         }
 
         //joystick button 1 = x (down) for ps4 controller, b (right) for xbox360 thanks devs
-        if (Input.GetKey(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton1)) {
-            ClickMenuOption();
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton1)) {
+            if (currentOption == null) {
+                currentOption = 0;
+            } else {
+                ClickMenuOption();
+            }
+        }
+        //button 2 is right (circle) on ps4 and left (x) on xbox360
+        else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton2)) {
+            //already on top
+            if (parent.name != "MenuOptionsParent") {
+                parent = parent.transform.parent.gameObject;
+                ToggleOptions(options, false);
+                LoadContainer(parent);
+            }
         }
     }
 
     void MoveCursorDown() {
-        Debug.Log("down");
-        if (currentOption == null && currentOptions.Length > 1) {
+        //stop moving down if at the bottom or user has not moved stick
+        if (currentOption == null && options.Length > 1) {
             currentOption = 1;
-        } else if (currentOption < currentOptions.Length - 1) {
+        } else if (currentOption < options.Length - 1) {
             UpdateHighlight(false);
             currentOption++;
         }
@@ -41,7 +66,6 @@ public class MenuController : MonoBehaviour
     }
 
     void MoveCursorUp() {
-        Debug.Log("up");
         if (currentOption == null) {
             currentOption = 0;
         } else if (currentOption > 0) {
@@ -54,20 +78,28 @@ public class MenuController : MonoBehaviour
 
     void UpdateHighlight(bool show) {
         if (show) {
-            currentOptions[currentOption].GetComponent<Text>().color = new Color(255,0,0,1);
+            options[currentOption].GetComponent<Text>().color = new Color(255,0,0,1);
         } else {
-            currentOptions[currentOption].GetComponent<Text>().color = new Color(0,0,0,1);
+            options[currentOption].GetComponent<Text>().color = new Color(0,0,0,1);
+        }
+    }
+
+    void dismissHighlight() {
+        foreach (var txt in options) {
+            txt.GetComponent<Text>().color = new Color(0,0,0,1);
         }
     }
 
     void ClickMenuOption() {
-        var menuOptionData = currentOptions[currentOption].GetComponent<MenuOptionData>();
+        var menuOptionData = options[currentOption].GetComponent<MenuOptionData>();
         if (menuOptionData.menuType == MenuType.Load) {
             LoadScene(menuOptionData.levelName);
         } else if (menuOptionData.menuType == MenuType.Exit) {
             Application.Quit();
         } else if (menuOptionData.menuType == MenuType.Container) {
-            //do something with children ideally
+            parent = options[currentOption];
+            ToggleOptions(options, false);
+            LoadContainer(parent);
         } else if (menuOptionData.menuType == MenuType.Controller) {
             //switch controller type:
         }
@@ -75,5 +107,22 @@ public class MenuController : MonoBehaviour
 
     void LoadScene(string levelName) {
         SceneManager.LoadScene(levelName);
+    }
+
+    void LoadContainer(GameObject obj) {
+        options = new GameObject[obj.transform.childCount];
+        for (int i = 0; i < parent.transform.childCount; i++) {
+            options[i] = parent.transform.GetChild(i).gameObject;
+        }
+        ToggleOptions(options, true);
+        currentOption = 0;
+        dismissHighlight();
+        UpdateHighlight(true);
+    }
+
+    void ToggleOptions(GameObject[] objs, bool show) {
+        foreach (var obj in objs) {
+            obj.GetComponent<Text>().enabled = show;
+        }
     }
 }
