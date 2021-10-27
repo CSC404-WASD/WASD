@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6737568269103512983}
   - component: {fileID: 6737568269103512982}
   - component: {fileID: 6737568269103512981}
-  - component: {fileID: 6737568269103512977}
+  - component: {fileID: 5935051585839510214}
   m_Layer: 0
   m_Name: EnemyTrigger
   m_TagString: Untagged
@@ -96,7 +96,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6737568269103512977
+--- !u!114 &5935051585839510214
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6737568269103512980}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7b558acfb8f047f5895a6562789d153, type: 3}
+  m_Script: {fileID: 11500000, guid: 517acd6da823c9f49b7a8f4353130b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesToTrigger: []
+  enemies: []
