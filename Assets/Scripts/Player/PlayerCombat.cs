@@ -49,6 +49,11 @@ public class PlayerCombat : MonoBehaviour
     {
         stats = PlayerStats.instance;
         cLayout = ControllerLayouts.instance;
+        if (cLayout == null) // If you are opening scenes from outside the menu. Debug.
+        {
+            cLayout = this.gameObject.AddComponent(typeof(ControllerLayouts)) as ControllerLayouts;
+            cLayout.setLayout(ControllerType.XBOX360);
+        }
         rigidbody = GetComponent<Rigidbody>();
         _playerAudio = GetComponent<PlayerAudio>();
     }
