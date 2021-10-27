@@ -39,7 +39,7 @@ public class MenuController : MonoBehaviour
             }
         }
 
-        if (Input.GetAxis("Vertical") > -0.05 && Input.GetAxis("Vertical") < 0.05) {
+        if (Input.GetAxis("Vertical") > -0.2 && Input.GetAxis("Vertical") < 0.2) {
             lastAxis = 0;
         }
 
