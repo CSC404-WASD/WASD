@@ -26,7 +26,7 @@ public class RangedEnemyAI : BaseEnemyAI
 
     void FixedUpdate()
     {
-        if (stunned)
+        if (stunned || !active)
         {
             return;
         }
