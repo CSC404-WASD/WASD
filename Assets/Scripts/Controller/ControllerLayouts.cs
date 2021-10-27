@@ -74,7 +74,7 @@ public class Xbox360Layout : ControllerLayout {
         downButtonMap = KeyCode.JoystickButton0;
 
         pauseButtonMap = KeyCode.JoystickButton6;
-        restartButtonMap = KeyCode.JoystickButton7;     
+        restartButtonMap = KeyCode.JoystickButton7;    
     }
 
 }

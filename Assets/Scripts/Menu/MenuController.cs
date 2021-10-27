@@ -13,17 +13,19 @@ public class MenuController : MonoBehaviour
     //give a parent that holds all initial menu options
     public GameObject parent;
     private int lastAxis = 0;
-    private ControllerLayouts clayout;
+    ControllerLayouts clayout;
 
     void Start() {
         //find the menu options in the parent
+        clayout = ControllerLayouts.instance;
         LoadContainer(parent);
     }
 
     void Update() {
-        if (Input.GetAxis("Vertical") < 0 && lastAxis > -1) {
+        Debug.Log(clayout.dpadVertical());
+        if ((Input.GetAxis("Vertical") < 0 || clayout.dpadVertical() < 0)&& lastAxis > -1) {
             MoveCursorDown();
-        } else if (Input.GetAxis("Vertical") > 0 && lastAxis < 1) {
+        } else if ((Input.GetAxis("Vertical") < 0 || clayout.dpadVertical() > 0) && lastAxis < 1) {
             MoveCursorUp();
         //keyboard support
         } else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
@@ -37,7 +39,7 @@ public class MenuController : MonoBehaviour
         }
 
         //joystick button 1 = x (down) for ps4 controller, b (right) for xbox360 thanks devs
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton1)) {
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(clayout.downButton())) {
             if (currentOption == null) {
                 currentOption = 0;
             } else {
@@ -45,7 +47,7 @@ public class MenuController : MonoBehaviour
             }
         }
         //button 2 is right (circle) on ps4 and left (x) on xbox360
-        else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton2)) {
+        else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(clayout.rightButton())) {
             //already on top
             if (parent.name != "MenuOptionsParent") {
                 parent = parent.transform.parent.gameObject;
@@ -103,12 +105,12 @@ public class MenuController : MonoBehaviour
             ToggleOptions(options, false);
             LoadContainer(parent);
         } else if (menuOptionData.menuType == MenuType.Controller) {
-            var layouts = FindObjectsOfType<ControllerLayouts>();
-            if (layouts.Length > 0){
-                clayout = layouts[0];
-                clayout.toggleLayout();
-                options[currentOption].GetComponent<Text>().text = String.Format("Current Controller: {0}", clayout.cType) ;
-            }
+            //#var layouts = FindObjectsOfType<ControllerLayouts>();
+            //#if (layouts.Length > 0){
+            //    clayout = layouts[0];
+            clayout.toggleLayout();
+            options[currentOption].GetComponent<Text>().text = String.Format("Current Controller: {0}", clayout.cType) ;
+            //}
         }
     }
 
