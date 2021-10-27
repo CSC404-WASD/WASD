@@ -25,7 +25,9 @@ public class GameController : MonoBehaviour
     }
 
     public void RestartGame() {
-        LoadScene("W4 Scene");
+        //probably better way of doing this
+        Scene scene = SceneManager.GetActiveScene();
+        LoadScene(scene.name);
     }
 
     void Update() {
