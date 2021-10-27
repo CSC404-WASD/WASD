@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using MenuTypes;
 using UnityEngine.SceneManagement;
+using System;
 
 public class MenuController : MonoBehaviour
 {
@@ -106,7 +107,7 @@ public class MenuController : MonoBehaviour
             if (layouts.Length > 0){
                 clayout = layouts[0];
                 clayout.toggleLayout();
-                options[currentOption].GetComponent<Text>().text = clayout.cType.ToString();
+                options[currentOption].GetComponent<Text>().text = String.Format("Current Controller: {0}", clayout.cType) ;
             }
         }
     }

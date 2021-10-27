@@ -42,7 +42,7 @@ public class GameController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(cLayout.restartButton())) {
             RestartGame();
         } else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(cLayout.pauseButton())) {
-            Application.Quit();
+            LoadScene("MainMenuScene");
         }
     }
 }
