@@ -12,6 +12,7 @@ public class MenuController : MonoBehaviour
     //give a parent that holds all initial menu options
     public GameObject parent;
     private int lastAxis = 0;
+    private ControllerLayouts clayout;
 
     void Start() {
         //find the menu options in the parent
@@ -101,7 +102,12 @@ public class MenuController : MonoBehaviour
             ToggleOptions(options, false);
             LoadContainer(parent);
         } else if (menuOptionData.menuType == MenuType.Controller) {
-            //switch controller type:
+            var layouts = FindObjectsOfType<ControllerLayouts>();
+            if (layouts.Length > 0){
+                clayout = layouts[0];
+                clayout.toggleLayout();
+                options[currentOption].GetComponent<Text>().text = clayout.cType.ToString();
+            }
         }
     }
 

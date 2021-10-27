@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    ControllerLayouts cLayout; 
+
     private static GameController _instance;
     public static GameController instance {get {return _instance;}}
 
@@ -14,6 +16,10 @@ public class GameController : MonoBehaviour
         } else {
             _instance = this;
         }
+    }
+
+    void Start() {
+        cLayout = ControllerLayouts.instance;
     }
 
     public void WinGame() {
@@ -33,9 +39,9 @@ public class GameController : MonoBehaviour
     void Update() {
         //button 9 is options on ps4 (right side), button 8 is share (left hand side)
         //on xbox360, 8 is left analog pressed 9 is right analog pressed (again bad mapping)
-        if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.JoystickButton9)) {
+        if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(cLayout.restartButton())) {
             RestartGame();
-        } else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton8)) {
+        } else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(cLayout.pauseButton())) {
             Application.Quit();
         }
     }
