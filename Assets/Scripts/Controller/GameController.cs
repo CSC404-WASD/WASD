@@ -20,6 +20,11 @@ public class GameController : MonoBehaviour
 
     void Start() {
         cLayout = ControllerLayouts.instance;
+        if (cLayout == null) // If you are opening scenes from outside the menu. Debug.
+        {
+            cLayout = this.gameObject.AddComponent(typeof(ControllerLayouts)) as ControllerLayouts;
+            cLayout.setLayout(ControllerType.XBOX360);
+        }
     }
 
     public void WinGame() {

@@ -49,6 +49,11 @@ public class PlayerCombat : MonoBehaviour
     {
         stats = PlayerStats.instance;
         cLayout = ControllerLayouts.instance;
+        if (cLayout == null) // If you are opening scenes from outside the menu. Debug.
+        {
+            cLayout = this.gameObject.AddComponent(typeof(ControllerLayouts)) as ControllerLayouts;
+            cLayout.setLayout(ControllerType.XBOX360);
+        }
         rigidbody = GetComponent<Rigidbody>();
         _playerAudio = GetComponent<PlayerAudio>();
     }
@@ -61,11 +66,11 @@ public class PlayerCombat : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.U) && !stats.isAttacking && !stats.isDashing) {
             PerformUpAttack();
         // button 3 is triangle on ps (up) and y on xbox360 (up)
-        } else if (Input.GetAxis("Vertical") > 0 && Input.GetKeyDown(cLayout.upButton()) && !stats.isAttacking && !stats.isDashing) {
+        } else if (Input.GetKeyDown(cLayout.upButton()) && !stats.isAttacking && !stats.isDashing) {
             PerformUpAttack();
         } 
         //joystick button 1 = x (down) for ps4 controller, b (right) for xbox360 thanks devs
-        if ((Input.GetKey(KeyCode.J) || Input.GetKeyDown(cLayout.downButton())) && !stats.isDashing) {
+        if (Input.GetKeyDown(cLayout.downButton()) && !stats.isDashing) {
             PerformDownAttack();
         }
 
@@ -78,7 +83,7 @@ public class PlayerCombat : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H) && !stats.isDashing && !stats.isAttacking) {
             PerformADash();
         //button 0 is left on ps4(square) and down (a) on xbox360
-        } else if (Input.GetAxis("Horizontal") < 0 && Input.GetKeyDown(cLayout.leftButton()) && !stats.isDashing && !stats.isAttacking) {
+        } else if (Input.GetKeyDown(cLayout.leftButton()) && !stats.isDashing && !stats.isAttacking) {
             PerformADash();
         }
     }
@@ -107,7 +112,10 @@ public class PlayerCombat : MonoBehaviour
             foreach(Collider enemy in hitColliders) {
                 //might want to make an Enemy file for this
                 var enemyAI = enemy.GetComponent<BaseEnemyAI>();
-                enemyAI.Die();
+                if (enemyAI != null)
+                {
+                    enemyAI.Die();
+                }
             }
 
             //delay next attack

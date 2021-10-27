@@ -15,7 +15,7 @@ public class MenuController : MonoBehaviour
     private int lastAxis = 0;
     ControllerLayouts clayout;
     private float lastPress;
-    public float maxFreq = 0.05f;
+    public float maxFreq = 0.2f;
 
     void Start() {
         //find the menu options in the parent
@@ -27,9 +27,9 @@ public class MenuController : MonoBehaviour
     void Update() {
         if(Time.time - lastPress > maxFreq)
         {
-            if (Input.GetAxis("Vertical") < 0 && lastAxis > -1) {
+            if (Input.GetAxis("Vertical") < -0.05 && lastAxis > -1) {
                 MoveCursorDown();
-            } else if (Input.GetAxis("Vertical") > 0 && lastAxis < 1) {
+            } else if (Input.GetAxis("Vertical") > 0.05 && lastAxis < 1) {
                 MoveCursorUp();
             //keyboard support
             } else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
@@ -39,7 +39,7 @@ public class MenuController : MonoBehaviour
             }
         }
 
-        if (Input.GetAxis("Vertical") > -0.2 && Input.GetAxis("Vertical") < 0.2) {
+        if (Input.GetAxis("Vertical") > -0.05 && Input.GetAxis("Vertical") < 0.05) {
             lastAxis = 0;
         }
 
