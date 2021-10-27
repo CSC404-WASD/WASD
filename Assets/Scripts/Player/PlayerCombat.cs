@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour
 {
     PlayerStats stats;
+    ControllerLayouts cLayout;
 
     public Rigidbody rigidbody;
     private PlayerAudio _playerAudio;
@@ -47,6 +48,7 @@ public class PlayerCombat : MonoBehaviour
     void Start()
     {
         stats = PlayerStats.instance;
+        cLayout = ControllerLayouts.instance;
         rigidbody = GetComponent<Rigidbody>();
         _playerAudio = GetComponent<PlayerAudio>();
     }
@@ -59,16 +61,16 @@ public class PlayerCombat : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.U) && !stats.isAttacking && !stats.isDashing) {
             PerformUpAttack();
         // button 3 is triangle on ps (up) and y on xbox360 (up)
-        } else if (Input.GetAxis("Vertical") > 0 && Input.GetKeyDown(KeyCode.JoystickButton3) && !stats.isAttacking && !stats.isDashing) {
+        } else if (Input.GetAxis("Vertical") > 0 && Input.GetKeyDown(cLayout.upButton()) && !stats.isAttacking && !stats.isDashing) {
             PerformUpAttack();
         } 
         //joystick button 1 = x (down) for ps4 controller, b (right) for xbox360 thanks devs
-        if ((Input.GetKey(KeyCode.J) || Input.GetKeyDown(KeyCode.JoystickButton1)) && !stats.isDashing) {
+        if ((Input.GetKey(KeyCode.J) || Input.GetKeyDown(cLayout.downButton())) && !stats.isDashing) {
             PerformDownAttack();
         }
 
         //button 2 is right (circle) on ps4 and left (x) on xbox360
-        if ((Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.JoystickButton2)) && !stats.isAttacking && !stats.isDashing)
+        if ((Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(cLayout.rightButton())) && !stats.isAttacking && !stats.isDashing)
         {
             PerformDKnockback();
         }
@@ -76,7 +78,7 @@ public class PlayerCombat : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H) && !stats.isDashing && !stats.isAttacking) {
             PerformADash();
         //button 0 is left on ps4(square) and down (a) on xbox360
-        } else if (Input.GetAxis("Horizontal") < 0 && Input.GetKeyDown(KeyCode.JoystickButton0) && !stats.isDashing && !stats.isAttacking) {
+        } else if (Input.GetAxis("Horizontal") < 0 && Input.GetKeyDown(cLayout.leftButton()) && !stats.isDashing && !stats.isAttacking) {
             PerformADash();
         }
     }
