@@ -105,7 +105,10 @@ public class PlayerCombat : MonoBehaviour
             foreach(Collider enemy in hitColliders) {
                 //might want to make an Enemy file for this
                 var enemyAI = enemy.GetComponent<BaseEnemyAI>();
-                enemyAI.Die();
+                if (enemyAI != null)
+                {
+                    enemyAI.Die();
+                }
             }
 
             //delay next attack
