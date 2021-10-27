@@ -8,29 +8,35 @@ using System;
 
 public class MenuController : MonoBehaviour
 {
-    private int currentOption;
+    private int currentOption = 0;
     private GameObject[] options;
     //give a parent that holds all initial menu options
     public GameObject parent;
     private int lastAxis = 0;
     ControllerLayouts clayout;
+    private float lastPress;
+    public float maxFreq = 0.05f;
 
     void Start() {
         //find the menu options in the parent
         clayout = ControllerLayouts.instance;
         LoadContainer(parent);
+        lastPress = Time.time;
     }
 
     void Update() {
-        if (Input.GetAxis("Vertical") < 0 && lastAxis > -1) {
-            MoveCursorDown();
-        } else if (Input.GetAxis("Vertical") > 0 && lastAxis < 1) {
-            MoveCursorUp();
-        //keyboard support
-        } else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
-            MoveCursorUp();
-        } else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) {
-            MoveCursorDown();
+        if(Time.time - lastPress > maxFreq)
+        {
+            if (Input.GetAxis("Vertical") < 0 && lastAxis > -1) {
+                MoveCursorDown();
+            } else if (Input.GetAxis("Vertical") > 0 && lastAxis < 1) {
+                MoveCursorUp();
+            //keyboard support
+            } else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
+                MoveCursorUp();
+            } else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) {
+                MoveCursorDown();
+            }
         }
 
         if (Input.GetAxis("Vertical") > -0.05 && Input.GetAxis("Vertical") < 0.05) {
@@ -38,9 +44,7 @@ public class MenuController : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(clayout.downButton())) {
-            if (currentOption == null) {
-                currentOption = 0;
-            } else {
+            {
                 ClickMenuOption();
             }
         }
@@ -56,10 +60,8 @@ public class MenuController : MonoBehaviour
     }
 
     void MoveCursorDown() {
-        //stop moving down if at the bottom or user has not moved stick
-        if (currentOption == null && options.Length > 1) {
-            currentOption = 1;
-        } else if (currentOption < options.Length - 1) {
+        lastPress = Time.time;
+        if (currentOption < options.Length - 1) {
             UpdateHighlight(false);
             currentOption++;
         }
@@ -68,9 +70,8 @@ public class MenuController : MonoBehaviour
     }
 
     void MoveCursorUp() {
-        if (currentOption == null) {
-            currentOption = 0;
-        } else if (currentOption > 0) {
+        lastPress = Time.time;
+        if (currentOption > 0) {
             UpdateHighlight(false);
             currentOption--;
         }
