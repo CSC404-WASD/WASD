@@ -25,7 +25,7 @@ public class GameController : MonoBehaviour
     }
 
     public void RestartGame() {
-        LoadScene("MineScene");
+        LoadScene("MainScene");
     }
 
     void Update() {
