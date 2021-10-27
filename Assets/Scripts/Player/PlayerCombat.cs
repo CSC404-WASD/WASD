@@ -66,11 +66,11 @@ public class PlayerCombat : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.U) && !stats.isAttacking && !stats.isDashing) {
             PerformUpAttack();
         // button 3 is triangle on ps (up) and y on xbox360 (up)
-        } else if (Input.GetAxis("Vertical") > 0 && Input.GetKeyDown(cLayout.upButton()) && !stats.isAttacking && !stats.isDashing) {
+        } else if (Input.GetKeyDown(cLayout.upButton()) && !stats.isAttacking && !stats.isDashing) {
             PerformUpAttack();
         } 
         //joystick button 1 = x (down) for ps4 controller, b (right) for xbox360 thanks devs
-        if ((Input.GetKey(KeyCode.J) || Input.GetKeyDown(cLayout.downButton())) && !stats.isDashing) {
+        if (Input.GetKeyDown(cLayout.downButton()) && !stats.isDashing) {
             PerformDownAttack();
         }
 
@@ -83,7 +83,7 @@ public class PlayerCombat : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H) && !stats.isDashing && !stats.isAttacking) {
             PerformADash();
         //button 0 is left on ps4(square) and down (a) on xbox360
-        } else if (Input.GetAxis("Horizontal") < 0 && Input.GetKeyDown(cLayout.leftButton()) && !stats.isDashing && !stats.isAttacking) {
+        } else if (Input.GetKeyDown(cLayout.leftButton()) && !stats.isDashing && !stats.isAttacking) {
             PerformADash();
         }
     }
