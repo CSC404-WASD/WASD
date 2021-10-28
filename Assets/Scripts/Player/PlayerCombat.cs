@@ -18,26 +18,21 @@ public class PlayerCombat : MonoBehaviour
     public LayerMask enemyLayers;
 
     public float upChargeConsumption = 0.3f;
-    public float upThreshold = 0.0f;
     public float upCooldown = 0.25f;
     float nextUpAttackTime = 0f;
 
     public float downChargeConsumption = 1.5f;
-    public float downThreshold = 1.0f;
     public float downCooldown = 2.0f;
     float nextDownAttackTime = 0f;
     //object to spawn
     public GameObject downMine;
 
     public float leftChargeConsumption = 0.3f;
-    public float leftThreshold = 0.0f;
     public float leftCooldown = 0.25f;
-    public float dashCooldown = 1.0f;
     public float dashLength = 0.5f;
     float nextLeftTime = 0f;
 
     public float rightChargeConsumption = 0.3f;
-    public float rightThreshold = 0f;
     public float rightCooldown = 0.25f;
 
     public float knockbackRadius = 1000f;
@@ -92,61 +87,49 @@ public class PlayerCombat : MonoBehaviour
 
         // check vertical charge
         float vCharge = stats.getVerticalCharge();
-
-        // attack if cooldown refreshed and charge above threshold
-        if (vCharge > upThreshold && nextUpAttackTime <= Time.time) {
-
-            // if enough charge, subtract. else, set to 0 and stun
-            if (vCharge >= upChargeConsumption) {
-                stats.setVerticalDiff(-1f * upChargeConsumption);
-            } 
-            else {
-                stats.setVerticalDiff(-1.0f * vCharge);
-                stats.setStunned(true, upChargeConsumption - vCharge);
-            }
-
-            // execute attack
-            stats.isAttacking = true;
-            Collider[] hitColliders = Physics.OverlapBox(attackPoint.position, attackRange, Quaternion.identity, enemyLayers);
-            attackIndicator.SetActive(true);
-            foreach(Collider enemy in hitColliders) {
-                //might want to make an Enemy file for this
-                var enemyAI = enemy.GetComponent<BaseEnemyAI>();
-                if (enemyAI != null)
-                {
-                    enemyAI.Die();
-                }
-            }
-
-            //delay next attack
-            _playerAudio.PlayUpSound();
-            nextUpAttackTime = Time.time + upCooldown;
-            StartCoroutine(HideCube(0.25f));
+        
+        if (vCharge <= upChargeConsumption || nextUpAttackTime > Time.time)
+        {
+            return;
         }
+        
+        stats.setVerticalDiff(-1f * upChargeConsumption);
+
+        // execute attack
+        stats.isAttacking = true;
+        Collider[] hitColliders = Physics.OverlapBox(attackPoint.position, attackRange, Quaternion.identity, enemyLayers);
+        attackIndicator.SetActive(true);
+        foreach(Collider enemy in hitColliders) {
+            //might want to make an Enemy file for this
+            var enemyAI = enemy.GetComponent<BaseEnemyAI>();
+            if (enemyAI != null)
+            {
+                enemyAI.Die();
+            }
+        }
+
+        //delay next attack
+        _playerAudio.PlayUpSound();
+        nextUpAttackTime = Time.time + upCooldown;
+        StartCoroutine(HideCube(0.25f));
     }
 
     private void PerformDownAttack() {
         // check vertical charge and convert to positive (if in down) for easy use
         float vCharge = stats.getVerticalCharge() * -1;
 
-        // attack if cooldown refreshed and charge above threshold
-        if (vCharge > downThreshold && nextDownAttackTime <= Time.time) {
-
-            // if enough charge, add consumption. else, set to 0 and stun
-            if (vCharge >= downChargeConsumption) {
-                stats.setVerticalDiff(downChargeConsumption);
-            } 
-            else {
-                stats.setVerticalDiff(vCharge);
-                stats.setStunned(true, downChargeConsumption - vCharge);
-            }
-
-            Instantiate(downMine, this.transform.position + new Vector3(1,0,1), Quaternion.identity);
-
-            _playerAudio.PlayDownSound();
-            //delay next attack
-            nextDownAttackTime = Time.time + downCooldown;
+        if (vCharge < downChargeConsumption || nextDownAttackTime > Time.time)
+        {
+            return;
         }
+        
+        stats.setVerticalDiff(downChargeConsumption);
+
+        Instantiate(downMine, this.transform.position + new Vector3(1,0,1), Quaternion.identity);
+
+        _playerAudio.PlayDownSound();
+        //delay next attack
+        nextDownAttackTime = Time.time + downCooldown;
     }
 
     private void PerformADash() {
@@ -154,26 +137,19 @@ public class PlayerCombat : MonoBehaviour
         float hCharge = stats.getHorizontalCharge();
         hCharge = -hCharge;
 
-        // attack if cooldown refreshed and charge above threshold
-        if (hCharge > leftThreshold && nextLeftTime <= Time.time) {
-
-            // if enough charge, subtract. else, set to 0 and stun
-            if (hCharge >=leftChargeConsumption) {
-                stats.setHorizontalDiff(1f * leftChargeConsumption); // reversed
-            } 
-            else {
-                stats.setVerticalDiff(1f * hCharge);
-                stats.setStunned(true,leftChargeConsumption - hCharge); // reversed
-            }
-
-            // execute dash
-            stats.isDashing = true;
-
-            _playerAudio.PlayLeftSound();
-            //delay next dash
-            nextLeftTime = Time.time + leftCooldown;
-            StartCoroutine(FinishDash(dashLength));
+        if (hCharge < leftChargeConsumption || nextLeftTime > Time.time)
+        {
+            return;
         }
+        stats.setHorizontalDiff(1f * leftChargeConsumption); // reversed
+
+        // execute dash
+        stats.isDashing = true;
+
+        _playerAudio.PlayLeftSound();
+        //delay next dash
+        nextLeftTime = Time.time + leftCooldown;
+        StartCoroutine(FinishDash(dashLength));
     }
     
     private void PerformDKnockback()
@@ -181,20 +157,12 @@ public class PlayerCombat : MonoBehaviour
         var charge = stats.getHorizontalCharge();
         
         // charge above threshold and cooldown up
-        if (charge <= rightThreshold || nextRightTime > Time.time)
+        if (charge < rightChargeConsumption || nextRightTime > Time.time)
         {
             return;
         }
-            
-        // stun if not enough charge
         
-        if (charge < rightChargeConsumption)
-        {
-            stats.setStunned(true, rightChargeConsumption - charge);
-            return;
-        } else {
-            stats.setHorizontalDiff(-1f * rightChargeConsumption); // reversed
-        }
+        stats.setHorizontalDiff(-1f * rightChargeConsumption); // reversed
         
         // find entities to knock back
         var origin = rigidbody.position;
