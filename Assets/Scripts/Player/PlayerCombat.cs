@@ -63,9 +63,15 @@ public class PlayerCombat : MonoBehaviour
         // button 3 is triangle on ps (up) and y on xbox360 (up)
         } else if (Input.GetKeyDown(cLayout.upButton()) && !stats.isAttacking && !stats.isDashing) {
             PerformUpAttack();
-        } 
+        }
+
+        if (Input.GetKeyDown(KeyCode.J) && !stats.isDashing)
+        {
+            PerformDownAttack();
+        }
+        // button 3 is triangle on ps (up) and y on xbox360 (up)
         //joystick button 1 = x (down) for ps4 controller, b (right) for xbox360 thanks devs
-        if (Input.GetKeyDown(cLayout.downButton()) && !stats.isDashing) {
+        else if (Input.GetKeyDown(cLayout.downButton()) && !stats.isDashing) {
             PerformDownAttack();
         }
 
