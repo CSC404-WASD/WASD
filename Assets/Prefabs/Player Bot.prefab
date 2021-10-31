@@ -409,19 +409,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   upChargeConsumption: 1
-  upThreshold: 0
   upCooldown: 0.25
   downChargeConsumption: 1.5
-  downThreshold: 1
   downCooldown: 2
   downMine: {fileID: 4340560450993231603, guid: 1be873c2652df45259d02c6db7b3942b, type: 3}
   leftChargeConsumption: 1
-  leftThreshold: 0
   leftCooldown: 0.25
-  dashCooldown: 1
   dashLength: 0.25
   rightChargeConsumption: 1
-  rightThreshold: 0
   rightCooldown: 0.25
   knockbackRadius: 1000
   knockbackPower: 10

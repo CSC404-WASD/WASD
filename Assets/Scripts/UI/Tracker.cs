@@ -6,14 +6,18 @@ using System;
 
 public class Tracker : MonoBehaviour
 {
+    private GameController _gameController;
     private PlayerStats stats;
 
     public Slider rightSlider, leftSlider, upSlider, downSlider;
     public Text displayText;
     public Text powerText;
+    public Text deathsText;
+    
     void Start()
     {
         stats = PlayerStats.instance;
+        _gameController = GameController.instance;
     }
     // Update is called once per frame
     void Update()
@@ -40,5 +44,7 @@ public class Tracker : MonoBehaviour
         leftSlider.value = Math.Min(0, horizontalCharge) * -1;
         upSlider.value = Math.Max(0, verticalCharge);
         downSlider.value = Math.Min(0, verticalCharge) * -1;
+
+        deathsText.text = "Deaths: " + _gameController.getDeaths();
     }
 }
