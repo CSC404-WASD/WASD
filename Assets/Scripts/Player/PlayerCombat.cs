@@ -11,10 +11,8 @@ public class PlayerCombat : MonoBehaviour
     public Rigidbody rigidbody;
     private PlayerAudio _playerAudio;
     
-    public Transform attackPoint;
-    public Vector3 attackRange = new Vector3(0.5f, 0.5f, 0.25f);
-    //cube is just a visual for now, once animation is added can be removed
-    public GameObject attackIndicator;
+    //update, cube is the hit box and the indicator, but only attacks on frame 1 of appearing
+    public GameObject attackObject;
     public LayerMask enemyLayers;
 
     public float upChargeConsumption = 0.3f;
@@ -103,8 +101,10 @@ public class PlayerCombat : MonoBehaviour
 
         // execute attack
         stats.isAttacking = true;
-        Collider[] hitColliders = Physics.OverlapBox(attackPoint.position, attackRange, Quaternion.identity, enemyLayers);
-        attackIndicator.SetActive(true);
+        attackObject.SetActive(true);
+
+        //needs to be scale / 2 to be like radius on both sides
+        Collider[] hitColliders = Physics.OverlapBox(attackObject.transform.position, attackObject.transform.lossyScale/2, Quaternion.identity, enemyLayers);
         foreach(Collider enemy in hitColliders) {
             //might want to make an Enemy file for this
             var enemyAI = enemy.GetComponent<BaseEnemyAI>();
@@ -113,11 +113,10 @@ public class PlayerCombat : MonoBehaviour
                 enemyAI.Die();
             }
         }
-
         //delay next attack
         _playerAudio.PlayUpSound();
         nextUpAttackTime = Time.time + upCooldown;
-        StartCoroutine(HideCube(0.25f));
+        StartCoroutine(HideCube(0.1f));
     }
 
     private void PerformDownAttack() {
@@ -197,16 +196,17 @@ public class PlayerCombat : MonoBehaviour
     }
 
     void OnDrawGizmosSelected() {
-        if (attackPoint == null) {
+        if (attackObject == null) {
             return;
         }
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(attackPoint.position, attackRange);
+        //this one needs to be not /2 since it doesnt double on both sides
+        Gizmos.DrawWireCube(attackObject.transform.position, attackObject.transform.lossyScale);
     }
 
     IEnumerator HideCube(float time) {
         yield return new WaitForSeconds(time);
-        attackIndicator.SetActive(false);
+        attackObject.SetActive(false);
         stats.isAttacking = false;
     }
 
