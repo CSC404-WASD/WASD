@@ -27,6 +27,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _explodeClip: {fileID: 8300000, guid: a19e2ce8ce21a43838583a8935a1b8fc, type: 3}
+  armTime: 1.5
   activateMaterial: {fileID: 2100000, guid: 306720d85dd064dac9c192de0a55b794, type: 2}
 --- !u!1001 &3530168355778636706
 PrefabInstance:
@@ -41,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5385adb988b0c4ffbaabd31d8ea1786a, type: 3}
       propertyPath: m_LocalScale.x
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5385adb988b0c4ffbaabd31d8ea1786a, type: 3}
       propertyPath: m_LocalScale.y
@@ -49,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5385adb988b0c4ffbaabd31d8ea1786a, type: 3}
       propertyPath: m_LocalScale.z
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5385adb988b0c4ffbaabd31d8ea1786a, type: 3}
       propertyPath: m_LocalPosition.x

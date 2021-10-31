@@ -9,12 +9,14 @@ public class MineBehaviour : MonoBehaviour
     [SerializeField]
     private AudioClip _explodeClip;
 
+    public float armTime;
+
     private bool isActive = false;
     public Material activateMaterial;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(ActivateMine(2.0f));
+        StartCoroutine(ActivateMine(armTime));
         _audioSource = GameObject.FindWithTag("SFX Audio Source").GetComponent<AudioSource>();
     }
 
