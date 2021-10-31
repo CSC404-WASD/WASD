@@ -29,6 +29,7 @@ MonoBehaviour:
   _explodeClip: {fileID: 8300000, guid: a19e2ce8ce21a43838583a8935a1b8fc, type: 3}
   armTime: 1
   activateMaterial: {fileID: 2100000, guid: 306720d85dd064dac9c192de0a55b794, type: 2}
+  mineRange: 2
 --- !u!1001 &3530168355778636706
 PrefabInstance:
   m_ObjectHideFlags: 0

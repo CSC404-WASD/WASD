@@ -13,6 +13,7 @@ public class MineBehaviour : MonoBehaviour
 
     private bool isActive = false;
     public Material activateMaterial;
+    public float mineRange = 10;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,14 +27,9 @@ public class MineBehaviour : MonoBehaviour
         if (!isActive) {
             return;
         }
-        //can also use tags compare tag to make it look neater, but i figure other combat also uses layers
-        //so im doing this for now 6= enemies 7 = strong enemies
-        if (other.gameObject.layer == 6 || other.gameObject.layer == 7)
+        if (MineColliderCheck(other))
         {
-            PlayExplodeSound();
             Destroy(this.gameObject);
-            var enemyAI = other.GetComponent<BaseEnemyAI>();
-            enemyAI.Die();
         }
     }
 
@@ -43,13 +39,24 @@ public class MineBehaviour : MonoBehaviour
         isActive = true;
         //change mine colour when active
         GetComponent<Renderer>().material = activateMaterial;
-        //make mine not solid when active
-        GetComponent<CapsuleCollider>().isTrigger = true;
         StartCoroutine(DeactivateMine(30.0f));
+
+        // Check for stuff currently in range
+        Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, mineRange);
+        bool destroyed = false;
+        foreach(Collider other in hitColliders) {
+            destroyed = destroyed || MineColliderCheck(other);
+        }
+        if (destroyed)
+        {
+            PlayExplodeSound();
+            Destroy(this.gameObject);
+        }
     }
 
     IEnumerator DeactivateMine(float time) {
         yield return new WaitForSeconds(time);
+        PlayExplodeSound();
         Destroy(this.gameObject);
     }
 
@@ -59,5 +66,28 @@ public class MineBehaviour : MonoBehaviour
             _audioSource.loop = false;
             _audioSource.Play();
         }
+    }
+
+
+    public bool MineColliderCheck(Collider other) // returns whether anything blew up.
+    {
+        //can also use tags compare tag to make it look neater, but i figure other combat also uses layers
+        //so im doing this for now 6= enemies 7 = strong enemies
+        if (other.gameObject.layer == 6 || other.gameObject.layer == 7)
+        {
+            var enemyAI = other.GetComponent<BaseEnemyAI>();
+            if (enemyAI != null)
+            {
+                enemyAI.Die();
+                return true;
+            }
+        }
+        if (other.CompareTag("Mineable Wall"))
+        {
+            PlayExplodeSound();
+            Destroy(other.gameObject);
+            return true;
+        }
+        return false;
     }
 }
