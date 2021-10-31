@@ -10,6 +10,7 @@ TagManager:
   - Strong Enemy
   - Mine
   - SFX Audio Source
+  - Mineable Wall
   layers:
   - Default
   - TransparentFX
