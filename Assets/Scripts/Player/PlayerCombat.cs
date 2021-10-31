@@ -93,8 +93,17 @@ public class PlayerCombat : MonoBehaviour
 
         // check vertical charge
         float vCharge = stats.getVerticalCharge();
+
+        if (vCharge <= upChargeConsumption)
+        {
+            if (vCharge > 0)
+            {
+                stats.setVerticalDiff(-1 * vCharge);
+            }
+            return;
+        }
         
-        if (vCharge <= upChargeConsumption || nextUpAttackTime > Time.time)
+        if (nextUpAttackTime > Time.time)
         {
             return;
         }
@@ -123,8 +132,17 @@ public class PlayerCombat : MonoBehaviour
     private void PerformDownAttack() {
         // check vertical charge and convert to positive (if in down) for easy use
         float vCharge = stats.getVerticalCharge() * -1;
-
-        if (vCharge < downChargeConsumption || nextDownAttackTime > Time.time)
+        
+        if (vCharge < downChargeConsumption)
+        {
+            if (vCharge > 0)
+            {
+                stats.setVerticalDiff(vCharge);
+            }
+            return;
+        }
+        
+        if (nextDownAttackTime > Time.time)
         {
             return;
         }
@@ -140,14 +158,23 @@ public class PlayerCombat : MonoBehaviour
 
     private void PerformADash() {
         // check horizontal charge
-        float hCharge = stats.getHorizontalCharge();
-        hCharge = -hCharge;
+        var hCharge = -1 * stats.getHorizontalCharge();
 
-        if (hCharge < leftChargeConsumption || nextLeftTime > Time.time)
+        if (hCharge < leftChargeConsumption)
+        {
+            if (hCharge > 0)
+            {
+                stats.setHorizontalDiff(hCharge);
+            }
+
+            return;
+        }
+        
+        if (nextLeftTime > Time.time)
         {
             return;
         }
-        stats.setHorizontalDiff(1f * leftChargeConsumption); // reversed
+        stats.setHorizontalDiff(leftChargeConsumption);
 
         // execute dash
         stats.isDashing = true;
@@ -161,9 +188,18 @@ public class PlayerCombat : MonoBehaviour
     private void PerformDKnockback()
     {
         var charge = stats.getHorizontalCharge();
+
+        if (charge < rightChargeConsumption)
+        {
+            if (charge > 0)
+            {
+                stats.setHorizontalDiff(-1 * charge);
+            }
+
+            return;
+        }
         
-        // charge above threshold and cooldown up
-        if (charge < rightChargeConsumption || nextRightTime > Time.time)
+        if (nextRightTime > Time.time)
         {
             return;
         }
