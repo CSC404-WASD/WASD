@@ -2,18 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WallOpenTrigger : MonoBehaviour
+public class ActivateCannonTrigger : MonoBehaviour
 {
-
-    public GameObject[] wallsToDestroy;
+    public GameObject cannonParent;
 
     public void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Player") {
-            foreach (var obj in wallsToDestroy) {
-                Destroy(obj);
-            }
+            var parent = cannonParent.GetComponent<ActivatableObjectSpawner>();
+            parent.ActivateSpawners(true);
             Destroy(this.gameObject);
         }
     }
-
 }
