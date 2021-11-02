@@ -17,22 +17,18 @@ public class PlayerCombat : MonoBehaviour
     public GameObject attackIndicator;
     public LayerMask enemyLayers;
 
-    public float upChargeConsumption = 0.3f;
     public float upCooldown = 0.25f;
     float nextUpAttackTime = 0f;
 
-    public float downChargeConsumption = 1.5f;
     public float downCooldown = 2.0f;
     float nextDownAttackTime = 0f;
     //object to spawn
     public GameObject downMine;
 
-    public float leftChargeConsumption = 0.3f;
     public float leftCooldown = 0.25f;
     public float dashLength = 0.5f;
     float nextLeftTime = 0f;
 
-    public float rightChargeConsumption = 0.3f;
     public float rightCooldown = 0.25f;
 
     public float knockbackRadius = 1000f;
@@ -94,7 +90,7 @@ public class PlayerCombat : MonoBehaviour
         // check vertical charge
         float vCharge = stats.getVerticalCharge();
 
-        if (vCharge <= upChargeConsumption)
+        if (vCharge <= stats.upChargeConsumption)
         {
             if (vCharge > 0)
             {
@@ -108,7 +104,7 @@ public class PlayerCombat : MonoBehaviour
             return;
         }
         
-        stats.setVerticalDiff(-1f * upChargeConsumption);
+        stats.setVerticalDiff(-1f * stats.upChargeConsumption);
 
         // execute attack
         stats.isAttacking = true;
@@ -133,7 +129,7 @@ public class PlayerCombat : MonoBehaviour
         // check vertical charge and convert to positive (if in down) for easy use
         float vCharge = stats.getVerticalCharge() * -1;
         
-        if (vCharge < downChargeConsumption)
+        if (vCharge < stats.downChargeConsumption)
         {
             if (vCharge > 0)
             {
@@ -147,7 +143,7 @@ public class PlayerCombat : MonoBehaviour
             return;
         }
         
-        stats.setVerticalDiff(downChargeConsumption);
+        stats.setVerticalDiff(stats.downChargeConsumption);
 
         Instantiate(downMine, this.transform.position + new Vector3(1,0,1), Quaternion.identity);
 
@@ -160,7 +156,7 @@ public class PlayerCombat : MonoBehaviour
         // check horizontal charge
         var hCharge = -1 * stats.getHorizontalCharge();
 
-        if (hCharge < leftChargeConsumption)
+        if (hCharge < stats.leftChargeConsumption)
         {
             if (hCharge > 0)
             {
@@ -174,7 +170,7 @@ public class PlayerCombat : MonoBehaviour
         {
             return;
         }
-        stats.setHorizontalDiff(leftChargeConsumption);
+        stats.setHorizontalDiff(stats.leftChargeConsumption);
 
         // execute dash
         stats.isDashing = true;
@@ -189,7 +185,7 @@ public class PlayerCombat : MonoBehaviour
     {
         var charge = stats.getHorizontalCharge();
 
-        if (charge < rightChargeConsumption)
+        if (charge < stats.rightChargeConsumption)
         {
             if (charge > 0)
             {
@@ -204,7 +200,7 @@ public class PlayerCombat : MonoBehaviour
             return;
         }
         
-        stats.setHorizontalDiff(-1f * rightChargeConsumption); // reversed
+        stats.setHorizontalDiff(-1f * stats.rightChargeConsumption); // reversed
         
         // find entities to knock back
         var origin = rigidbody.position;
