@@ -94,6 +94,7 @@ public class PlayerCombat : MonoBehaviour
         {
             if (vCharge > 0)
             {
+                _playerAudio.PlayFartSound();
                 stats.setVerticalDiff(-1 * vCharge);
             }
             return;
@@ -133,6 +134,7 @@ public class PlayerCombat : MonoBehaviour
         {
             if (vCharge > 0)
             {
+                _playerAudio.PlayFartSound();
                 stats.setVerticalDiff(vCharge);
             }
             return;
@@ -160,6 +162,7 @@ public class PlayerCombat : MonoBehaviour
         {
             if (hCharge > 0)
             {
+                _playerAudio.PlayFartSound();
                 stats.setHorizontalDiff(hCharge);
             }
 
@@ -189,9 +192,9 @@ public class PlayerCombat : MonoBehaviour
         {
             if (charge > 0)
             {
+                _playerAudio.PlayFartSound();
                 stats.setHorizontalDiff(-1 * charge);
             }
-
             return;
         }
         

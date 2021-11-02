@@ -601,6 +601,7 @@ MonoBehaviour:
   _rightChargedClip: {fileID: 8300000, guid: 25c43f2d6f7501441b0ce14528dc0c3c, type: 3}
   _downChargedClip: {fileID: 8300000, guid: 478cedfbeed86064984d3605b33ef8f2, type: 3}
   _upChargedClip: {fileID: 8300000, guid: 502c8f4ac6e8ce34fb18ddb1082af2b9, type: 3}
+  _fartClip: {fileID: 8300000, guid: 870878de96c731a438791ecfb2807f52, type: 3}
 --- !u!1 &4870882446599905578
 GameObject:
   m_ObjectHideFlags: 0

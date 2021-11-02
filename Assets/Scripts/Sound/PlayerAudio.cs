@@ -25,6 +25,8 @@ public class PlayerAudio : MonoBehaviour
     private AudioClip _downChargedClip;
     [SerializeField]
     private AudioClip _upChargedClip;
+    [SerializeField]
+    private AudioClip _fartClip;
 
     void Start()
     {
@@ -100,5 +102,16 @@ public class PlayerAudio : MonoBehaviour
         }
         
         _audioSource.PlayOneShot(clip, 0.5f);
+    }
+
+    public void PlayFartSound()
+    {
+        if (_audioSource == null)
+        {
+            return;
+        }
+
+        _audioSource.loop = false;
+        _audioSource.PlayOneShot(_fartClip, 0.7f);
     }
 }
