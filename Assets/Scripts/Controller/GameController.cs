@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
     private static GameController _instance;
     public static GameController instance {get {return _instance;}}
 
-    private static int deaths;
+    private static int deaths = 0;
 
     private void Awake() {
         if (_instance != null && _instance != this) {
@@ -33,7 +33,13 @@ public class GameController : MonoBehaviour
         LoadScene("WinScene");
     }
 
-    private void LoadScene(string level) {
+    private void LoadScene(string level)
+    {
+        var curLevel = SceneManager.GetActiveScene().name;
+        if (level != "WinScene" && curLevel != level)
+        {
+            deaths = 0;
+        }
         SceneManager.LoadScene(level);
     }
 

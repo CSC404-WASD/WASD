@@ -13,7 +13,7 @@ public class Tracker : MonoBehaviour
     public Text displayText;
     public Text powerText;
     public Text deathsText;
-    
+
     void Start()
     {
         stats = PlayerStats.instance;
@@ -30,8 +30,8 @@ public class Tracker : MonoBehaviour
         
         if (stats.getStunTime() > 0f) {
             powerText.text = String.Format("Stunned for: {0:0.0} seconds", stats.getStunTime());
-        } else if (stats.isAttacking) {
-            powerText.text = "Attacking";
+        // } else if (stats.isAttacking) {
+        //     powerText.text = "Attacking";
         } else {
             powerText.text = "";
         }
