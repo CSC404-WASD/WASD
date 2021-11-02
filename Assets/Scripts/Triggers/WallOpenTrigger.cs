@@ -9,7 +9,6 @@ public class WallOpenTrigger : MonoBehaviour
 
     public void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Player") {
-            var foundDynamicEnemyAis = FindObjectsOfType<DynamicEnemyAI>();
             foreach (var obj in wallsToDestroy) {
                 Destroy(obj);
             }
