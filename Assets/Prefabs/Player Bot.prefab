@@ -403,7 +403,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidbody: {fileID: 0}
   attackPoint: {fileID: 1209418372181982417}
-  attackRange: {x: 4, y: 0.1, z: 4}
+  attackRange: {x: 3, y: 0.1, z: 3}
   attackIndicator: {fileID: 5440464042939631149}
   enemyLayers:
     serializedVersion: 2
