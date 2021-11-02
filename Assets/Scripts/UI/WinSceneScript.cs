@@ -13,6 +13,7 @@ public class WinSceneScript : MonoBehaviour
     void Start()
     {
         _gameController = GameController.instance;
-        deathsText.text = _gameController.getDeaths() + " deaths";
+        var deaths = _gameController.getDeaths();
+        deathsText.text = deaths == 1 ? "1 death" : (deaths + " deaths");
     }
 }
