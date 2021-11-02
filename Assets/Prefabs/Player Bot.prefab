@@ -408,20 +408,11 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 64
-  upChargeConsumption: 1
-  upThreshold: 0
   upCooldown: 0.25
-  downChargeConsumption: 1.5
-  downThreshold: 1
   downCooldown: 2
   downMine: {fileID: 4340560450993231603, guid: 1be873c2652df45259d02c6db7b3942b, type: 3}
-  leftChargeConsumption: 1
-  leftThreshold: 0
   leftCooldown: 0.25
-  dashCooldown: 1
   dashLength: 0.25
-  rightChargeConsumption: 1
-  rightThreshold: 0
   rightCooldown: 0.25
   knockbackRadius: 1000
   knockbackPower: 10
@@ -458,6 +449,10 @@ MonoBehaviour:
   isDashing: 0
   maxVerCharge: 3
   maxHorCharge: 3
+  leftChargeConsumption: 1
+  rightChargeConsumption: 1
+  downChargeConsumption: 1.5
+  upChargeConsumption: 1
   meterChargeFactor: 1
 --- !u!54 &6911353594610702922
 Rigidbody:
@@ -602,6 +597,11 @@ MonoBehaviour:
   _leftClip: {fileID: 8300000, guid: a19435ec8b36548cdbd66cdb1eb8348a, type: 3}
   _rightClip: {fileID: 8300000, guid: 714185c2e65d04819aa7e7c1b195ecf8, type: 3}
   _deathClip: {fileID: 8300000, guid: b6db9730120c4431194153382ed170ef, type: 3}
+  _leftChargedClip: {fileID: 8300000, guid: ce8b2c9f2af79c14da35ef38fd05148d, type: 3}
+  _rightChargedClip: {fileID: 8300000, guid: 25c43f2d6f7501441b0ce14528dc0c3c, type: 3}
+  _downChargedClip: {fileID: 8300000, guid: 478cedfbeed86064984d3605b33ef8f2, type: 3}
+  _upChargedClip: {fileID: 8300000, guid: 502c8f4ac6e8ce34fb18ddb1082af2b9, type: 3}
+  _fartClip: {fileID: 8300000, guid: 870878de96c731a438791ecfb2807f52, type: 3}
 --- !u!1 &4870882446599905578
 GameObject:
   m_ObjectHideFlags: 0

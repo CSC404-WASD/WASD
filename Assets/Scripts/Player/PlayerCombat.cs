@@ -17,22 +17,18 @@ public class PlayerCombat : MonoBehaviour
     public GameObject attackIndicator;
     public LayerMask enemyLayers;
 
-    public float upChargeConsumption = 0.3f;
     public float upCooldown = 0.25f;
     float nextUpAttackTime = 0f;
 
-    public float downChargeConsumption = 1.5f;
     public float downCooldown = 2.0f;
     float nextDownAttackTime = 0f;
     //object to spawn
     public GameObject downMine;
 
-    public float leftChargeConsumption = 0.3f;
     public float leftCooldown = 0.25f;
     public float dashLength = 0.5f;
     float nextLeftTime = 0f;
 
-    public float rightChargeConsumption = 0.3f;
     public float rightCooldown = 0.25f;
 
     public float knockbackRadius = 1000f;
@@ -93,13 +89,23 @@ public class PlayerCombat : MonoBehaviour
 
         // check vertical charge
         float vCharge = stats.getVerticalCharge();
+
+        if (vCharge <= stats.upChargeConsumption)
+        {
+            if (vCharge > 0)
+            {
+                _playerAudio.PlayFartSound();
+                stats.setVerticalDiff(-1 * vCharge);
+            }
+            return;
+        }
         
-        if (vCharge <= upChargeConsumption || nextUpAttackTime > Time.time)
+        if (nextUpAttackTime > Time.time)
         {
             return;
         }
         
-        stats.setVerticalDiff(-1f * upChargeConsumption);
+        stats.setVerticalDiff(-1f * stats.upChargeConsumption);
 
         // execute attack
         stats.isAttacking = true;
@@ -123,13 +129,23 @@ public class PlayerCombat : MonoBehaviour
     private void PerformDownAttack() {
         // check vertical charge and convert to positive (if in down) for easy use
         float vCharge = stats.getVerticalCharge() * -1;
-
-        if (vCharge < downChargeConsumption || nextDownAttackTime > Time.time)
+        
+        if (vCharge < stats.downChargeConsumption)
+        {
+            if (vCharge > 0)
+            {
+                _playerAudio.PlayFartSound();
+                stats.setVerticalDiff(vCharge);
+            }
+            return;
+        }
+        
+        if (nextDownAttackTime > Time.time)
         {
             return;
         }
         
-        stats.setVerticalDiff(downChargeConsumption);
+        stats.setVerticalDiff(stats.downChargeConsumption);
 
         Instantiate(downMine, this.transform.position + new Vector3(1,0,1), Quaternion.identity);
 
@@ -140,14 +156,24 @@ public class PlayerCombat : MonoBehaviour
 
     private void PerformADash() {
         // check horizontal charge
-        float hCharge = stats.getHorizontalCharge();
-        hCharge = -hCharge;
+        var hCharge = -1 * stats.getHorizontalCharge();
 
-        if (hCharge < leftChargeConsumption || nextLeftTime > Time.time)
+        if (hCharge < stats.leftChargeConsumption)
+        {
+            if (hCharge > 0)
+            {
+                _playerAudio.PlayFartSound();
+                stats.setHorizontalDiff(hCharge);
+            }
+
+            return;
+        }
+        
+        if (nextLeftTime > Time.time)
         {
             return;
         }
-        stats.setHorizontalDiff(1f * leftChargeConsumption); // reversed
+        stats.setHorizontalDiff(stats.leftChargeConsumption);
 
         // execute dash
         stats.isDashing = true;
@@ -161,14 +187,23 @@ public class PlayerCombat : MonoBehaviour
     private void PerformDKnockback()
     {
         var charge = stats.getHorizontalCharge();
+
+        if (charge < stats.rightChargeConsumption)
+        {
+            if (charge > 0)
+            {
+                _playerAudio.PlayFartSound();
+                stats.setHorizontalDiff(-1 * charge);
+            }
+            return;
+        }
         
-        // charge above threshold and cooldown up
-        if (charge < rightChargeConsumption || nextRightTime > Time.time)
+        if (nextRightTime > Time.time)
         {
             return;
         }
         
-        stats.setHorizontalDiff(-1f * rightChargeConsumption); // reversed
+        stats.setHorizontalDiff(-1f * stats.rightChargeConsumption); // reversed
         
         // find entities to knock back
         var origin = rigidbody.position;

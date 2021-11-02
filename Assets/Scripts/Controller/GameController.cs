@@ -10,6 +10,8 @@ public class GameController : MonoBehaviour
     private static GameController _instance;
     public static GameController instance {get {return _instance;}}
 
+    private static int deaths = 0;
+
     private void Awake() {
         if (_instance != null && _instance != this) {
             Destroy(this.gameObject);
@@ -31,7 +33,13 @@ public class GameController : MonoBehaviour
         LoadScene("WinScene");
     }
 
-    private void LoadScene(string level) {
+    private void LoadScene(string level)
+    {
+        var curLevel = SceneManager.GetActiveScene().name;
+        if (level != "WinScene" && curLevel != level)
+        {
+            deaths = 0;
+        }
         SceneManager.LoadScene(level);
     }
 
@@ -39,6 +47,7 @@ public class GameController : MonoBehaviour
         //probably better way of doing this
         Scene scene = SceneManager.GetActiveScene();
         LoadScene(scene.name);
+        deaths++;
     }
 
     void Update() {
@@ -49,5 +58,10 @@ public class GameController : MonoBehaviour
         } else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(cLayout.pauseButton())) {
             LoadScene("MainMenuScene");
         }
+    }
+
+    public int getDeaths()
+    {
+        return deaths;
     }
 }

@@ -17,6 +17,16 @@ public class PlayerAudio : MonoBehaviour
     private AudioClip _rightClip;
     [SerializeField]
     private AudioClip _deathClip;
+    [SerializeField]
+    private AudioClip _leftChargedClip;
+    [SerializeField]
+    private AudioClip _rightChargedClip;
+    [SerializeField]
+    private AudioClip _downChargedClip;
+    [SerializeField]
+    private AudioClip _upChargedClip;
+    [SerializeField]
+    private AudioClip _fartClip;
 
     void Start()
     {
@@ -63,5 +73,45 @@ public class PlayerAudio : MonoBehaviour
             _audioSource.loop = false;
             _audioSource.Play();
         }
+    }
+
+    public void PlayChargedSound(string direction)
+    {
+        if (_audioSource == null)
+        {
+            return;
+        }
+
+        _audioSource.loop = false;
+
+        var clip = _upChargedClip;
+        switch (direction)
+        {
+            case "up":
+                clip = _upChargedClip;
+                break;
+            case "down":
+                clip = _downChargedClip;
+                break;
+            case "left":
+                clip = _leftChargedClip;
+                break;
+            case "right":
+                clip = _rightChargedClip;
+                break;
+        }
+        
+        _audioSource.PlayOneShot(clip, 0.5f);
+    }
+
+    public void PlayFartSound()
+    {
+        if (_audioSource == null)
+        {
+            return;
+        }
+
+        _audioSource.loop = false;
+        _audioSource.PlayOneShot(_fartClip, 0.7f);
     }
 }

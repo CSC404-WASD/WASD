@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     private static PlayerStats _instance;
+    private static PlayerAudio _playerAudio;
     
 
     public static PlayerStats instance {get {return _instance;}}
@@ -16,6 +18,11 @@ public class PlayerStats : MonoBehaviour
     public bool isDashing = false;
     public float maxVerCharge = 1.0f;
     public float maxHorCharge = 1.0f;
+    
+    public float leftChargeConsumption = 0.3f;
+    public float rightChargeConsumption = 0.3f;
+    public float downChargeConsumption = 1.5f;
+    public float upChargeConsumption = 0.3f;
 
     public float meterChargeFactor = 1.0f;
     private Vector3 lastPosition;
@@ -30,6 +37,7 @@ public class PlayerStats : MonoBehaviour
 
         lastPosition = this.transform.position;
         moveSpeed = GetComponent<PlayerMovement>().GetMoveSpeed();
+        _playerAudio = GetComponent<PlayerAudio>();
     }
     // Update is called once per frame
     void Update()
@@ -41,6 +49,9 @@ public class PlayerStats : MonoBehaviour
             }
             return;
         }
+
+        var prevVerCharge = verCharge;
+        var prevHorCharge = horCharge;
 
         // Update meters
         if (!isDashing)
@@ -72,6 +83,8 @@ public class PlayerStats : MonoBehaviour
         {
             horCharge = -maxHorCharge;
         }
+     
+        IndicateChargeGain(prevVerCharge, prevHorCharge);
     }
 
     public void setStunned(bool stun = false, float time = 0.0f) {
@@ -105,5 +118,51 @@ public class PlayerStats : MonoBehaviour
     
     public float getStunTime() {
         return stunTime;
+    }
+
+    private void IndicateChargeGain(float prevVerCharge, float prevHorCharge)
+    {
+        // up
+        if (verCharge > 0)
+        {
+            var prevCharges = prevVerCharge > 0 ? Math.Floor(prevVerCharge / upChargeConsumption) : 0;
+            var newCharges = Math.Floor(verCharge / upChargeConsumption);
+            if (newCharges > prevCharges)
+            {
+                _playerAudio.PlayChargedSound("up");
+            }
+        }
+        // down
+        else
+        {
+            var prevCharges = prevVerCharge < 0 ? Math.Ceiling(prevVerCharge / downChargeConsumption) : 0;
+            var newCharges = Math.Ceiling(verCharge / downChargeConsumption);
+            if (newCharges < prevCharges) // negative
+            {
+                _playerAudio.PlayChargedSound("down");
+            }
+        }
+
+        // right
+        if (horCharge > 0)
+        {
+            var prevCharges = prevHorCharge > 0 ? Math.Floor(prevHorCharge / rightChargeConsumption) : 0;
+            var newCharges = Math.Floor(horCharge / rightChargeConsumption);
+            if (newCharges > prevCharges)
+            {
+                _playerAudio.PlayChargedSound("right");
+            }
+        }
+        // left
+        else
+        {
+            var prevCharges = prevHorCharge < 0 ? Math.Ceiling(prevHorCharge / leftChargeConsumption) : 0;
+            var newCharges = Math.Ceiling(horCharge / leftChargeConsumption);
+            if (newCharges < prevCharges) // negative
+            {
+                _playerAudio.PlayChargedSound("left");
+            }
+            
+        }
     }
 }
