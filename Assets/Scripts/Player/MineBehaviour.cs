@@ -49,7 +49,6 @@ public class MineBehaviour : MonoBehaviour
         }
         if (destroyed)
         {
-            PlayExplodeSound();
             Destroy(this.gameObject);
         }
     }
@@ -78,6 +77,7 @@ public class MineBehaviour : MonoBehaviour
             var enemyAI = other.GetComponent<BaseEnemyAI>();
             if (enemyAI != null)
             {
+                PlayExplodeSound();
                 enemyAI.Die();
                 return true;
             }
