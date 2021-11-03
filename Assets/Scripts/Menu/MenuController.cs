@@ -8,6 +8,7 @@ using System;
 
 public class MenuController : MonoBehaviour
 {
+    LevelSwitchController levelList;
     private int currentOption = 0;
     private GameObject[] options;
     //give a parent that holds all initial menu options
@@ -20,6 +21,7 @@ public class MenuController : MonoBehaviour
     void Start() {
         //find the menu options in the parent
         clayout = ControllerLayouts.instance;
+        levelList = LevelSwitchController.instance;
         LoadContainer(parent);
         lastPress = Time.time;
     }
@@ -96,6 +98,10 @@ public class MenuController : MonoBehaviour
     void ClickMenuOption() {
         var menuOptionData = options[currentOption].GetComponent<MenuOptionData>();
         if (menuOptionData.menuType == MenuType.Load) {
+            levelList.onLevelSequence = false;
+            if (menuOptionData.levelName == "MainMenuScene") {
+                levelList.ResetLevelList();
+            }
             LoadScene(menuOptionData.levelName);
         } else if (menuOptionData.menuType == MenuType.Exit) {
             Application.Quit();
@@ -106,6 +112,9 @@ public class MenuController : MonoBehaviour
         } else if (menuOptionData.menuType == MenuType.Controller) {
             clayout.toggleLayout();
             options[currentOption].GetComponent<Text>().text = String.Format("Current Controller: {0}", clayout.cType) ;
+        } else if (menuOptionData.menuType == MenuType.NextLevel) {
+            levelList.onLevelSequence = true;
+            LoadScene(levelList.GetCurrentLevel());
         }
     }
 

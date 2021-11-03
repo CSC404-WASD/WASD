@@ -29,8 +29,18 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void WinGame() {
-        LoadScene("WinScene");
+    public void WinLevel() {
+        var levelList = FindObjectOfType<LevelSwitchController>();
+        if (levelList != null) {
+            levelList.NextLevel();
+            if (levelList.NoMoreLevels() || !levelList.onLevelSequence) {
+                LoadScene("WinScene");
+            } else{
+                LoadScene("InBetweenLevelMenu");
+            }
+        } else {
+            LoadScene("WinScene");
+        }
     }
 
     private void LoadScene(string level)
@@ -57,6 +67,10 @@ public class GameController : MonoBehaviour
             RestartGame();
         } else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(cLayout.pauseButton())) {
             LoadScene("MainMenuScene");
+            var levelList = FindObjectOfType<LevelSwitchController>();
+            if (levelList != null) {
+                levelList.ResetLevelList();
+            }
         }
     }
 
