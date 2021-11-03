@@ -57,7 +57,10 @@ public class GameController : MonoBehaviour
         //probably better way of doing this
         Scene scene = SceneManager.GetActiveScene();
         LoadScene(scene.name);
-        deaths++;
+        if(scene.name != "WinScene")
+        {
+            deaths++;
+        }
     }
 
     void Update() {
