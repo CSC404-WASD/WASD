@@ -15,6 +15,7 @@ public class PlayerCombat : MonoBehaviour
     public Vector3 attackRange = new Vector3(0.5f, 0.5f, 0.25f);
     //cube is just a visual for now, once animation is added can be removed
     public GameObject attackIndicator;
+    public float attackDuration = 0.25f;
     public LayerMask enemyLayers;
 
     public float upCooldown = 0.25f;
@@ -136,7 +137,7 @@ public class PlayerCombat : MonoBehaviour
         //delay next attack
         _playerAudio.PlayUpSound();
         nextUpAttackTime = Time.time + upCooldown;
-        StartCoroutine(HideCube(0.25f));
+        StartCoroutine(HideCube(attackDuration));
     }
 
     private void PerformDownAttack() {
