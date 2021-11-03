@@ -30,6 +30,7 @@ public class BaseEnemyAI : MonoBehaviour
             stunTime -= Time.deltaTime;
             if (stunTime <= 0)
             {
+                this.GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
                 stunned = false;
             }
         }
