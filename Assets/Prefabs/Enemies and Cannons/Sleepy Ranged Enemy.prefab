@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 7850513776753805890}
   m_Layer: 6
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

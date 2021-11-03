@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 762507092}
   m_Layer: 6
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,7 +129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1936285793580592483, guid: dddd987d8fe11644eb2148af9f26e413, type: 3}
       propertyPath: m_Name
-      value: Dynamic Strong Enemy
+      value: Sleepy Strong Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 1936285793580592483, guid: dddd987d8fe11644eb2148af9f26e413, type: 3}
       propertyPath: m_Layer
