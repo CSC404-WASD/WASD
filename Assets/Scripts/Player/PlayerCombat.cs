@@ -15,6 +15,7 @@ public class PlayerCombat : MonoBehaviour
     public Vector3 attackRange = new Vector3(0.5f, 0.5f, 0.25f);
     //cube is just a visual for now, once animation is added can be removed
     public GameObject attackIndicator;
+    public float attackDuration = 0.25f;
     public LayerMask enemyLayers;
 
     public float upCooldown = 0.25f;
@@ -49,39 +50,59 @@ public class PlayerCombat : MonoBehaviour
         _playerAudio = GetComponent<PlayerAudio>();
     }
 
+    void FixedUpdate()
+    {
+        // If attack in progress, poll for that.
+        if(stats.isAttacking)
+        {
+            Collider[] hitColliders = Physics.OverlapBox(attackPoint.position, attackRange, Quaternion.identity, enemyLayers);
+            foreach(Collider enemy in hitColliders) {
+                //might want to make an Enemy file for this
+                var enemyAI = enemy.GetComponent<BaseEnemyAI>();
+                if (enemyAI != null)
+                {
+                    enemyAI.Die();
+                }
+            }
+        }
+    }
     void Update()
     {
-        
-        //testing with ps4 controller on mac, button 6 = press left trigger button 7 = press right trigger
-        // can also use axis 5 for a val between -1 and 1 (left trigger), or axis 6 for rt
-        if (Input.GetKeyDown(KeyCode.U) && !stats.isAttacking && !stats.isDashing) {
-            PerformUpAttack();
-        // button 3 is triangle on ps (up) and y on xbox360 (up)
-        } else if (Input.GetKeyDown(cLayout.upButton()) && !stats.isAttacking && !stats.isDashing) {
-            PerformUpAttack();
-        }
 
-        if (Input.GetKeyDown(KeyCode.J) && !stats.isDashing)
-        {
-            PerformDownAttack();
-        }
-        // button 3 is triangle on ps (up) and y on xbox360 (up)
-        //joystick button 1 = x (down) for ps4 controller, b (right) for xbox360 thanks devs
-        else if (Input.GetKeyDown(cLayout.downButton()) && !stats.isDashing) {
-            PerformDownAttack();
-        }
 
-        //button 2 is right (circle) on ps4 and left (x) on xbox360
-        if ((Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(cLayout.rightButton())) && !stats.isAttacking && !stats.isDashing)
-        {
-            PerformDKnockback();
-        }
+        // Else, check for inputs.
+        if(!stats.isAttacking) {
+            //testing with ps4 controller on mac, button 6 = press left trigger button 7 = press right trigger
+            // can also use axis 5 for a val between -1 and 1 (left trigger), or axis 6 for rt
+            if (Input.GetKeyDown(KeyCode.U) && !stats.isAttacking && !stats.isDashing) {
+                PerformUpAttack();
+            // button 3 is triangle on ps (up) and y on xbox360 (up)
+            } else if (Input.GetKeyDown(cLayout.upButton()) && !stats.isAttacking && !stats.isDashing) {
+                PerformUpAttack();
+            }
 
-        if (Input.GetKeyDown(KeyCode.H) && !stats.isDashing && !stats.isAttacking) {
-            PerformADash();
-        //button 0 is left on ps4(square) and down (a) on xbox360
-        } else if (Input.GetKeyDown(cLayout.leftButton()) && !stats.isDashing && !stats.isAttacking) {
-            PerformADash();
+            if (Input.GetKeyDown(KeyCode.J) && !stats.isDashing)
+            {
+                PerformDownAttack();
+            }
+            // button 3 is triangle on ps (up) and y on xbox360 (up)
+            //joystick button 1 = x (down) for ps4 controller, b (right) for xbox360 thanks devs
+            else if (Input.GetKeyDown(cLayout.downButton()) && !stats.isDashing) {
+                PerformDownAttack();
+            }
+
+            //button 2 is right (circle) on ps4 and left (x) on xbox360
+            if ((Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(cLayout.rightButton())) && !stats.isAttacking && !stats.isDashing)
+            {
+                PerformDKnockback();
+            }
+
+            if (Input.GetKeyDown(KeyCode.H) && !stats.isDashing && !stats.isAttacking) {
+                PerformADash();
+            //button 0 is left on ps4(square) and down (a) on xbox360
+            } else if (Input.GetKeyDown(cLayout.leftButton()) && !stats.isDashing && !stats.isAttacking) {
+                PerformADash();
+            }
         }
     }
 
@@ -109,21 +130,14 @@ public class PlayerCombat : MonoBehaviour
 
         // execute attack
         stats.isAttacking = true;
-        Collider[] hitColliders = Physics.OverlapBox(attackPoint.position, attackRange, Quaternion.identity, enemyLayers);
         attackIndicator.SetActive(true);
-        foreach(Collider enemy in hitColliders) {
-            //might want to make an Enemy file for this
-            var enemyAI = enemy.GetComponent<BaseEnemyAI>();
-            if (enemyAI != null)
-            {
-                enemyAI.Die();
-            }
-        }
+
+        // actual collider check occurs in FixedUpdate.
 
         //delay next attack
         _playerAudio.PlayUpSound();
         nextUpAttackTime = Time.time + upCooldown;
-        StartCoroutine(HideCube(0.25f));
+        StartCoroutine(HideCube(attackDuration));
     }
 
     private void PerformDownAttack() {
