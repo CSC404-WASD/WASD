@@ -31,7 +31,7 @@ public class EnemyController : MonoBehaviour
         numEnemies--;
         //can open a door probably here
         if (numEnemies == 0) {
-            gameController.WinGame();
+            gameController.WinLevel();
         }
     }    
 }
