@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Projectile
+  - Enemy
+  - Cannon
+  - Strong Enemy
+  - Mine
+  - SFX Audio Source
+  - Mineable Wall
   layers:
   - Default
   - TransparentFX
@@ -11,8 +18,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Enemies
+  - Strong Enemies
   - 
   - 
   - 
