@@ -11,6 +11,7 @@ public class BossBehaviour : MonoBehaviour
     public GameObject rangedEnemy;
     
     public GameObject rightEnemy;
+    public GameObject leftEnemy;
     public Vector3 rightSpawnPosition;
     
     public Material activateMaterial;
@@ -47,13 +48,14 @@ public class BossBehaviour : MonoBehaviour
                 UpSpawn();
             } else if (_attackIndex == 2) {
                 RightSpawn();
+            } else if (_attackIndex == 3) {
+                LeftSpawn();
             }
             _nextSpawnTime = Time.time + spawnInterval;
             
             _attackIndex++;
             if (_attackIndex >= indicatorColours.Length) {
-                rend.material.color = Color.white;
-                this.GetComponent<BossEnemyAI>().SetVulnerable();
+                StartCoroutine(SetBossVulnerable(10.0f));
             }
         } else if (_attackIndex < indicatorColours.Length) {
             //also Mathf.PingPong(Time.time, duration) for back and forth
@@ -106,5 +108,21 @@ public class BossBehaviour : MonoBehaviour
         yield return new WaitForSeconds(time);
         Quaternion rot = Quaternion.Euler(new Vector3(90, 0, 0));
         StartCoroutine(SpawnLaser(0.1f, 5, rot, new Vector3(10, 0, 65), new Vector3(20,0,0)));
+    }
+
+    public void LeftSpawn() {
+        Vector3 middlePosition = transform.position + new Vector3(-30,0,30);
+
+        //spawn two guys
+        for (int i = -1; i < 2; i+=2) {
+            Vector3 spawnPos = middlePosition + new Vector3(i * 2.5f,0 ,i * 2.5f);
+            Instantiate(leftEnemy, spawnPos, transform.rotation);
+        }
+    }
+
+    IEnumerator SetBossVulnerable(float time) {
+        yield return new WaitForSeconds(time);
+        rend.material.color = Color.white;
+        this.GetComponent<BossEnemyAI>().SetVulnerable();
     }
 }
