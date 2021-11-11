@@ -113,6 +113,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 1
+  deathTime: 0.8
+  deathFlashPeriod: 0.1
   walkVelocity: 8
   walkMaxSpeed: 8
   absMaxSpeed: 10

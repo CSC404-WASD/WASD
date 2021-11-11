@@ -56,12 +56,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1603971442357290617, guid: dddd987d8fe11644eb2148af9f26e413, type: 3}
+      propertyPath: deathTime
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1603971442357290617, guid: dddd987d8fe11644eb2148af9f26e413, type: 3}
       propertyPath: walkMaxSpeed
       value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1603971442357290617, guid: dddd987d8fe11644eb2148af9f26e413, type: 3}
       propertyPath: walkVelocity
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1603971442357290617, guid: dddd987d8fe11644eb2148af9f26e413, type: 3}
+      propertyPath: deathFlashPeriod
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1936285793580592483, guid: dddd987d8fe11644eb2148af9f26e413, type: 3}
       propertyPath: m_Name
