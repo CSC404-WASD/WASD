@@ -69,6 +69,11 @@ public class BaseEnemyAI : MonoBehaviour
             collider.enabled = false;
         }
 
+        // Shake camera
+        var cam = GameObject.Find("Camera");
+        cam.GetComponent<CameraController>().shakeDuration = 1.0f;
+
+
         StartCoroutine(DeathFlash(deathFlashPeriod));
         StartCoroutine(FinishDying(deathTime));
     }
@@ -93,7 +98,6 @@ public class BaseEnemyAI : MonoBehaviour
             flash = !flash;
             yield return new WaitForSeconds(time);
         }
-
     }
 
     public void ActivateEnemy(bool param) {
