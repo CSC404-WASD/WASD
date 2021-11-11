@@ -44,7 +44,7 @@ public class BaseEnemyAI : MonoBehaviour
     }
 
     //Die and remove the enemy from the controller
-    public void Die() {
+    public virtual void Die() {
         var parent = this.gameObject.GetComponentInParent<EnemyKillWallOpenTrigger>();
         if (parent != null) {
             parent.RemoveEnemy();

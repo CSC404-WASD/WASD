@@ -41,19 +41,26 @@ public class BossBehaviour : MonoBehaviour
         if (Time.time >= _nextSpawnTime && _bActive)
         {
 
-            // if (_attackIndex == 0) {
-            //     UpSpawn();
-            // } else if (_attackIndex == 1) {
-            //     DownSpawn();
-            // }
-            RightSpawn();
+            if (_attackIndex == 0) {
+                DownSpawn();
+            } else if (_attackIndex == 1) {
+                UpSpawn();
+            } else if (_attackIndex == 2) {
+                RightSpawn();
+            }
             _nextSpawnTime = Time.time + spawnInterval;
             
-            _attackIndex = (_attackIndex + 1) % indicatorColours.Length;
-        } 
-        //also Mathf.PingPong(Time.time, duration) for back and forth
-        float lerp = Time.time % spawnInterval / spawnInterval;
-        rend.material.color = Color.Lerp(colourStart, indicatorColours[_attackIndex], lerp);
+            _attackIndex++;
+            if (_attackIndex >= indicatorColours.Length) {
+                rend.material.color = Color.white;
+                this.GetComponent<BossEnemyAI>().SetVulnerable();
+            }
+        } else if (_attackIndex < indicatorColours.Length) {
+            //also Mathf.PingPong(Time.time, duration) for back and forth
+            float lerp = Time.time % spawnInterval / spawnInterval;
+            rend.material.color = Color.Lerp(colourStart, indicatorColours[_attackIndex], lerp);
+        }
+
         
     }
 
@@ -82,19 +89,22 @@ public class BossBehaviour : MonoBehaviour
     }
 
     public void RightSpawn() {
-        StartCoroutine(SpawnLaser(0.1f, 12));
+        StartCoroutine(SpawnLaser(0.1f, 5, rightEnemy.transform.rotation, rightSpawnPosition, new Vector3(0,0,20)));
+        StartCoroutine(SpawnLaserX(2.0f));
     }
 
-    IEnumerator SpawnLaser(float time, int count) {
+    IEnumerator SpawnLaser(float time, int count, Quaternion rot, Vector3 position, Vector3 posDif) {
         yield return new WaitForSeconds(time);
-        Debug.Log("lmao");
-        Instantiate(rightEnemy, rightSpawnPosition, rightEnemy.transform.rotation);
-        rightSpawnPosition += new Vector3(0,0,10);
+        Instantiate(rightEnemy, position, rot);
+        position += posDif;
         if (count > 0) {
-            StartCoroutine(SpawnLaser(time, count - 1));
-        } else {
-            //need to change
-            rightSpawnPosition -= new Vector3(0,0,120);
-        }
+            StartCoroutine(SpawnLaser(time, count - 1, rot, position, posDif));
+        } 
+    }
+
+    IEnumerator SpawnLaserX(float time) {
+        yield return new WaitForSeconds(time);
+        Quaternion rot = Quaternion.Euler(new Vector3(90, 0, 0));
+        StartCoroutine(SpawnLaser(0.1f, 5, rot, new Vector3(10, 0, 65), new Vector3(20,0,0)));
     }
 }

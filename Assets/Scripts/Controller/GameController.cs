@@ -39,8 +39,14 @@ public class GameController : MonoBehaviour
                 LoadScene("InBetweenLevelMenu");
             }
         } else {
-            LoadScene("WinScene");
+            if (SceneManager.GetActiveScene().name != "Level4Scene") {
+                LoadScene("WinScene");
+            } 
         }
+    }
+
+    public void WinBossLevel() {
+        LoadScene("WinScene");
     }
 
     private void LoadScene(string level)
