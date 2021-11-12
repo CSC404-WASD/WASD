@@ -91,8 +91,8 @@ public class BossBehaviour : MonoBehaviour
     }
 
     public void RightSpawn() {
-        StartCoroutine(SpawnLaser(0.1f, 5, rightEnemy.transform.rotation, rightSpawnPosition, new Vector3(0,0,20)));
-        StartCoroutine(SpawnLaserX(2.0f));
+        StartCoroutine(SpawnLaser(1f, 5, rightEnemy.transform.rotation, rightSpawnPosition, new Vector3(0,0,20)));
+        StartCoroutine(SpawnLaserX(0.5f));
     }
 
     IEnumerator SpawnLaser(float time, int count, Quaternion rot, Vector3 position, Vector3 posDif) {
@@ -107,7 +107,7 @@ public class BossBehaviour : MonoBehaviour
     IEnumerator SpawnLaserX(float time) {
         yield return new WaitForSeconds(time);
         Quaternion rot = Quaternion.Euler(new Vector3(90, 0, 0));
-        StartCoroutine(SpawnLaser(0.1f, 5, rot, new Vector3(10, 0, 65), new Vector3(20,0,0)));
+        StartCoroutine(SpawnLaser(1f, 5, rot, new Vector3(10, 0, 65), new Vector3(20,0,0)));
     }
 
     public void LeftSpawn() {
