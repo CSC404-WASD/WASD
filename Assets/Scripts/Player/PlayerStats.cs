@@ -27,6 +27,13 @@ public class PlayerStats : MonoBehaviour
     public float meterChargeFactor = 1.0f;
     private Vector3 lastPosition;
     private float moveSpeed;
+    
+    public GameObject horizontalParticles;
+    public GameObject verticalParticles;
+    private static Color upParticleColor = Color.red;
+    private static Color downParticleColor = Color.blue;
+    private static Color leftParticleColor = Color.yellow;
+    private static Color rightParticleColor = Color.green;
 
     private void Awake() {
         if (_instance != null && _instance != this) {
@@ -38,6 +45,9 @@ public class PlayerStats : MonoBehaviour
         lastPosition = this.transform.position;
         moveSpeed = GetComponent<PlayerMovement>().GetMoveSpeed();
         _playerAudio = GetComponent<PlayerAudio>();
+        verticalParticles.SetActive(false);
+        horizontalParticles.SetActive(false);
+        
     }
     // Update is called once per frame
     void Update()
@@ -130,6 +140,18 @@ public class PlayerStats : MonoBehaviour
             if (newCharges > prevCharges)
             {
                 _playerAudio.PlayChargedSound("up");
+                var system = verticalParticles.GetComponent<ParticleSystem>();
+                if (system != null)
+                {
+                    var main = system.main;
+                    main.startColor = upParticleColor;
+                }
+                verticalParticles.SetActive(true);
+            }
+
+            if (newCharges == 0 && verticalParticles.active)
+            {
+                verticalParticles.SetActive(false);
             }
         }
         // down
@@ -140,6 +162,19 @@ public class PlayerStats : MonoBehaviour
             if (newCharges < prevCharges) // negative
             {
                 _playerAudio.PlayChargedSound("down");
+                
+                var system = verticalParticles.GetComponent<ParticleSystem>();
+                if (system != null)
+                {
+                    var main = system.main;
+                    main.startColor = downParticleColor;
+                }
+                verticalParticles.SetActive(true);
+            }
+            
+            if (newCharges == 0 && verticalParticles.active)
+            {
+                verticalParticles.SetActive(false);
             }
         }
 
@@ -151,6 +186,17 @@ public class PlayerStats : MonoBehaviour
             if (newCharges > prevCharges)
             {
                 _playerAudio.PlayChargedSound("right");
+                var system = horizontalParticles.GetComponent<ParticleSystem>();
+                if (system != null)
+                {
+                    var main = system.main;
+                    main.startColor = rightParticleColor;
+                }
+                horizontalParticles.SetActive(true);
+            }
+            if (newCharges == 0 && horizontalParticles.active)
+            {
+                horizontalParticles.SetActive(false);
             }
         }
         // left
@@ -161,8 +207,19 @@ public class PlayerStats : MonoBehaviour
             if (newCharges < prevCharges) // negative
             {
                 _playerAudio.PlayChargedSound("left");
+                var system = horizontalParticles.GetComponent<ParticleSystem>();
+                if (system != null)
+                {
+                    var main = system.main;
+                    main.startColor = leftParticleColor;
+                }
+                horizontalParticles.SetActive(true);
             }
             
+            if (newCharges == 0 && horizontalParticles.active)
+            {
+                horizontalParticles.SetActive(false);
+            }
         }
     }
 }
