@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1dcf187e1a1444057b49c17008287a03
+guid: ecec27c7953854cb49cc2685aaa1f5c7
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Courier New
+  - Bebas Kai
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
