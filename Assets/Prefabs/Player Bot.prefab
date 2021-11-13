@@ -405,12 +405,13 @@ MonoBehaviour:
   attackPoint: {fileID: 1209418372181982417}
   attackRange: {x: 3, y: 0.1, z: 3}
   attackIndicator: {fileID: 5440464042939631149}
+  attackDuration: 0.25
   enemyLayers:
     serializedVersion: 2
     m_Bits: 64
   upCooldown: 0.25
   downCooldown: 2
-  downMine: {fileID: 4340560450993231603, guid: 1be873c2652df45259d02c6db7b3942b, type: 3}
+  downMine: {fileID: 1931307505075131670, guid: 8b70a4f45f69c480e9fe5e661e90c19e, type: 3}
   leftCooldown: 0.25
   dashLength: 0.25
   rightCooldown: 0.25
