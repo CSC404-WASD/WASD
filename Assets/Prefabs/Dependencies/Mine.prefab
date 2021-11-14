@@ -224,6 +224,7 @@ MonoBehaviour:
   armTime: 1
   activateMaterial: {fileID: 2100000, guid: 306720d85dd064dac9c192de0a55b794, type: 2}
   mineRange: 2
+  armTimer: {fileID: 7261759413632238814}
 --- !u!1001 &3530168355778636706
 PrefabInstance:
   m_ObjectHideFlags: 0
