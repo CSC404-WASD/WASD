@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BaseEnemyAI : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class BaseEnemyAI : MonoBehaviour
     protected bool stunned = false;
     private float stunTime = 0f;
     public bool active = true;
+    public Text alertText;
     
     // Start is called before the first frame update
     public void Start()
@@ -55,5 +57,15 @@ public class BaseEnemyAI : MonoBehaviour
 
     public void ActivateEnemy(bool param) {
         active = param;
+        if (alertText != null)
+        {
+            alertText.enabled = true;
+            StartCoroutine(DisableAlert(3.0f));
+        }
+    }
+
+    IEnumerator DisableAlert(float time) {
+        yield return new WaitForSeconds(time);
+        alertText.enabled = false;
     }
 }
