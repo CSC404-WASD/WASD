@@ -11,10 +11,7 @@ public class PlayerCombat : MonoBehaviour
     public Rigidbody rigidbody;
     private PlayerAudio _playerAudio;
     
-    public Transform attackPoint;
-    public Vector3 attackRange = new Vector3(0.5f, 0.5f, 0.25f);
-    //cube is just a visual for now, once animation is added can be removed
-    public GameObject attackIndicator;
+    public GameObject attackObject;
     public float attackDuration = 0.25f;
     public LayerMask enemyLayers;
 
@@ -55,9 +52,9 @@ public class PlayerCombat : MonoBehaviour
         // If attack in progress, poll for that.
         if(stats.isAttacking)
         {
-            Collider[] hitColliders = Physics.OverlapBox(attackPoint.position, attackRange, Quaternion.identity, enemyLayers);
+            //use lossyscale /2 because using whole lossy scale seems to be bigger than actual indicator
+            Collider[] hitColliders = Physics.OverlapBox(attackObject.transform.position, attackObject.transform.lossyScale / 2, Quaternion.identity, enemyLayers);
             foreach(Collider enemy in hitColliders) {
-                //might want to make an Enemy file for this
                 var enemyAI = enemy.GetComponent<BaseEnemyAI>();
                 if (enemyAI != null)
                 {
@@ -130,7 +127,7 @@ public class PlayerCombat : MonoBehaviour
 
         // execute attack
         stats.isAttacking = true;
-        attackIndicator.SetActive(true);
+        attackObject.SetActive(true);
 
         // actual collider check occurs in FixedUpdate.
 
@@ -246,16 +243,16 @@ public class PlayerCombat : MonoBehaviour
     }
 
     void OnDrawGizmosSelected() {
-        if (attackPoint == null) {
+        if (attackObject == null) {
             return;
         }
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(attackPoint.position, attackRange);
+        Gizmos.DrawWireCube(attackObject.transform.position, attackObject.transform.lossyScale / 2);
     }
 
     IEnumerator HideCube(float time) {
         yield return new WaitForSeconds(time);
-        attackIndicator.SetActive(false);
+        attackObject.SetActive(false);
         stats.isAttacking = false;
     }
 

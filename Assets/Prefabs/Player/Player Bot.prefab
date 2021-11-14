@@ -90,10 +90,10 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 382505058637477266}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &3092681431596216057
@@ -164,9 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidbody: {fileID: 0}
-  attackPoint: {fileID: 7807283358432362462}
-  attackRange: {x: 3, y: 0.1, z: 3}
-  attackIndicator: {fileID: 3213001672269955273}
+  attackObject: {fileID: 3213001672269955273}
   attackDuration: 0.25
   enemyLayers:
     serializedVersion: 2
@@ -266,7 +264,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 0.008361816
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -376,14 +374,14 @@ GameObject:
   - component: {fileID: 7967715589910292641}
   - component: {fileID: 2666871534157928614}
   - component: {fileID: 2443452052281270990}
-  - component: {fileID: 2401043046062447561}
+  - component: {fileID: 3564706691782718642}
   m_Layer: 0
   m_Name: AttackPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7967715589910292641
 Transform:
   m_ObjectHideFlags: 0
@@ -393,7 +391,7 @@ Transform:
   m_GameObject: {fileID: 3213001672269955273}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.012, y: 0.054, z: -0.01}
-  m_LocalScale: {x: 0.05, y: 0.1, z: 0.05}
+  m_LocalScale: {x: 0.3, y: 0.01, z: 0.3}
   m_Children: []
   m_Father: {fileID: 2423140888823559235}
   m_RootOrder: 4
@@ -405,7 +403,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3213001672269955273}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &2443452052281270990
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -447,20 +445,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2401043046062447561
-MeshCollider:
+--- !u!65 &3564706691782718642
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3213001672269955273}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0.0000076293945}
 --- !u!1 &7840484928821800425
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,7 +482,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7840484928821800425}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.023, y: 0.023524582, z: -0.061}
+  m_LocalPosition: {x: 0, y: 0.033, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 2423140888823559235}
@@ -581,10 +578,10 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8163128688292978515}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &113932733687928916
