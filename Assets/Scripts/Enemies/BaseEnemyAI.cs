@@ -71,7 +71,7 @@ public class BaseEnemyAI : MonoBehaviour
 
         // Shake camera
         var cam = GameObject.Find("Camera");
-        cam.GetComponent<CameraController>().shakeDuration = 1.0f;
+        cam.GetComponent<CameraController>().Shake(0.1f);
 
 
         StartCoroutine(DeathFlash(deathFlashPeriod));

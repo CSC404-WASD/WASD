@@ -42,4 +42,9 @@ public class CameraController : MonoBehaviour
 			transform.position = player.transform.position + _cameraOffset;
 		}
     }
+
+    public void Shake(float time)
+    {
+        shakeDuration += time;
+    }
 }
