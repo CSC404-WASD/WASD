@@ -76,6 +76,9 @@ public class MineBehaviour : MonoBehaviour
             _audioSource.loop = false;
             _audioSource.Play();
         }
+        // Shake camera
+        var cam = GameObject.Find("Camera");
+        cam.GetComponent<CameraController>().Shake(0.2f);
     }
 
 
