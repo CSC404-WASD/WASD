@@ -30,10 +30,10 @@ public class PlayerStats : MonoBehaviour
     
     public GameObject horizontalParticles;
     public GameObject verticalParticles;
-    private static Color upParticleColor = new Color(0.92f, 0.47f, 0.54f);
-    private static Color downParticleColor = new Color(0.45f, 0.85f, 0.91f);
-    private static Color leftParticleColor = new Color(0.91f, 0.91f, 0.47f);
-    private static Color rightParticleColor = new Color(0.46f, 0.86f, 0.43f);
+    private static Color upParticleColor = Color.red;
+    private static Color downParticleColor = Color.blue;
+    private static Color leftParticleColor = Color.yellow;
+    private static Color rightParticleColor = Color.green;
 
     private void Awake() {
         if (_instance != null && _instance != this) {
