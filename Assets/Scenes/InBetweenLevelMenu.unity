@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -652,7 +652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7394801474506801256, guid: e115f0036e5c145d2b3e416c04c26ea9, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 240
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7394801474506801256, guid: e115f0036e5c145d2b3e416c04c26ea9, type: 3}
       propertyPath: m_SizeDelta.y
@@ -692,7 +692,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7394801474506801256, guid: e115f0036e5c145d2b3e416c04c26ea9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -25
+      value: -17.5
       objectReference: {fileID: 0}
     - target: {fileID: 7394801474506801256, guid: e115f0036e5c145d2b3e416c04c26ea9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -709,6 +709,14 @@ PrefabInstance:
     - target: {fileID: 7394801474506801257, guid: e115f0036e5c145d2b3e416c04c26ea9, type: 3}
       propertyPath: m_Text
       value: Back to Main Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7394801474506801257, guid: e115f0036e5c145d2b3e416c04c26ea9, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: ecec27c7953854cb49cc2685aaa1f5c7, type: 3}
+    - target: {fileID: 7394801474506801257, guid: e115f0036e5c145d2b3e416c04c26ea9, type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7394801474506801257, guid: e115f0036e5c145d2b3e416c04c26ea9, type: 3}
       propertyPath: m_FontData.m_HorizontalOverflow
@@ -840,7 +848,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7394801474506801256, guid: e115f0036e5c145d2b3e416c04c26ea9, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 150
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7394801474506801256, guid: e115f0036e5c145d2b3e416c04c26ea9, type: 3}
       propertyPath: m_SizeDelta.y
@@ -880,7 +888,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7394801474506801256, guid: e115f0036e5c145d2b3e416c04c26ea9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 30
+      value: 17.5
       objectReference: {fileID: 0}
     - target: {fileID: 7394801474506801256, guid: e115f0036e5c145d2b3e416c04c26ea9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -897,6 +905,14 @@ PrefabInstance:
     - target: {fileID: 7394801474506801257, guid: e115f0036e5c145d2b3e416c04c26ea9, type: 3}
       propertyPath: m_Text
       value: Next Level
+      objectReference: {fileID: 0}
+    - target: {fileID: 7394801474506801257, guid: e115f0036e5c145d2b3e416c04c26ea9, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: ecec27c7953854cb49cc2685aaa1f5c7, type: 3}
+    - target: {fileID: 7394801474506801257, guid: e115f0036e5c145d2b3e416c04c26ea9, type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7394801474506801257, guid: e115f0036e5c145d2b3e416c04c26ea9, type: 3}
       propertyPath: m_FontData.m_HorizontalOverflow

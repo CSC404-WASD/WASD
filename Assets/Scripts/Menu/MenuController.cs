@@ -124,6 +124,10 @@ public class MenuController : MonoBehaviour
 
     void LoadContainer(GameObject obj) {
         options = new GameObject[obj.transform.childCount];
+        ToggleActive act = parent.GetComponent<ToggleActive>();
+        if (act != null) {
+            act.SetFlash(false);
+        }
         for (int i = 0; i < parent.transform.childCount; i++) {
             options[i] = parent.transform.GetChild(i).gameObject;
         }
@@ -136,6 +140,11 @@ public class MenuController : MonoBehaviour
     void ToggleOptions(GameObject[] objs, bool show) {
         foreach (var obj in objs) {
             obj.GetComponent<Text>().enabled = show;
+        }
+        //there is a better way to do this
+        ToggleActive act = objs[0].GetComponent<ToggleActive>();
+        if (act != null) {
+            act.SetFlash(true);
         }
     }
 }

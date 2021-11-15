@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BaseEnemyAI : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class BaseEnemyAI : MonoBehaviour
     protected bool stunned = false;
     private float stunTime = 0f;
     public bool active = true;
+    public Text alertText;
+
+    private bool flash = false;
     
     // Start is called before the first frame update
     public void Start()
@@ -20,6 +24,8 @@ public class BaseEnemyAI : MonoBehaviour
         eController = EnemyController.instance;
         eController.addEnemy();
         player = GameObject.FindWithTag("Player");
+
+        //normalMaterial = GetComponent<Renderer>().material;
     }
 
     // Update is called once per frame
@@ -43,17 +49,66 @@ public class BaseEnemyAI : MonoBehaviour
         stunTime = duration;
     }
 
-    //Die and remove the enemy from the controller
+    //Start dying sequence
     public void Die() {
+        // Update wall open triggers
         var parent = this.gameObject.GetComponentInParent<EnemyKillWallOpenTrigger>();
         if (parent != null) {
             parent.RemoveEnemy();
         }
+
+        // Stop this enemy from moving
+        active = false;
+        this.GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
+
+        // Deactivate collider
+        Collider collider = this.gameObject.GetComponent<Collider>();
+        if (collider != null) {
+            collider.enabled = false;
+        }
+
+        // Shake camera
+        var cam = GameObject.Find("Camera");
+        cam.GetComponent<CameraController>().Shake(0.1f);
+
+
+        StartCoroutine(DeathFlash(0.1f));
+        StartCoroutine(FinishDying(0.6f));
+    }
+
+    IEnumerator FinishDying(float time) {
+        yield return new WaitForSeconds(time);
         Destroy(this.gameObject);
         eController.removeEnemy();
     }
 
+    IEnumerator DeathFlash(float time) {
+        while(true)
+        {
+            if (flash) 
+            {
+                this.transform.localScale = new Vector3(0,0,0);
+            }
+            else
+            {
+                this.transform.localScale = new Vector3(1,1,1);
+            }
+            flash = !flash;
+            yield return new WaitForSeconds(time);
+        }
+    }
+
     public void ActivateEnemy(bool param) {
         active = param;
+        if (alertText != null)
+        {
+            alertText.enabled = true;
+            StartCoroutine(DisableAlert(3.0f));
+        }
+    }
+
+    IEnumerator DisableAlert(float time) {
+        yield return new WaitForSeconds(time);
+        alertText.enabled = false;
     }
 }
