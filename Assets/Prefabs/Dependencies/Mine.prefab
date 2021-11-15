@@ -28,7 +28,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _explodeClip: {fileID: 8300000, guid: a19e2ce8ce21a43838583a8935a1b8fc, type: 3}
   armTime: 1
-  activateMaterial: {fileID: 2100000, guid: 306720d85dd064dac9c192de0a55b794, type: 2}
+  activateMaterial: {fileID: 2100000, guid: c9f4214ef2967427e86d63800ac3daa7, type: 2}
   mineRange: 2
 --- !u!1001 &1588653703764748359
 PrefabInstance:
@@ -96,7 +96,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: eb7daf728ed3141b2995d918e01296f8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: c9f4214ef2967427e86d63800ac3daa7, type: 2}
+      objectReference: {fileID: 2100000, guid: 306720d85dd064dac9c192de0a55b794, type: 2}
     - target: {fileID: 919132149155446097, guid: eb7daf728ed3141b2995d918e01296f8, type: 3}
       propertyPath: m_Name
       value: Mine
