@@ -128,6 +128,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8a0980d1e917af46ba3cb2177601973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  active: 1
+  deathTime: 0.8
+  deathFlashPeriod: 0.1
   walkVelocity: 16
   walkMaxSpeed: 16
   absMaxSpeed: 20
