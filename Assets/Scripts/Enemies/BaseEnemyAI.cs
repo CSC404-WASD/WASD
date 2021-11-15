@@ -15,8 +15,6 @@ public class BaseEnemyAI : MonoBehaviour
     //public Material dyingMaterial;
     //private Material normalMaterial;
     private bool flash = false;
-    public float deathTime = 1.0f;
-    public float deathFlashPeriod = 0.1f;
     
     // Start is called before the first frame update
     public void Start()
@@ -74,8 +72,8 @@ public class BaseEnemyAI : MonoBehaviour
         cam.GetComponent<CameraController>().Shake(0.1f);
 
 
-        StartCoroutine(DeathFlash(deathFlashPeriod));
-        StartCoroutine(FinishDying(deathTime));
+        StartCoroutine(DeathFlash(0.1f));
+        StartCoroutine(FinishDying(0.6f));
     }
 
     IEnumerator FinishDying(float time) {
