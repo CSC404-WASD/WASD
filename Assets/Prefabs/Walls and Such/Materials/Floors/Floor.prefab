@@ -4789,7 +4789,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7763190024131449957}
   m_Layer: 0
-  m_Name: PR_FloorFull
+  m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
