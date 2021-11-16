@@ -376,7 +376,6 @@ GameObject:
   - component: {fileID: 7967715589910292641}
   - component: {fileID: 2666871534157928614}
   - component: {fileID: 2443452052281270990}
-  - component: {fileID: 3564706691782718642}
   m_Layer: 0
   m_Name: AttackPlane
   m_TagString: Untagged
@@ -447,19 +446,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3564706691782718642
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3213001672269955273}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0.0000076293945}
 --- !u!1 &4340027243093885276
 GameObject:
   m_ObjectHideFlags: 0
