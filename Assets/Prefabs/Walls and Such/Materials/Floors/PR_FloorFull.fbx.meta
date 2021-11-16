@@ -3,7 +3,12 @@ guid: 640d850c7419f69448cfa42fe172516d
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_fullfloor
+    second: {fileID: 2100000, guid: 4f3c8dda471514b71add6c6f4d330ef1, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -42,7 +47,7 @@ ModelImporter:
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
-    importLights: 1
+    importLights: 0
     fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0
