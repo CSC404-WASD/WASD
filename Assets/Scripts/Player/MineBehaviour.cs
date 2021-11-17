@@ -42,7 +42,7 @@ public class MineBehaviour : MonoBehaviour
         while (timeLeft > 0)
         {
             armTimer.text = String.Format("{0:0.0}", timeLeft);
-            Debug.Log(time);
+            //Debug.Log(time);
             timeLeft -= Time.deltaTime;
             yield return null;
         }
