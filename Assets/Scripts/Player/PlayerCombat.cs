@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Transactions;
 using UnityEngine;
+using System;
 
 public class PlayerCombat : MonoBehaviour
 {
+    public Animator anim;
     PlayerStats stats;
     ControllerLayouts cLayout;
 
@@ -45,6 +47,7 @@ public class PlayerCombat : MonoBehaviour
         }
         rigidbody = GetComponent<Rigidbody>();
         _playerAudio = GetComponent<PlayerAudio>();
+        //anim = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -101,6 +104,13 @@ public class PlayerCombat : MonoBehaviour
                 PerformADash();
             }
         }
+
+        if (Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0) {
+            anim.SetFloat("speed", 0);
+        } else {
+            anim.SetFloat("speed", 1);
+        }
+        //float mx = Math.Abs(Math.Max(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")));
     }
 
     private void PerformUpAttack() {
@@ -122,7 +132,8 @@ public class PlayerCombat : MonoBehaviour
         {
             return;
         }
-        
+        anim.SetTrigger("isAttackingTrigger");
+
         stats.setVerticalDiff(-1f * stats.upChargeConsumption);
 
         // execute attack
@@ -155,14 +166,11 @@ public class PlayerCombat : MonoBehaviour
         {
             return;
         }
+        anim.SetTrigger("isMineTrigger");
         
         stats.setVerticalDiff(stats.downChargeConsumption);
 
-        Instantiate(downMine, this.transform.position + new Vector3(1,0,1), Quaternion.identity);
-
-        _playerAudio.PlayDownSound();
-        //delay next attack
-        nextDownAttackTime = Time.time + downCooldown;
+        StartCoroutine(PlaceMine(0.1f));
     }
 
     private void PerformADash() {
@@ -184,6 +192,7 @@ public class PlayerCombat : MonoBehaviour
         {
             return;
         }
+        anim.SetTrigger("isDashingTrigger");
         stats.setHorizontalDiff(stats.leftChargeConsumption);
 
         // execute dash
@@ -213,6 +222,7 @@ public class PlayerCombat : MonoBehaviour
         {
             return;
         }
+        anim.SetTrigger("isEMPTrigger");
         
         stats.setHorizontalDiff(-1f * stats.rightChargeConsumption); // reversed
         
@@ -259,5 +269,14 @@ public class PlayerCombat : MonoBehaviour
     IEnumerator FinishDash(float time) {
         yield return new WaitForSeconds(time);
         stats.isDashing = false;
+    }
+
+    IEnumerator PlaceMine(float time) {
+        yield return new WaitForSeconds(time);
+        Instantiate(downMine, this.transform.position + new Vector3(1,0,1), Quaternion.identity);
+
+        _playerAudio.PlayDownSound();
+        //delay next attack
+        nextDownAttackTime = Time.time + downCooldown;
     }
 }
