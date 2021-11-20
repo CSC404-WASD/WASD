@@ -129,7 +129,7 @@ MonoBehaviour:
   _explodeClip: {fileID: 8300000, guid: a19e2ce8ce21a43838583a8935a1b8fc, type: 3}
   armTime: 1
   activateMaterial: {fileID: 2100000, guid: c9f4214ef2967427e86d63800ac3daa7, type: 2}
-  mineRange: 2
+  mineRange: 5
   armTimer: {fileID: 7472617225074343972}
 --- !u!1 &4176786033387168476
 GameObject:
