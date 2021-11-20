@@ -15,6 +15,7 @@ public class BaseEnemyAI : MonoBehaviour
     public Text alertText;
 
     private bool flash = false;
+    private Vector3 _originalScale;
     
     // Start is called before the first frame update
     public void Start()
@@ -24,6 +25,7 @@ public class BaseEnemyAI : MonoBehaviour
         eController = EnemyController.instance;
         eController.addEnemy();
         player = GameObject.FindWithTag("Player");
+        _originalScale = this.transform.lossyScale;
 
         //normalMaterial = GetComponent<Renderer>().material;
     }
@@ -91,7 +93,7 @@ public class BaseEnemyAI : MonoBehaviour
             }
             else
             {
-                this.transform.localScale = new Vector3(1,1,1);
+                this.transform.localScale = _originalScale;
             }
             flash = !flash;
             yield return new WaitForSeconds(time);
