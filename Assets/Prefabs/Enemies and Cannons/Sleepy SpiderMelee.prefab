@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 3718537473517297027}
   - component: {fileID: 2496807267166190993}
   - component: {fileID: 5555572556789826202}
+  - component: {fileID: 1010481156438252639}
+  - component: {fileID: 5664895865613449583}
   m_Layer: 6
   m_Name: Sleepy SpiderMelee
   m_TagString: Enemy
@@ -132,6 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 0
   alertText: {fileID: 2024313379531357069}
+  step_delay: 0.25
   walkVelocity: 16
   walkMaxSpeed: 16
   absMaxSpeed: 20
@@ -147,6 +150,126 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d7aba4b7d7654bda96e15cf73e7a77d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1010481156438252639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3331277067581888139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0080a5ace1d68408db3606282151d0cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clips:
+  - {fileID: 8300000, guid: f3004bde0699a443a9209172f96436ea, type: 3}
+  - {fileID: 8300000, guid: ea2a1843cceeb4ab395fe05613fa8fc8, type: 3}
+  - {fileID: 8300000, guid: 64220d206acdd4596a17b3b8716ad8d9, type: 3}
+  - {fileID: 8300000, guid: b88942986d22f49b7b1b1b30fe054bc9, type: 3}
+  - {fileID: 8300000, guid: 6afb19ea2a6c94b3d9e4e7d7c9084af4, type: 3}
+  - {fileID: 8300000, guid: 762b0c2afefe84b1c9f19c1dbaaeaf4d, type: 3}
+  - {fileID: 8300000, guid: 6b0be06a4163642a0866fbc6d675a4c1, type: 3}
+  - {fileID: 8300000, guid: c37e4f1117b524ebf870ae3ea35cdfea, type: 3}
+  - {fileID: 8300000, guid: 90049fd0696294ee692b3a62ae3db563, type: 3}
+  _aggroClip: {fileID: 8300000, guid: b97dcef5622674363adb22d7a03e7c18, type: 3}
+  _loopClip: {fileID: 8300000, guid: 3a5f1b15a309e49ac91ed3fc3ec60003, type: 3}
+--- !u!82 &5664895865613449583
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3331277067581888139}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.2
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &5446594067950917623
 GameObject:
   m_ObjectHideFlags: 0

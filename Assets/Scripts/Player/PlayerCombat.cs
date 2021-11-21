@@ -65,6 +65,9 @@ public class PlayerCombat : MonoBehaviour
                     enemyAI.Die();
                 }
             }
+            if (hitColliders.Length > 0) {
+                _playerAudio.PlayAttackHitSound();
+            }
         }
     }
     void Update()

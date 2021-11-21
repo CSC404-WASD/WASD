@@ -378,6 +378,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7856af3ad610646fe8932eef98e839a8, type: 3}
   - {fileID: 8300000, guid: b329c783033294b74b5b232621c56a74, type: 3}
   _fartClip: {fileID: 8300000, guid: 1cea77604be294da5b9d25b80e9dd713, type: 3}
+  _hitAttackClip: {fileID: 8300000, guid: fa9d4e9b772dc4b939aa45d159c3b89b, type: 3}
 --- !u!1 &3213001672269955273
 GameObject:
   m_ObjectHideFlags: 0

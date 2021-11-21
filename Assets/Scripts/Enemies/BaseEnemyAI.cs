@@ -8,6 +8,7 @@ public class BaseEnemyAI : MonoBehaviour
 {
     EnemyController eController;
     protected GameObject player;
+    private LoopingTracksPlayer _musicPlayer;
 
     protected bool stunned = false;
     private float stunTime = 0f;
@@ -16,6 +17,9 @@ public class BaseEnemyAI : MonoBehaviour
 
     private bool flash = false;
     private Vector3 _originalScale;
+
+    private float _step_time = 0f;
+    public float step_delay = 0.35f;
     
     // Start is called before the first frame update
     public void Start()
@@ -26,7 +30,10 @@ public class BaseEnemyAI : MonoBehaviour
         eController.addEnemy();
         player = GameObject.FindWithTag("Player");
         _originalScale = this.transform.lossyScale;
-
+        _musicPlayer = GetComponent<LoopingTracksPlayer>();
+        if (active) {
+            StartMusic(false);
+        }
         //normalMaterial = GetComponent<Renderer>().material;
     }
 
@@ -41,6 +48,11 @@ public class BaseEnemyAI : MonoBehaviour
                 this.GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
                 stunned = false;
             }
+        }
+
+        if (_step_time < Time.time && _musicPlayer.IsPlaying()) {
+            _musicPlayer.PlayRandomStep();
+            _step_time = Time.time + step_delay;
         }
     }
 
@@ -105,7 +117,22 @@ public class BaseEnemyAI : MonoBehaviour
         if (alertText != null)
         {
             alertText.enabled = true;
+            StartMusic(true);
             StartCoroutine(DisableAlert(3.0f));
+        }
+
+    }
+
+    void StartMusic(bool aggro) {
+        if (_musicPlayer != null) {
+            if (aggro) {
+                _musicPlayer.PlayAggroClip();
+            }
+            if (_musicPlayer.IsLoopingTrack()) {
+                StartCoroutine(_musicPlayer.PlayLoop());
+            } else {
+                _musicPlayer.StartPlaying();
+            }
         }
     }
 

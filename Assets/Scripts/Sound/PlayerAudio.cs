@@ -27,6 +27,8 @@ public class PlayerAudio : MonoBehaviour
     private AudioClip[] _upChargedClip;
     [SerializeField]
     private AudioClip _fartClip;
+    [SerializeField]
+    private AudioClip _hitAttackClip;
 
     void Start()
     {
@@ -36,25 +38,25 @@ public class PlayerAudio : MonoBehaviour
     //could also use one method and clip as the arg for all
     public void PlayUpSound() {
         if (_audioSource != null) {
-            _audioSource.clip = _upClip;
+            var clip = _upClip;
             _audioSource.loop = false;
-            _audioSource.Play();
+            _audioSource.PlayOneShot(clip, 0.8f);
         }
     }
 
     public void PlayDownSound() {
         if (_audioSource != null) {
-            _audioSource.clip = _downClip;
+            var clip = _downClip;
             _audioSource.loop = false;
-            _audioSource.Play();
+            _audioSource.PlayOneShot(clip, 0.7f);
         }
     }
 
     public void PlayLeftSound() {
         if (_audioSource != null) {
-            _audioSource.clip = _leftClip;
+            var clip = _leftClip;
             _audioSource.loop = false;
-            _audioSource.Play();
+            _audioSource.PlayOneShot(clip, 0.8f);
         }
     }
 
@@ -114,4 +116,16 @@ public class PlayerAudio : MonoBehaviour
         _audioSource.loop = false;
         _audioSource.PlayOneShot(_fartClip, 0.7f);
     }
+
+    public void PlayAttackHitSound()
+    {
+        if (_audioSource == null)
+        {
+            return;
+        }
+
+        _audioSource.loop = false;
+        _audioSource.PlayOneShot(_hitAttackClip, 1.0f);
+    }
 }
+
