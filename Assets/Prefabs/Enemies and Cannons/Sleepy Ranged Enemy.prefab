@@ -108,6 +108,9 @@ GameObject:
   - component: {fileID: 7763616147671629620}
   - component: {fileID: 1703846969655273149}
   - component: {fileID: 409477320614816995}
+  - component: {fileID: 4617542890988860068}
+  - component: {fileID: -7914074756083662829}
+  - component: {fileID: 1646734996953371555}
   m_Layer: 6
   m_Name: Sleepy Ranged Enemy
   m_TagString: Enemy
@@ -160,6 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 0
   alertText: {fileID: 6551776884401774047}
+  step_delay: 0.25
   walkVelocity: 8
   walkMaxSpeed: 8
   absMaxSpeed: 10
@@ -210,6 +214,135 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d7aba4b7d7654bda96e15cf73e7a77d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &4617542890988860068
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4734283693004200384}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.18
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &-7914074756083662829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4734283693004200384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0080a5ace1d68408db3606282151d0cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clips:
+  - {fileID: 8300000, guid: 35ae72c40cf96419187b38bba2621bca, type: 3}
+  - {fileID: 8300000, guid: 20b60c03307e84d628cbdaf3c400eb52, type: 3}
+  - {fileID: 8300000, guid: ef1dda1d9adcf431abb401f77655ffdf, type: 3}
+  - {fileID: 8300000, guid: f20e8fee3f95d40eabf9a1a7940a6dd4, type: 3}
+  _aggroClip: {fileID: 8300000, guid: 8dbdd051e86a74f36b831367086c9e5d, type: 3}
+  _loopClip: {fileID: 0}
+--- !u!114 &1646734996953371555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4734283693004200384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48ec2dcf949c849b28e438ecb19ee1f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioSource: {fileID: 0}
+  _shootClip: {fileID: 8300000, guid: d404ebde12e824abd8d5860aa3e7267c, type: 3}
 --- !u!1 &5543420757829847866
 GameObject:
   m_ObjectHideFlags: 0

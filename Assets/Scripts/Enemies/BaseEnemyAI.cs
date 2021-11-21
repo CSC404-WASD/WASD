@@ -133,7 +133,7 @@ public class BaseEnemyAI : MonoBehaviour
             if (_musicPlayer.IsLoopingTrack()) {
                 StartCoroutine(_musicPlayer.PlayLoop());
             } else {
-                _musicPlayer.StartPlaying();
+                StartCoroutine(_musicPlayer.StartPlaying());
             }
         }
     }

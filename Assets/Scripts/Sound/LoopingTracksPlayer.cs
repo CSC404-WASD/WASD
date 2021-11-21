@@ -22,10 +22,13 @@ public class LoopingTracksPlayer : MonoBehaviour
         _rnd = new System.Random();
     }
 
-    public void StartPlaying() {
-        if (_source != null) {
-            _playing = true;
+    public IEnumerator StartPlaying() {
+        float len = 0f;
+        if (_aggroClip != null) {
+            len = _aggroClip.length;
         }
+        yield return new WaitForSeconds(len);
+        _playing = true;
     }
 
     //function for playing one of the _clips steps at random
@@ -35,7 +38,7 @@ public class LoopingTracksPlayer : MonoBehaviour
         }
         int clip_num = _rnd.Next(0,_clips.Length);
         _source.loop = false;
-        _source.PlayOneShot(_clips[clip_num], 0.5f);
+        _source.PlayOneShot(_clips[clip_num], 0.33f);
     }
 
     //if the enemy has a looping walk track play this one, start after aggro clip
