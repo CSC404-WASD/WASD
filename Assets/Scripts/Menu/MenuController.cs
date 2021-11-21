@@ -52,12 +52,7 @@ public class MenuController : MonoBehaviour
         }
 
         else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(clayout.rightButton())) {
-            //already on top
-            if (parent.name != "MenuOptionsParent") {
-                parent = parent.transform.parent.gameObject;
-                ToggleOptions(options, false);
-                LoadContainer(parent);
-            }
+            GoUpLayer();
         }
     }
 
@@ -115,6 +110,8 @@ public class MenuController : MonoBehaviour
         } else if (menuOptionData.menuType == MenuType.NextLevel) {
             levelList.onLevelSequence = true;
             LoadScene(levelList.GetCurrentLevel());
+        } else if (menuOptionData.menuType == MenuType.Back) {
+            GoUpLayer();
         }
     }
 
@@ -145,6 +142,15 @@ public class MenuController : MonoBehaviour
         ToggleActive act = objs[0].GetComponent<ToggleActive>();
         if (act != null) {
             act.SetFlash(true);
+        }
+    }
+
+    void GoUpLayer() {
+        //already on top
+        if (parent.name != "MenuOptionsParent") {
+            parent = parent.transform.parent.gameObject;
+            ToggleOptions(options, false);
+            LoadContainer(parent);
         }
     }
 }
