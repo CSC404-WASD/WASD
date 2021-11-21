@@ -18,13 +18,13 @@ public class PlayerAudio : MonoBehaviour
     [SerializeField]
     private AudioClip _deathClip;
     [SerializeField]
-    private AudioClip _leftChargedClip;
+    private AudioClip[] _leftChargedClip;
     [SerializeField]
-    private AudioClip _rightChargedClip;
+    private AudioClip[] _rightChargedClip;
     [SerializeField]
-    private AudioClip _downChargedClip;
+    private AudioClip[] _downChargedClip;
     [SerializeField]
-    private AudioClip _upChargedClip;
+    private AudioClip[] _upChargedClip;
     [SerializeField]
     private AudioClip _fartClip;
 
@@ -75,7 +75,7 @@ public class PlayerAudio : MonoBehaviour
         }
     }
 
-    public void PlayChargedSound(string direction)
+    public void PlayChargedSound(string direction, int num)
     {
         if (_audioSource == null)
         {
@@ -84,20 +84,20 @@ public class PlayerAudio : MonoBehaviour
 
         _audioSource.loop = false;
 
-        var clip = _upChargedClip;
+        var clip = _upChargedClip[num];
         switch (direction)
         {
             case "up":
-                clip = _upChargedClip;
+                clip = _upChargedClip[num];
                 break;
             case "down":
-                clip = _downChargedClip;
+                clip = _downChargedClip[num];
                 break;
             case "left":
-                clip = _leftChargedClip;
+                clip = _leftChargedClip[num];
                 break;
             case "right":
-                clip = _rightChargedClip;
+                clip = _rightChargedClip[num];
                 break;
         }
         
