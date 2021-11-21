@@ -50,9 +50,11 @@ public class BaseEnemyAI : MonoBehaviour
             }
         }
 
-        if (_step_time < Time.time && _musicPlayer.IsPlaying()) {
-            _musicPlayer.PlayRandomStep();
-            _step_time = Time.time + step_delay;
+        if (_musicPlayer != null) {
+            if (_step_time < Time.time && _musicPlayer.IsPlaying()) {
+                _musicPlayer.PlayRandomStep();
+                _step_time = Time.time + step_delay;
+            }
         }
     }
 
