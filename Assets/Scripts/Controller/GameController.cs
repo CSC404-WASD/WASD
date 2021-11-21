@@ -89,10 +89,8 @@ public class GameController : MonoBehaviour
             Scene scene = SceneManager.GetActiveScene();
             if (scene.name != "WinScene") {
                 if (_isDead) {
-                    Debug.Log("restart");
                     RestartGame();
                 } else {
-                    Debug.Log("pause");
                     TogglePause();
                 }
             }
