@@ -127,6 +127,8 @@ public class PlayerCombat : MonoBehaviour
             return;
         }
 
+        stats.lastUpAttackTime = Time.time;
+
         if (stats.spellsCostMeter)
         {
             stats.setVerticalDiff(-1 * Math.Min(vCharge, stats.upChargeConsumption));
@@ -163,6 +165,8 @@ public class PlayerCombat : MonoBehaviour
             return;
         }
 
+        stats.lastDownAttackTime = Time.time;
+
         if (stats.spellsCostMeter)
         {
             stats.setVerticalDiff(Math.Min(vCharge, stats.downChargeConsumption));
@@ -195,6 +199,8 @@ public class PlayerCombat : MonoBehaviour
             return;
         }
 
+        stats.lastLeftAttackTime = Time.time;
+        
         if (stats.spellsCostMeter)
         {
             stats.setHorizontalDiff(Math.Min(hCharge, stats.leftChargeConsumption));
@@ -227,6 +233,8 @@ public class PlayerCombat : MonoBehaviour
         {
             return;
         }
+
+        stats.lastRightAttackTime = Time.time;
 
         if (stats.spellsCostMeter)
         {
