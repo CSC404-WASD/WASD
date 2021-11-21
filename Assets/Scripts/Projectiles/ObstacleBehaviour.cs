@@ -27,7 +27,7 @@ public class ObstacleBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(!other.CompareTag("Enemy") && !other.CompareTag("Cannon"))
+        if(!other.CompareTag("Enemy") && !other.CompareTag("Cannon") && !other.CompareTag("Strong Enemy"))
         {
             Destroy(this.gameObject);
         }
