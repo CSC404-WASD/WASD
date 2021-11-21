@@ -35,6 +35,8 @@ public class PlayerStats : MonoBehaviour
     private static Color leftParticleColor = Color.yellow;
     private static Color rightParticleColor = Color.green;
 
+    public bool spellsCostMeter = true; // if false can use all spells infinitely for free
+
     private void Awake() {
         if (_instance != null && _instance != this) {
             Destroy(this.gameObject);

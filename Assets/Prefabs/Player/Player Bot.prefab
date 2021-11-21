@@ -178,6 +178,7 @@ MonoBehaviour:
   knockbackRadius: 1000
   knockbackPower: 10
   knockbackStun: 1
+  fartForgivenessFactor: 0.9
 --- !u!114 &6842797108138270625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,6 +218,7 @@ MonoBehaviour:
   meterChargeFactor: 1
   horizontalParticles: {fileID: 4340027243093885276}
   verticalParticles: {fileID: 5789105338817307782}
+  spellsCostMeter: 1
 --- !u!54 &6911353594610702922
 Rigidbody:
   m_ObjectHideFlags: 0

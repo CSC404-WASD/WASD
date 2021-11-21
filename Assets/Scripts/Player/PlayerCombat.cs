@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Transactions;
@@ -33,6 +34,9 @@ public class PlayerCombat : MonoBehaviour
     public float knockbackPower = 10f;
     public float knockbackStun = 1f; // how long to stun enemy on knockback
     private float nextRightTime = 0f;
+
+
+    public float fartForgivenessFactor = 1; // how much of the true meter consumption you need to have to use ability
 
     void Start()
     {
@@ -108,7 +112,7 @@ public class PlayerCombat : MonoBehaviour
         // check vertical charge
         float vCharge = stats.getVerticalCharge();
 
-        if (vCharge <= stats.upChargeConsumption)
+        if (stats.spellsCostMeter && vCharge < stats.upChargeConsumption * fartForgivenessFactor)
         {
             if (vCharge > 0)
             {
@@ -122,8 +126,11 @@ public class PlayerCombat : MonoBehaviour
         {
             return;
         }
-        
-        stats.setVerticalDiff(-1f * stats.upChargeConsumption);
+
+        if (stats.spellsCostMeter)
+        {
+            stats.setVerticalDiff(-1 * Math.Min(vCharge, stats.upChargeConsumption));
+        }
 
         // execute attack
         stats.isAttacking = true;
@@ -141,7 +148,7 @@ public class PlayerCombat : MonoBehaviour
         // check vertical charge and convert to positive (if in down) for easy use
         float vCharge = stats.getVerticalCharge() * -1;
         
-        if (vCharge < stats.downChargeConsumption)
+        if (stats.spellsCostMeter && vCharge < stats.downChargeConsumption * fartForgivenessFactor)
         {
             if (vCharge > 0)
             {
@@ -155,8 +162,11 @@ public class PlayerCombat : MonoBehaviour
         {
             return;
         }
-        
-        stats.setVerticalDiff(stats.downChargeConsumption);
+
+        if (stats.spellsCostMeter)
+        {
+            stats.setVerticalDiff(Math.Min(vCharge, stats.downChargeConsumption));
+        }
 
         Instantiate(downMine, this.transform.position + new Vector3(1,0,1), Quaternion.identity);
 
@@ -169,7 +179,7 @@ public class PlayerCombat : MonoBehaviour
         // check horizontal charge
         var hCharge = -1 * stats.getHorizontalCharge();
 
-        if (hCharge < stats.leftChargeConsumption)
+        if (stats.spellsCostMeter && hCharge < stats.leftChargeConsumption * fartForgivenessFactor)
         {
             if (hCharge > 0)
             {
@@ -184,7 +194,11 @@ public class PlayerCombat : MonoBehaviour
         {
             return;
         }
-        stats.setHorizontalDiff(stats.leftChargeConsumption);
+
+        if (stats.spellsCostMeter)
+        {
+            stats.setHorizontalDiff(Math.Min(hCharge, stats.leftChargeConsumption));
+        }
 
         // execute dash
         stats.isDashing = true;
@@ -199,7 +213,7 @@ public class PlayerCombat : MonoBehaviour
     {
         var charge = stats.getHorizontalCharge();
 
-        if (charge < stats.rightChargeConsumption)
+        if (stats.spellsCostMeter && charge < stats.rightChargeConsumption * fartForgivenessFactor)
         {
             if (charge > 0)
             {
@@ -213,8 +227,11 @@ public class PlayerCombat : MonoBehaviour
         {
             return;
         }
-        
-        stats.setHorizontalDiff(-1f * stats.rightChargeConsumption); // reversed
+
+        if (stats.spellsCostMeter)
+        {
+            stats.setHorizontalDiff(-1f * Math.Min(charge, stats.rightChargeConsumption));
+        }
         
         // find entities to knock back
         var origin = rigidbody.position;
