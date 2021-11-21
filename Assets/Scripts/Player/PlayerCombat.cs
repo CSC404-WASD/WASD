@@ -104,13 +104,6 @@ public class PlayerCombat : MonoBehaviour
                 PerformADash();
             }
         }
-
-        if (Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0) {
-            anim.SetFloat("speed", 0);
-        } else {
-            anim.SetFloat("speed", 1);
-        }
-        //float mx = Math.Abs(Math.Max(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")));
     }
 
     private void PerformUpAttack() {
@@ -170,7 +163,7 @@ public class PlayerCombat : MonoBehaviour
         
         stats.setVerticalDiff(stats.downChargeConsumption);
 
-        StartCoroutine(PlaceMine(0.1f));
+        StartCoroutine(PlaceMine(0.2f));
     }
 
     private void PerformADash() {
