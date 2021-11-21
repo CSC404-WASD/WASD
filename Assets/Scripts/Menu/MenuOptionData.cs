@@ -16,6 +16,7 @@ namespace MenuTypes
         Container,
         Exit,
         Controller,
-        NextLevel
+        NextLevel,
+        Back
     }
 }

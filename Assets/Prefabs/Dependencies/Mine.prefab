@@ -110,7 +110,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.11348067
+  m_Radius: 0.25
   m_Height: 0.066284314
   m_Direction: 1
   m_Center: {x: 0, y: 0.033142157, z: 0}
@@ -129,7 +129,7 @@ MonoBehaviour:
   _explodeClip: {fileID: 8300000, guid: a19e2ce8ce21a43838583a8935a1b8fc, type: 3}
   armTime: 1
   activateMaterial: {fileID: 2100000, guid: c9f4214ef2967427e86d63800ac3daa7, type: 2}
-  mineRange: 2
+  mineRange: 5
   armTimer: {fileID: 7472617225074343972}
 --- !u!1 &4176786033387168476
 GameObject:
@@ -307,9 +307,4 @@ GameObject:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: eb7daf728ed3141b2995d918e01296f8, type: 3}
   m_PrefabInstance: {fileID: 1588653703764748359}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &3996685283419475017 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5385adb988b0c4ffbaabd31d8ea1786a, type: 3}
-  m_PrefabInstance: {fileID: 3530168355778636706}
   m_PrefabAsset: {fileID: 0}

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -268,7 +268,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7835797214813676218, guid: 69ff0bcf612639f489e6bfbbbf40bb7e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -23.800003
+      value: -25.7
       objectReference: {fileID: 0}
     - target: {fileID: 7835797214813676218, guid: 69ff0bcf612639f489e6bfbbbf40bb7e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -760,11 +760,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6709572340081239712, guid: 022f55d33254eb24f94c8d3a6b21074c, type: 3}
       propertyPath: walkMaxSpeed
-      value: 20
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 6709572340081239712, guid: 022f55d33254eb24f94c8d3a6b21074c, type: 3}
       propertyPath: walkVelocity
-      value: 20
+      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 022f55d33254eb24f94c8d3a6b21074c, type: 3}
@@ -1243,7 +1243,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6951083589497395515, guid: 593137bc6f94c95468b52ebdbe31c96c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.5
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6951083589497395515, guid: 593137bc6f94c95468b52ebdbe31c96c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3986,7 +3986,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6951083589497395515, guid: 593137bc6f94c95468b52ebdbe31c96c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.5
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6951083589497395515, guid: 593137bc6f94c95468b52ebdbe31c96c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5250,11 +5250,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6709572340081239712, guid: 022f55d33254eb24f94c8d3a6b21074c, type: 3}
       propertyPath: walkMaxSpeed
-      value: 16
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 6709572340081239712, guid: 022f55d33254eb24f94c8d3a6b21074c, type: 3}
       propertyPath: walkVelocity
-      value: 16
+      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 022f55d33254eb24f94c8d3a6b21074c, type: 3}

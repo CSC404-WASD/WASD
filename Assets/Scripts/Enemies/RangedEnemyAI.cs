@@ -22,6 +22,9 @@ public class RangedEnemyAI : BaseEnemyAI
         base.Start();
         myRigidbody = GetComponent<Rigidbody>();
         myProjectileSpawner = GetComponent<ObstacleSpawner>();
+        if (!active) {
+            myProjectileSpawner.SetActive(false);
+        }
     }
 
     void FixedUpdate()

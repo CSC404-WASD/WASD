@@ -36,6 +36,11 @@ public class EnemyKillWallOpenTrigger : MonoBehaviour
         foreach(var wall in walls) {
             Destroy(wall.gameObject);
         }
+        StartCoroutine(DestroyThis(1.0f));
+    }
+
+    IEnumerator DestroyThis(float time) {
+        yield return new WaitForSeconds(time);
         Destroy(this.gameObject);
     }
 }
