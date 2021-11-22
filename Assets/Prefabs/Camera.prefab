@@ -101,6 +101,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1877072829475352696, guid: 9e20cc8164b7d4494bff5fd4d343d273, type: 3}
+  shakeDuration: 0
+  shakeAmount: 0.7
+  decreaseFactor: 1
 --- !u!114 &4059972600769244583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,6 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 364a183db3aa2427aba458d3c850962d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 6351123936650866205, guid: 3acd70e4ac6b32d44b0825ac9c32f7ac, type: 3}
 --- !u!114 &7955334295847043217
 MonoBehaviour:
   m_ObjectHideFlags: 0

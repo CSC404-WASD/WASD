@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -568,6 +568,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4059972600769244583, guid: 554b9a95b4924445283006b81ccc4ca6, type: 3}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 909025625}
     - target: {fileID: 8186876162936510304, guid: 554b9a95b4924445283006b81ccc4ca6, type: 3}
       propertyPath: player
       value: 
@@ -1518,10 +1522,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 26171550}
     m_Modifications:
-    - target: {fileID: 2867733681948031553, guid: 593137bc6f94c95468b52ebdbe31c96c, type: 3}
-      propertyPath: m_Radius
-      value: 0.8
-      objectReference: {fileID: 0}
     - target: {fileID: 4734283693004200384, guid: 593137bc6f94c95468b52ebdbe31c96c, type: 3}
       propertyPath: m_Name
       value: Sleepy Ranged Enemy (2)
@@ -2360,10 +2360,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 26171550}
     m_Modifications:
-    - target: {fileID: 2867733681948031553, guid: 593137bc6f94c95468b52ebdbe31c96c, type: 3}
-      propertyPath: m_Radius
-      value: 0.8
-      objectReference: {fileID: 0}
     - target: {fileID: 4734283693004200384, guid: 593137bc6f94c95468b52ebdbe31c96c, type: 3}
       propertyPath: m_Name
       value: Sleepy Ranged Enemy (1)
@@ -3003,6 +2999,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3acd70e4ac6b32d44b0825ac9c32f7ac, type: 3}
+--- !u!1 &909025625 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6351123936650866205, guid: 3acd70e4ac6b32d44b0825ac9c32f7ac, type: 3}
+  m_PrefabInstance: {fileID: 909025624}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &957832312
 PrefabInstance:
   m_ObjectHideFlags: 0
