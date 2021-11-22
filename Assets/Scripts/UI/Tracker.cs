@@ -16,7 +16,7 @@ public class Tracker : MonoBehaviour
     public Text deathsText;
 
     public float lerpScale = 5; // scale for background drain interpolation
-    public float snapDistance = 0.1f; // snap the background to the meter location if within this distance
+    public float snapDistance = 0.3f; // snap the background to the meter location if within this distance
     public float drainDelay = 0.6f; // seconds between meter drain and background drain
 
     // private ParticleSystem upParticleSystem;
