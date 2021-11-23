@@ -381,8 +381,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6708562071702652400, guid: 1ce64b296db1e4142a39d281ec42997a, type: 3}
       propertyPath: message
-      value: The "Right" ability scares away nearby enemies. Try it on this blue
-        guy!"
+      value: The Right ability (K/B/Circle) scares away nearby enemies. Try it on
+        this blue guy!"
       objectReference: {fileID: 0}
     - target: {fileID: 7267686953189044200, guid: 1ce64b296db1e4142a39d281ec42997a, type: 3}
       propertyPath: m_Name
@@ -904,8 +904,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6708562071702652400, guid: 1ce64b296db1e4142a39d281ec42997a, type: 3}
       propertyPath: message
-      value: The Left ability dashes through projectiles. How can you fill your Left
-        meter in this space?
+      value: The Left ability (H/X/Square) dashes through projectiles. How can you
+        fill your Left meter in this space?
       objectReference: {fileID: 0}
     - target: {fileID: 7267686953189044200, guid: 1ce64b296db1e4142a39d281ec42997a, type: 3}
       propertyPath: m_Name
@@ -1194,8 +1194,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6708562071702652400, guid: 1ce64b296db1e4142a39d281ec42997a, type: 3}
       propertyPath: message
-      value: The Down ability is a proximity mine. The blue wall and blue enemy can
-        only be destroyed by mines!
+      value: The Down ability (J/A/Cross) is a proximity mine. The blue wall and
+        blue enemy can only be destroyed by mines!
       objectReference: {fileID: 0}
     - target: {fileID: 7267686953189044200, guid: 1ce64b296db1e4142a39d281ec42997a, type: 3}
       propertyPath: m_Name
@@ -3354,7 +3354,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6708562071702652400, guid: 1ce64b296db1e4142a39d281ec42997a, type: 3}
       propertyPath: message
-      value: You are immune to mines!
+      value: It takes a moment for your mine to arm after placing it. You are immune
+        to your own mines.
       objectReference: {fileID: 0}
     - target: {fileID: 7267686953189044200, guid: 1ce64b296db1e4142a39d281ec42997a, type: 3}
       propertyPath: m_Name
@@ -4943,7 +4944,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: ecec27c7953854cb49cc2685aaa1f5c7, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
