@@ -132,7 +132,7 @@ public class BaseEnemyAI : MonoBehaviour
             }
             if (_musicPlayer.IsLoopingTrack()) {
                 StartCoroutine(_musicPlayer.PlayLoop());
-            } else {
+            } else if (_musicPlayer.IsRandomTrack()) {
                 StartCoroutine(_musicPlayer.StartPlaying());
             }
         }

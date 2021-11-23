@@ -69,4 +69,7 @@ public class LoopingTracksPlayer : MonoBehaviour
     public bool IsLoopingTrack() {
         return _loopClip != null;
     }
+    public bool IsRandomTrack() {
+        return _clips.Length > 0;
+    }
 }
