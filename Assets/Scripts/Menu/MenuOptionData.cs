@@ -17,6 +17,8 @@ namespace MenuTypes
         Exit,
         Controller,
         NextLevel,
-        Back
+        Back,
+        Restart,
+        ExitPause
     }
 }
