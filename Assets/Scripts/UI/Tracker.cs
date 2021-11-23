@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.Serialization;
 
 public class Tracker : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class Tracker : MonoBehaviour
 
     public Slider rightSlider, leftSlider, upSlider, downSlider;
     public Text displayText;
-    public Text powerText;
+    [FormerlySerializedAs("powerText")] public Text restartText;
     public Text deathsText;
 
     void Start()
@@ -24,21 +25,8 @@ public class Tracker : MonoBehaviour
     {
         var horizontalCharge = stats.getHorizontalCharge();
         var verticalCharge = stats.getVerticalCharge();
-
-        displayText.text = String.Format("Horizontal:{0:0.0} \nVertical:{1:0.0}", stats.getHorizontalCharge(), stats.getVerticalCharge());
-        // can hide this if doesnt end up being implemented
         
-        if (stats.getStunTime() > 0f) {
-            powerText.text = String.Format("Stunned for: {0:0.0} seconds", stats.getStunTime());
-        // } else if (stats.isAttacking) {
-        //     powerText.text = "Attacking";
-        } else {
-            powerText.text = "";
-        }
-        if (stats == null) {
-            powerText.text = "Press P/Options (PS4 controller) to restart!";
-        }
-
+        restartText.text = stats == null ? "Press Start/P to try again" : "";
 
         rightSlider.value = Math.Max(0, horizontalCharge);
         leftSlider.value = Math.Min(0, horizontalCharge) * -1;
