@@ -674,7 +674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3137255}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -688,7 +688,7 @@ MonoBehaviour:
   m_FillMethod: 0
   m_FillAmount: 0
   m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillOrigin: 1
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!1 &942435576498926551
@@ -2656,13 +2656,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a37b523bb85e3242984f2f1c7a5816b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightSlider: {fileID: 0}
-  leftSlider: {fileID: 0}
-  upSlider: {fileID: 0}
-  downSlider: {fileID: 0}
+  rightSlider: {fileID: 5298090514014931668}
+  leftSlider: {fileID: 2391512056490247179}
+  upSlider: {fileID: 7533794137494681610}
+  downSlider: {fileID: 272808237825878777}
+  upSecondarySlider: {fileID: 4576817390863348730}
+  downSecondarySlider: {fileID: 8215120046739763122}
+  leftSecondarySlider: {fileID: 1690294050618415678}
+  rightSecondarySlider: {fileID: 6817674217759524134}
   displayText: {fileID: 6351123937806199504}
   restartText: {fileID: 6351123936539485604}
   deathsText: {fileID: 2573884448384095337}
+  lerpScale: 5
+  snapDistance: 0.3
+  drainDelay: 0.6
 --- !u!1 &6351123937806199517
 GameObject:
   m_ObjectHideFlags: 0
