@@ -130,7 +130,7 @@ public class PlayerCombat : MonoBehaviour
             return;
         }
         anim.SetTrigger("isAttackingTrigger");
-
+        //
         stats.lastUpAttackTime = Time.time;
 
         if (stats.spellsCostMeter)
