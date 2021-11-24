@@ -14,6 +14,7 @@ public class BaseEnemyAI : MonoBehaviour
     private float stunTime = 0f;
     public bool active = true;
     public Text alertText;
+    public Animator animator;
 
     private bool flash = false;
     private Vector3 _originalScale;
@@ -87,9 +88,14 @@ public class BaseEnemyAI : MonoBehaviour
         var cam = GameObject.Find("Camera");
         cam.GetComponent<CameraController>().Shake(0.1f);
 
+        if (animator != null) {
+            animator.SetTrigger("DeathTrigger");
+            StartCoroutine(FinishDying(0.8f));
+        } else {
+            StartCoroutine(DeathFlash(0.1f));
+            StartCoroutine(FinishDying(0.6f));
+        }
 
-        StartCoroutine(DeathFlash(0.1f));
-        StartCoroutine(FinishDying(0.6f));
     }
 
     IEnumerator FinishDying(float time) {
