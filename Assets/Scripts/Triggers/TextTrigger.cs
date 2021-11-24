@@ -8,6 +8,7 @@ public class TextTrigger : MonoBehaviour
     private Text text;
     private Image textBox;
     public string message;
+    public Animator anim;
     public void Awake()
     {
         text = GameObject.Find("MessageText").GetComponent<Text>();
@@ -18,6 +19,7 @@ public class TextTrigger : MonoBehaviour
             text.text = message;
             text.enabled = true;
             textBox.enabled = true;
+            anim.SetTrigger("EnterSignTrigger");
         }
     }
 
@@ -25,6 +27,7 @@ public class TextTrigger : MonoBehaviour
         if (other.gameObject.tag == "Player") {
             text.enabled = false;
             textBox.enabled = false;
+            anim.SetTrigger("ExitSignTrigger");
         }
     }
 }
