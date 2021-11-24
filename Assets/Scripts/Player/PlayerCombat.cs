@@ -130,6 +130,9 @@ public class PlayerCombat : MonoBehaviour
             return;
         }
         anim.SetTrigger("isAttackingTrigger");
+        //
+        stats.lastUpAttackTime = Time.time;
+
         if (stats.spellsCostMeter)
         {
             stats.setVerticalDiff(-1 * Math.Min(vCharge, stats.upChargeConsumption));
@@ -166,6 +169,9 @@ public class PlayerCombat : MonoBehaviour
             return;
         }
         anim.SetTrigger("isMineTrigger");
+
+        stats.lastDownAttackTime = Time.time;
+
         if (stats.spellsCostMeter)
         {
             stats.setVerticalDiff(Math.Min(vCharge, stats.downChargeConsumption));
@@ -195,6 +201,8 @@ public class PlayerCombat : MonoBehaviour
         }
         anim.SetTrigger("isDashingTrigger");
 
+        stats.lastLeftAttackTime = Time.time;
+        
         if (stats.spellsCostMeter)
         {
             stats.setHorizontalDiff(Math.Min(hCharge, stats.leftChargeConsumption));
@@ -228,6 +236,8 @@ public class PlayerCombat : MonoBehaviour
             return;
         }
         anim.SetTrigger("isEMPTrigger");
+
+        stats.lastRightAttackTime = Time.time;
 
         if (stats.spellsCostMeter)
         {
