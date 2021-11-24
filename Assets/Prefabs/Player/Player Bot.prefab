@@ -367,11 +367,23 @@ MonoBehaviour:
   _leftClip: {fileID: 8300000, guid: a19435ec8b36548cdbd66cdb1eb8348a, type: 3}
   _rightClip: {fileID: 8300000, guid: 714185c2e65d04819aa7e7c1b195ecf8, type: 3}
   _deathClip: {fileID: 8300000, guid: b6db9730120c4431194153382ed170ef, type: 3}
-  _leftChargedClip: {fileID: 8300000, guid: ce8b2c9f2af79c14da35ef38fd05148d, type: 3}
-  _rightChargedClip: {fileID: 8300000, guid: 25c43f2d6f7501441b0ce14528dc0c3c, type: 3}
-  _downChargedClip: {fileID: 8300000, guid: 478cedfbeed86064984d3605b33ef8f2, type: 3}
-  _upChargedClip: {fileID: 8300000, guid: 502c8f4ac6e8ce34fb18ddb1082af2b9, type: 3}
-  _fartClip: {fileID: 8300000, guid: 870878de96c731a438791ecfb2807f52, type: 3}
+  _leftChargedClip:
+  - {fileID: 8300000, guid: ce8b2c9f2af79c14da35ef38fd05148d, type: 3}
+  - {fileID: 8300000, guid: ce8b2c9f2af79c14da35ef38fd05148d, type: 3}
+  - {fileID: 8300000, guid: ce8b2c9f2af79c14da35ef38fd05148d, type: 3}
+  _rightChargedClip:
+  - {fileID: 8300000, guid: 0bc4e22cf8e0b48899809319661bef90, type: 3}
+  - {fileID: 8300000, guid: 14dcc1d29f77140cdb06bfdedc5feef8, type: 3}
+  - {fileID: 8300000, guid: 4148ecd8389ec449cb40e41479d2dc30, type: 3}
+  _downChargedClip:
+  - {fileID: 8300000, guid: 478cedfbeed86064984d3605b33ef8f2, type: 3}
+  - {fileID: 8300000, guid: 478cedfbeed86064984d3605b33ef8f2, type: 3}
+  _upChargedClip:
+  - {fileID: 8300000, guid: 502c8f4ac6e8ce34fb18ddb1082af2b9, type: 3}
+  - {fileID: 8300000, guid: 502c8f4ac6e8ce34fb18ddb1082af2b9, type: 3}
+  - {fileID: 8300000, guid: 502c8f4ac6e8ce34fb18ddb1082af2b9, type: 3}
+  _fartClip: {fileID: 8300000, guid: 1cea77604be294da5b9d25b80e9dd713, type: 3}
+  _hitAttackClip: {fileID: 8300000, guid: fa9d4e9b772dc4b939aa45d159c3b89b, type: 3}
 --- !u!1 &3213001672269955273
 GameObject:
   m_ObjectHideFlags: 0
