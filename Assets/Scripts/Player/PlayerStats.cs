@@ -147,7 +147,7 @@ public class PlayerStats : MonoBehaviour
             var newCharges = Math.Floor(verCharge / upChargeConsumption);
             if (newCharges > prevCharges)
             {
-                _playerAudio.PlayChargedSound("up");
+                _playerAudio.PlayChargedSound("up", Convert.ToInt32(newCharges) - 1);
                 var system = verticalParticles.GetComponent<ParticleSystem>();
                 if (system != null)
                 {
@@ -169,7 +169,7 @@ public class PlayerStats : MonoBehaviour
             var newCharges = Math.Ceiling(verCharge / downChargeConsumption);
             if (newCharges < prevCharges) // negative
             {
-                _playerAudio.PlayChargedSound("down");
+                _playerAudio.PlayChargedSound("down", Math.Abs(Convert.ToInt32(newCharges)) - 1);
                 
                 var system = verticalParticles.GetComponent<ParticleSystem>();
                 if (system != null)
@@ -193,7 +193,7 @@ public class PlayerStats : MonoBehaviour
             var newCharges = Math.Floor(horCharge / rightChargeConsumption);
             if (newCharges > prevCharges)
             {
-                _playerAudio.PlayChargedSound("right");
+                _playerAudio.PlayChargedSound("right", Convert.ToInt32(newCharges) - 1);
                 var system = horizontalParticles.GetComponent<ParticleSystem>();
                 if (system != null)
                 {
@@ -214,7 +214,7 @@ public class PlayerStats : MonoBehaviour
             var newCharges = Math.Ceiling(horCharge / leftChargeConsumption);
             if (newCharges < prevCharges) // negative
             {
-                _playerAudio.PlayChargedSound("left");
+                _playerAudio.PlayChargedSound("left", Math.Abs(Convert.ToInt32(newCharges)) - 1);
                 var system = horizontalParticles.GetComponent<ParticleSystem>();
                 if (system != null)
                 {

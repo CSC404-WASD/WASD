@@ -60,13 +60,18 @@ public class PlayerCombat : MonoBehaviour
         if(stats.isAttacking)
         {
             //use lossyscale /2 because using whole lossy scale seems to be bigger than actual indicator
+            bool hitEnemy = false;
             Collider[] hitColliders = Physics.OverlapBox(attackObject.transform.position, attackObject.transform.lossyScale / 2, Quaternion.identity, enemyLayers);
             foreach(Collider enemy in hitColliders) {
                 var enemyAI = enemy.GetComponent<BaseEnemyAI>();
                 if (enemyAI != null)
                 {
+                    hitEnemy = true;
                     enemyAI.Die();
                 }
+            }
+            if (hitEnemy) {
+                _playerAudio.PlayAttackHitSound();
             }
         }
     }
