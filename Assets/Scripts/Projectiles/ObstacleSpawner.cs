@@ -18,6 +18,7 @@ public class ObstacleSpawner : MonoBehaviour
     public float rotationY = 0;
     public float rotationZ = 0;
     private Quaternion _shootOffset;
+    public Animator animator;
 
 
     // Start is called before the first frame update
@@ -43,8 +44,16 @@ public class ObstacleSpawner : MonoBehaviour
         // Update variables
         _nextSpawnTime = Time.time + _spawnPeriod;
 
-        //Debug.Log("Spawning object");
+        if (animator != null) {
+            animator.SetTrigger("AttackTrigger");
+            StartCoroutine(DelayAttack(0.6f));
+        } else {
+            StartCoroutine(DelayAttack(0.0f));
+        }
+    }
 
+    IEnumerator DelayAttack(float time) {
+        yield return new WaitForSeconds(time);
         Instantiate(projectile, this.transform.position + offset, _shootOffset * this.transform.rotation);
         if (_pAudio != null) {
             _pAudio.PlayShootClip();
