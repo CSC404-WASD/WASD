@@ -9,6 +9,7 @@ using System;
 public class MenuController : MonoBehaviour
 {
     LevelSwitchController levelList;
+    GameController gController;
     private int currentOption = 0;
     private GameObject[] options;
     //give a parent that holds all initial menu options
@@ -18,16 +19,20 @@ public class MenuController : MonoBehaviour
     private float lastPress;
     public float maxFreq = 0.2f;
 
+    public Color highlightColour = new Color(255,0,0,1);
+    public Color nonhighlightColour = new Color(0,0,0,1);
+
     void Start() {
         //find the menu options in the parent
         clayout = ControllerLayouts.instance;
         levelList = LevelSwitchController.instance;
         LoadContainer(parent);
-        lastPress = Time.time;
+        lastPress = Time.unscaledTime;
+        gController = GameController.instance;
     }
 
     void Update() {
-        if(Time.time - lastPress > maxFreq)
+        if(Time.unscaledTime - lastPress > maxFreq)
         {
             if (Input.GetAxis("Vertical") < -0.05 && lastAxis > -1) {
                 MoveCursorDown();
@@ -52,17 +57,12 @@ public class MenuController : MonoBehaviour
         }
 
         else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(clayout.rightButton())) {
-            //already on top
-            if (parent.name != "MenuOptionsParent") {
-                parent = parent.transform.parent.gameObject;
-                ToggleOptions(options, false);
-                LoadContainer(parent);
-            }
+            GoUpLayer();
         }
     }
 
     void MoveCursorDown() {
-        lastPress = Time.time;
+        lastPress = Time.unscaledTime;
         if (currentOption < options.Length - 1) {
             UpdateHighlight(false);
             currentOption++;
@@ -72,7 +72,7 @@ public class MenuController : MonoBehaviour
     }
 
     void MoveCursorUp() {
-        lastPress = Time.time;
+        lastPress = Time.unscaledTime;
         if (currentOption > 0) {
             UpdateHighlight(false);
             currentOption--;
@@ -83,24 +83,26 @@ public class MenuController : MonoBehaviour
 
     void UpdateHighlight(bool show) {
         if (show) {
-            options[currentOption].GetComponent<Text>().color = new Color(255,0,0,1);
+            options[currentOption].GetComponent<Text>().color = highlightColour;
         } else {
-            options[currentOption].GetComponent<Text>().color = new Color(0,0,0,1);
+            options[currentOption].GetComponent<Text>().color = nonhighlightColour;
         }
     }
 
     void dismissHighlight() {
         foreach (var txt in options) {
-            txt.GetComponent<Text>().color = new Color(0,0,0,1);
+            txt.GetComponent<Text>().color = nonhighlightColour;
         }
     }
 
     void ClickMenuOption() {
         var menuOptionData = options[currentOption].GetComponent<MenuOptionData>();
         if (menuOptionData.menuType == MenuType.Load) {
-            levelList.onLevelSequence = false;
-            if (menuOptionData.levelName == "MainMenuScene") {
-                levelList.ResetLevelList();
+            if (levelList != null) {
+                levelList.onLevelSequence = false;
+                if (menuOptionData.levelName == "MainMenuScene") {
+                    levelList.ResetLevelList();
+                }
             }
             LoadScene(menuOptionData.levelName);
         } else if (menuOptionData.menuType == MenuType.Exit) {
@@ -115,15 +117,29 @@ public class MenuController : MonoBehaviour
         } else if (menuOptionData.menuType == MenuType.NextLevel) {
             levelList.onLevelSequence = true;
             LoadScene(levelList.GetCurrentLevel());
+        } else if (menuOptionData.menuType == MenuType.Back) {
+            GoUpLayer();
+        } else if (menuOptionData.menuType == MenuType.Restart) {
+            gController.RestartGame();
+        } else if (menuOptionData.menuType == MenuType.ExitPause) {
+            gController.TogglePause();
         }
     }
 
     void LoadScene(string levelName) {
-        SceneManager.LoadScene(levelName);
+        if (gController != null) {
+            gController.LoadScene(levelName);
+        } else {
+            SceneManager.LoadScene(levelName);
+        }
     }
 
     void LoadContainer(GameObject obj) {
         options = new GameObject[obj.transform.childCount];
+        ToggleActive act = parent.GetComponent<ToggleActive>();
+        if (act != null) {
+            act.SetFlash(false);
+        }
         for (int i = 0; i < parent.transform.childCount; i++) {
             options[i] = parent.transform.GetChild(i).gameObject;
         }
@@ -136,6 +152,20 @@ public class MenuController : MonoBehaviour
     void ToggleOptions(GameObject[] objs, bool show) {
         foreach (var obj in objs) {
             obj.GetComponent<Text>().enabled = show;
+        }
+        //there is a better way to do this
+        ToggleActive act = objs[0].GetComponent<ToggleActive>();
+        if (act != null) {
+            act.SetFlash(true);
+        }
+    }
+
+    void GoUpLayer() {
+        //already on top
+        if (parent.name != "MenuOptionsParent") {
+            parent = parent.transform.parent.gameObject;
+            ToggleOptions(options, false);
+            LoadContainer(parent);
         }
     }
 }

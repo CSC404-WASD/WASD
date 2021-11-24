@@ -27,6 +27,17 @@ public class PlayerStats : MonoBehaviour
     public float meterChargeFactor = 1.0f;
     private Vector3 lastPosition;
     private float moveSpeed;
+    
+    public GameObject horizontalParticles;
+    public GameObject verticalParticles;
+    private static Color upParticleColor = Color.red;
+    private static Color downParticleColor = Color.blue;
+    private static Color leftParticleColor = Color.yellow;
+    private static Color rightParticleColor = Color.green;
+
+    public bool spellsCostMeter = true; // if false can use all spells infinitely for free
+
+    public float lastUpAttackTime, lastDownAttackTime, lastRightAttackTime, lastLeftAttackTime;
 
     private void Awake() {
         if (_instance != null && _instance != this) {
@@ -38,6 +49,13 @@ public class PlayerStats : MonoBehaviour
         lastPosition = this.transform.position;
         moveSpeed = GetComponent<PlayerMovement>().GetMoveSpeed();
         _playerAudio = GetComponent<PlayerAudio>();
+        lastUpAttackTime = Time.time;
+        lastDownAttackTime = Time.time;
+        lastLeftAttackTime = Time.time;
+        lastRightAttackTime = Time.time;
+        verticalParticles.SetActive(false);
+        horizontalParticles.SetActive(false);
+        
     }
     // Update is called once per frame
     void Update()
@@ -129,7 +147,19 @@ public class PlayerStats : MonoBehaviour
             var newCharges = Math.Floor(verCharge / upChargeConsumption);
             if (newCharges > prevCharges)
             {
-                _playerAudio.PlayChargedSound("up");
+                _playerAudio.PlayChargedSound("up", Convert.ToInt32(newCharges) - 1);
+                var system = verticalParticles.GetComponent<ParticleSystem>();
+                if (system != null)
+                {
+                    var main = system.main;
+                    main.startColor = upParticleColor;
+                }
+                verticalParticles.SetActive(true);
+            }
+
+            if (newCharges == 0 && verticalParticles.active)
+            {
+                verticalParticles.SetActive(false);
             }
         }
         // down
@@ -139,7 +169,20 @@ public class PlayerStats : MonoBehaviour
             var newCharges = Math.Ceiling(verCharge / downChargeConsumption);
             if (newCharges < prevCharges) // negative
             {
-                _playerAudio.PlayChargedSound("down");
+                _playerAudio.PlayChargedSound("down", Math.Abs(Convert.ToInt32(newCharges)) - 1);
+                
+                var system = verticalParticles.GetComponent<ParticleSystem>();
+                if (system != null)
+                {
+                    var main = system.main;
+                    main.startColor = downParticleColor;
+                }
+                verticalParticles.SetActive(true);
+            }
+            
+            if (newCharges == 0 && verticalParticles.active)
+            {
+                verticalParticles.SetActive(false);
             }
         }
 
@@ -150,7 +193,18 @@ public class PlayerStats : MonoBehaviour
             var newCharges = Math.Floor(horCharge / rightChargeConsumption);
             if (newCharges > prevCharges)
             {
-                _playerAudio.PlayChargedSound("right");
+                _playerAudio.PlayChargedSound("right", Convert.ToInt32(newCharges) - 1);
+                var system = horizontalParticles.GetComponent<ParticleSystem>();
+                if (system != null)
+                {
+                    var main = system.main;
+                    main.startColor = rightParticleColor;
+                }
+                horizontalParticles.SetActive(true);
+            }
+            if (newCharges == 0 && horizontalParticles.active)
+            {
+                horizontalParticles.SetActive(false);
             }
         }
         // left
@@ -160,9 +214,20 @@ public class PlayerStats : MonoBehaviour
             var newCharges = Math.Ceiling(horCharge / leftChargeConsumption);
             if (newCharges < prevCharges) // negative
             {
-                _playerAudio.PlayChargedSound("left");
+                _playerAudio.PlayChargedSound("left", Math.Abs(Convert.ToInt32(newCharges)) - 1);
+                var system = horizontalParticles.GetComponent<ParticleSystem>();
+                if (system != null)
+                {
+                    var main = system.main;
+                    main.startColor = leftParticleColor;
+                }
+                horizontalParticles.SetActive(true);
             }
             
+            if (newCharges == 0 && horizontalParticles.active)
+            {
+                horizontalParticles.SetActive(false);
+            }
         }
     }
 }

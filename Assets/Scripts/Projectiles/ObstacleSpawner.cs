@@ -5,16 +5,20 @@ using UnityEngine;
 public class ObstacleSpawner : MonoBehaviour
 {
     public GameObject projectile;
+    ProjectileAudio _pAudio;
 
     public float _spawnPeriod = 5;
 
     private float _nextSpawnTime;
     private bool _bActive = true;
 
+    public Vector3 offset = new Vector3(0,0,0);
+
     public float rotationX = 0;
     public float rotationY = 0;
     public float rotationZ = 0;
     private Quaternion _shootOffset;
+    public Animator animator;
 
 
     // Start is called before the first frame update
@@ -23,6 +27,7 @@ public class ObstacleSpawner : MonoBehaviour
         // Update variables
         _nextSpawnTime = Time.time + _spawnPeriod;
         _shootOffset = Quaternion.Euler(rotationX, rotationY, rotationZ);
+        _pAudio = GetComponent<ProjectileAudio>();
     }
 
     // Update is called once per frame
@@ -39,9 +44,20 @@ public class ObstacleSpawner : MonoBehaviour
         // Update variables
         _nextSpawnTime = Time.time + _spawnPeriod;
 
-        //Debug.Log("Spawning object");
+        if (animator != null) {
+            animator.SetTrigger("AttackTrigger");
+            StartCoroutine(DelayAttack(0.6f));
+        } else {
+            StartCoroutine(DelayAttack(0.0f));
+        }
+    }
 
-        Instantiate(projectile, this.transform.position, _shootOffset * this.transform.rotation);
+    IEnumerator DelayAttack(float time) {
+        yield return new WaitForSeconds(time);
+        Instantiate(projectile, this.transform.position + offset, _shootOffset * this.transform.rotation);
+        if (_pAudio != null) {
+            _pAudio.PlayShootClip();
+        }
     }
 
     public void SetActive(bool bActive)

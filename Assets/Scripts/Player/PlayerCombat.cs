@@ -1,20 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Transactions;
 using UnityEngine;
+using System;
 
 public class PlayerCombat : MonoBehaviour
 {
+    public Animator anim;
     PlayerStats stats;
     ControllerLayouts cLayout;
 
     public Rigidbody rigidbody;
     private PlayerAudio _playerAudio;
     
-    public Transform attackPoint;
-    public Vector3 attackRange = new Vector3(0.5f, 0.5f, 0.25f);
-    //cube is just a visual for now, once animation is added can be removed
-    public GameObject attackIndicator;
+    public GameObject attackObject;
     public float attackDuration = 0.25f;
     public LayerMask enemyLayers;
 
@@ -37,6 +37,9 @@ public class PlayerCombat : MonoBehaviour
     public float knockbackStun = 1f; // how long to stun enemy on knockback
     private float nextRightTime = 0f;
 
+
+    public float fartForgivenessFactor = 1; // how much of the true meter consumption you need to have to use ability
+
     void Start()
     {
         stats = PlayerStats.instance;
@@ -48,6 +51,7 @@ public class PlayerCombat : MonoBehaviour
         }
         rigidbody = GetComponent<Rigidbody>();
         _playerAudio = GetComponent<PlayerAudio>();
+        //anim = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -55,14 +59,19 @@ public class PlayerCombat : MonoBehaviour
         // If attack in progress, poll for that.
         if(stats.isAttacking)
         {
-            Collider[] hitColliders = Physics.OverlapBox(attackPoint.position, attackRange, Quaternion.identity, enemyLayers);
+            //use lossyscale /2 because using whole lossy scale seems to be bigger than actual indicator
+            bool hitEnemy = false;
+            Collider[] hitColliders = Physics.OverlapBox(attackObject.transform.position, attackObject.transform.lossyScale / 2, Quaternion.identity, enemyLayers);
             foreach(Collider enemy in hitColliders) {
-                //might want to make an Enemy file for this
                 var enemyAI = enemy.GetComponent<BaseEnemyAI>();
                 if (enemyAI != null)
                 {
+                    hitEnemy = true;
                     enemyAI.Die();
                 }
+            }
+            if (hitEnemy) {
+                _playerAudio.PlayAttackHitSound();
             }
         }
     }
@@ -111,7 +120,7 @@ public class PlayerCombat : MonoBehaviour
         // check vertical charge
         float vCharge = stats.getVerticalCharge();
 
-        if (vCharge <= stats.upChargeConsumption)
+        if (stats.spellsCostMeter && vCharge < stats.upChargeConsumption * fartForgivenessFactor)
         {
             if (vCharge > 0)
             {
@@ -125,12 +134,18 @@ public class PlayerCombat : MonoBehaviour
         {
             return;
         }
-        
-        stats.setVerticalDiff(-1f * stats.upChargeConsumption);
+        anim.SetTrigger("isAttackingTrigger");
+        //
+        stats.lastUpAttackTime = Time.time;
+
+        if (stats.spellsCostMeter)
+        {
+            stats.setVerticalDiff(-1 * Math.Min(vCharge, stats.upChargeConsumption));
+        }
 
         // execute attack
         stats.isAttacking = true;
-        attackIndicator.SetActive(true);
+        attackObject.SetActive(true);
 
         // actual collider check occurs in FixedUpdate.
 
@@ -144,7 +159,7 @@ public class PlayerCombat : MonoBehaviour
         // check vertical charge and convert to positive (if in down) for easy use
         float vCharge = stats.getVerticalCharge() * -1;
         
-        if (vCharge < stats.downChargeConsumption)
+        if (stats.spellsCostMeter && vCharge < stats.downChargeConsumption * fartForgivenessFactor)
         {
             if (vCharge > 0)
             {
@@ -158,21 +173,23 @@ public class PlayerCombat : MonoBehaviour
         {
             return;
         }
-        
-        stats.setVerticalDiff(stats.downChargeConsumption);
+        anim.SetTrigger("isMineTrigger");
 
-        Instantiate(downMine, this.transform.position + new Vector3(1,0,1), Quaternion.identity);
+        stats.lastDownAttackTime = Time.time;
 
-        _playerAudio.PlayDownSound();
-        //delay next attack
-        nextDownAttackTime = Time.time + downCooldown;
+        if (stats.spellsCostMeter)
+        {
+            stats.setVerticalDiff(Math.Min(vCharge, stats.downChargeConsumption));
+        }
+
+        StartCoroutine(PlaceMine(0.2f));
     }
 
     private void PerformADash() {
         // check horizontal charge
         var hCharge = -1 * stats.getHorizontalCharge();
 
-        if (hCharge < stats.leftChargeConsumption)
+        if (stats.spellsCostMeter && hCharge < stats.leftChargeConsumption * fartForgivenessFactor)
         {
             if (hCharge > 0)
             {
@@ -187,7 +204,14 @@ public class PlayerCombat : MonoBehaviour
         {
             return;
         }
-        stats.setHorizontalDiff(stats.leftChargeConsumption);
+        anim.SetTrigger("isDashingTrigger");
+
+        stats.lastLeftAttackTime = Time.time;
+        
+        if (stats.spellsCostMeter)
+        {
+            stats.setHorizontalDiff(Math.Min(hCharge, stats.leftChargeConsumption));
+        }
 
         // execute dash
         stats.isDashing = true;
@@ -202,7 +226,7 @@ public class PlayerCombat : MonoBehaviour
     {
         var charge = stats.getHorizontalCharge();
 
-        if (charge < stats.rightChargeConsumption)
+        if (stats.spellsCostMeter && charge < stats.rightChargeConsumption * fartForgivenessFactor)
         {
             if (charge > 0)
             {
@@ -216,8 +240,14 @@ public class PlayerCombat : MonoBehaviour
         {
             return;
         }
-        
-        stats.setHorizontalDiff(-1f * stats.rightChargeConsumption); // reversed
+        anim.SetTrigger("isEMPTrigger");
+
+        stats.lastRightAttackTime = Time.time;
+
+        if (stats.spellsCostMeter)
+        {
+            stats.setHorizontalDiff(-1f * Math.Min(charge, stats.rightChargeConsumption));
+        }
         
         // find entities to knock back
         var origin = rigidbody.position;
@@ -246,21 +276,30 @@ public class PlayerCombat : MonoBehaviour
     }
 
     void OnDrawGizmosSelected() {
-        if (attackPoint == null) {
+        if (attackObject == null) {
             return;
         }
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(attackPoint.position, attackRange);
+        Gizmos.DrawWireCube(attackObject.transform.position, attackObject.transform.lossyScale / 2);
     }
 
     IEnumerator HideCube(float time) {
         yield return new WaitForSeconds(time);
-        attackIndicator.SetActive(false);
+        attackObject.SetActive(false);
         stats.isAttacking = false;
     }
 
     IEnumerator FinishDash(float time) {
         yield return new WaitForSeconds(time);
         stats.isDashing = false;
+    }
+
+    IEnumerator PlaceMine(float time) {
+        yield return new WaitForSeconds(time);
+        Instantiate(downMine, this.transform.position + new Vector3(1,0,1), Quaternion.identity);
+
+        _playerAudio.PlayDownSound();
+        //delay next attack
+        nextDownAttackTime = Time.time + downCooldown;
     }
 }

@@ -18,15 +18,17 @@ public class PlayerAudio : MonoBehaviour
     [SerializeField]
     private AudioClip _deathClip;
     [SerializeField]
-    private AudioClip _leftChargedClip;
+    private AudioClip[] _leftChargedClip;
     [SerializeField]
-    private AudioClip _rightChargedClip;
+    private AudioClip[] _rightChargedClip;
     [SerializeField]
-    private AudioClip _downChargedClip;
+    private AudioClip[] _downChargedClip;
     [SerializeField]
-    private AudioClip _upChargedClip;
+    private AudioClip[] _upChargedClip;
     [SerializeField]
     private AudioClip _fartClip;
+    [SerializeField]
+    private AudioClip _hitAttackClip;
 
     void Start()
     {
@@ -36,25 +38,25 @@ public class PlayerAudio : MonoBehaviour
     //could also use one method and clip as the arg for all
     public void PlayUpSound() {
         if (_audioSource != null) {
-            _audioSource.clip = _upClip;
+            var clip = _upClip;
             _audioSource.loop = false;
-            _audioSource.Play();
+            _audioSource.PlayOneShot(clip, 0.8f);
         }
     }
 
     public void PlayDownSound() {
         if (_audioSource != null) {
-            _audioSource.clip = _downClip;
+            var clip = _downClip;
             _audioSource.loop = false;
-            _audioSource.Play();
+            _audioSource.PlayOneShot(clip, 0.7f);
         }
     }
 
     public void PlayLeftSound() {
         if (_audioSource != null) {
-            _audioSource.clip = _leftClip;
+            var clip = _leftClip;
             _audioSource.loop = false;
-            _audioSource.Play();
+            _audioSource.PlayOneShot(clip, 0.8f);
         }
     }
 
@@ -75,7 +77,7 @@ public class PlayerAudio : MonoBehaviour
         }
     }
 
-    public void PlayChargedSound(string direction)
+    public void PlayChargedSound(string direction, int num)
     {
         if (_audioSource == null)
         {
@@ -84,20 +86,20 @@ public class PlayerAudio : MonoBehaviour
 
         _audioSource.loop = false;
 
-        var clip = _upChargedClip;
+        var clip = _upChargedClip[num];
         switch (direction)
         {
             case "up":
-                clip = _upChargedClip;
+                clip = _upChargedClip[num];
                 break;
             case "down":
-                clip = _downChargedClip;
+                clip = _downChargedClip[num];
                 break;
             case "left":
-                clip = _leftChargedClip;
+                clip = _leftChargedClip[num];
                 break;
             case "right":
-                clip = _rightChargedClip;
+                clip = _rightChargedClip[num];
                 break;
         }
         
@@ -114,4 +116,16 @@ public class PlayerAudio : MonoBehaviour
         _audioSource.loop = false;
         _audioSource.PlayOneShot(_fartClip, 0.7f);
     }
+
+    public void PlayAttackHitSound()
+    {
+        if (_audioSource == null)
+        {
+            return;
+        }
+
+        _audioSource.loop = false;
+        _audioSource.PlayOneShot(_hitAttackClip, 1.0f);
+    }
 }
+

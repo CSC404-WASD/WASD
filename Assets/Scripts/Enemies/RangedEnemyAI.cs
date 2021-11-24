@@ -22,6 +22,9 @@ public class RangedEnemyAI : BaseEnemyAI
         base.Start();
         myRigidbody = GetComponent<Rigidbody>();
         myProjectileSpawner = GetComponent<ObstacleSpawner>();
+        if (!active) {
+            myProjectileSpawner.SetActive(false);
+        }
     }
 
     void FixedUpdate()
@@ -47,7 +50,8 @@ public class RangedEnemyAI : BaseEnemyAI
             distTowardPlayer.y = 0;
 
             Vector3 unitVectTowardPlayer = distTowardPlayer.normalized;
-            this.transform.forward = unitVectTowardPlayer; // Rotate enemy
+            //imported enemy model faces backwards for some reason so -1 here to flip it
+            this.transform.forward = unitVectTowardPlayer * -1; // Rotate enemy
 
 
             // If dist is already in shooting radius, don't walk; shoot

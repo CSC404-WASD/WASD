@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System;
 
 public class MineBehaviour : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class MineBehaviour : MonoBehaviour
     private bool isActive = false;
     public Material activateMaterial;
     public float mineRange = 10;
+    public Text armTimer;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,8 +38,16 @@ public class MineBehaviour : MonoBehaviour
 
     //wait time seconds till mine is active
     IEnumerator ActivateMine(float time) {
-        yield return new WaitForSeconds(time);
+        float timeLeft = time;
+        while (timeLeft > 0)
+        {
+            armTimer.text = String.Format("{0:0.0}", timeLeft);
+            //Debug.Log(time);
+            timeLeft -= Time.deltaTime;
+            yield return null;
+        }
         isActive = true;
+        armTimer.enabled = false;
         //change mine colour when active
         GetComponent<Renderer>().material = activateMaterial;
         StartCoroutine(DeactivateMine(30.0f));
@@ -65,6 +76,9 @@ public class MineBehaviour : MonoBehaviour
             _audioSource.loop = false;
             _audioSource.Play();
         }
+        // Shake camera
+        var cam = GameObject.Find("Camera");
+        cam.GetComponent<CameraController>().Shake(0.2f);
     }
 
 
