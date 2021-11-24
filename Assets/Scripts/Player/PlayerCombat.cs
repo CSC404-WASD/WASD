@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Transactions;
 using UnityEngine;
+using System;
 
 public class PlayerCombat : MonoBehaviour
 {
+    public Animator anim;
     PlayerStats stats;
     ControllerLayouts cLayout;
 
@@ -49,6 +51,7 @@ public class PlayerCombat : MonoBehaviour
         }
         rigidbody = GetComponent<Rigidbody>();
         _playerAudio = GetComponent<PlayerAudio>();
+        //anim = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -126,6 +129,9 @@ public class PlayerCombat : MonoBehaviour
         {
             return;
         }
+        anim.SetTrigger("isAttackingTrigger");
+        //
+        stats.lastUpAttackTime = Time.time;
 
         if (stats.spellsCostMeter)
         {
@@ -162,17 +168,16 @@ public class PlayerCombat : MonoBehaviour
         {
             return;
         }
+        anim.SetTrigger("isMineTrigger");
+
+        stats.lastDownAttackTime = Time.time;
 
         if (stats.spellsCostMeter)
         {
             stats.setVerticalDiff(Math.Min(vCharge, stats.downChargeConsumption));
         }
 
-        Instantiate(downMine, this.transform.position + new Vector3(1,0,1), Quaternion.identity);
-
-        _playerAudio.PlayDownSound();
-        //delay next attack
-        nextDownAttackTime = Time.time + downCooldown;
+        StartCoroutine(PlaceMine(0.2f));
     }
 
     private void PerformADash() {
@@ -194,7 +199,10 @@ public class PlayerCombat : MonoBehaviour
         {
             return;
         }
+        anim.SetTrigger("isDashingTrigger");
 
+        stats.lastLeftAttackTime = Time.time;
+        
         if (stats.spellsCostMeter)
         {
             stats.setHorizontalDiff(Math.Min(hCharge, stats.leftChargeConsumption));
@@ -227,6 +235,9 @@ public class PlayerCombat : MonoBehaviour
         {
             return;
         }
+        anim.SetTrigger("isEMPTrigger");
+
+        stats.lastRightAttackTime = Time.time;
 
         if (stats.spellsCostMeter)
         {
@@ -276,5 +287,14 @@ public class PlayerCombat : MonoBehaviour
     IEnumerator FinishDash(float time) {
         yield return new WaitForSeconds(time);
         stats.isDashing = false;
+    }
+
+    IEnumerator PlaceMine(float time) {
+        yield return new WaitForSeconds(time);
+        Instantiate(downMine, this.transform.position + new Vector3(1,0,1), Quaternion.identity);
+
+        _playerAudio.PlayDownSound();
+        //delay next attack
+        nextDownAttackTime = Time.time + downCooldown;
     }
 }

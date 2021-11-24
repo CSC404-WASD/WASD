@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8028719582277453858}
-  - component: {fileID: 2471332370191469949}
   - component: {fileID: 6708562071702652400}
+  - component: {fileID: 3515797799468612187}
   m_Layer: 0
   m_Name: SignCollider
   m_TagString: Untagged
@@ -32,19 +32,6 @@ Transform:
   m_Father: {fileID: 6462071849855251583}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2471332370191469949
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3585920097007523609}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.03, z: 0.5}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6708562071702652400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,6 +46,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   message: Default Message!
   anim: {fileID: 4005656763182684093}
+--- !u!135 &3515797799468612187
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3585920097007523609}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7267686953189044200
 GameObject:
   m_ObjectHideFlags: 0

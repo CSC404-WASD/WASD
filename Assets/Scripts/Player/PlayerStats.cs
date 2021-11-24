@@ -37,6 +37,8 @@ public class PlayerStats : MonoBehaviour
 
     public bool spellsCostMeter = true; // if false can use all spells infinitely for free
 
+    public float lastUpAttackTime, lastDownAttackTime, lastRightAttackTime, lastLeftAttackTime;
+
     private void Awake() {
         if (_instance != null && _instance != this) {
             Destroy(this.gameObject);
@@ -47,6 +49,10 @@ public class PlayerStats : MonoBehaviour
         lastPosition = this.transform.position;
         moveSpeed = GetComponent<PlayerMovement>().GetMoveSpeed();
         _playerAudio = GetComponent<PlayerAudio>();
+        lastUpAttackTime = Time.time;
+        lastDownAttackTime = Time.time;
+        lastLeftAttackTime = Time.time;
+        lastRightAttackTime = Time.time;
         verticalParticles.SetActive(false);
         horizontalParticles.SetActive(false);
         
