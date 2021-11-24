@@ -12,6 +12,8 @@ public class ObstacleSpawner : MonoBehaviour
     private float _nextSpawnTime;
     private bool _bActive = true;
 
+    public Vector3 offset = new Vector3(0,0,0);
+
     public float rotationX = 0;
     public float rotationY = 0;
     public float rotationZ = 0;
@@ -52,7 +54,7 @@ public class ObstacleSpawner : MonoBehaviour
 
     IEnumerator DelayAttack(float time) {
         yield return new WaitForSeconds(time);
-        Instantiate(projectile, this.transform.position, _shootOffset * this.transform.rotation);
+        Instantiate(projectile, this.transform.position + offset, _shootOffset * this.transform.rotation);
         if (_pAudio != null) {
             _pAudio.PlayShootClip();
         }

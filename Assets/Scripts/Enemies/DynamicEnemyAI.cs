@@ -41,6 +41,9 @@ public class DynamicEnemyAI : BaseEnemyAI
             unitVectTowardPlayer.y = 0;
             unitVectTowardPlayer = unitVectTowardPlayer.normalized;
 
+            //imported enemy model faces backwards for some reason so -1 here to flip it
+            this.transform.forward = unitVectTowardPlayer; // Rotate enemy
+
             // Only walk if not already moving fast enough toward player
             if (!stunned && Vector3.Dot(myRigidbody.velocity, unitVectTowardPlayer) < walkMaxSpeed)
             {
