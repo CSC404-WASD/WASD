@@ -110,7 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _clips: []
   _aggroClip: {fileID: 0}
-  _loopClip: {fileID: 0}
+  _loopClip: {fileID: 8300000, guid: 70ca448f5dc0646f19bf731c837331da, type: 3}
 --- !u!1001 &2189751965834863858
 PrefabInstance:
   m_ObjectHideFlags: 0
