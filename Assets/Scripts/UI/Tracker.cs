@@ -8,6 +8,7 @@ using UnityEngine.Serialization;
 public class Tracker : MonoBehaviour
 {
     private GameController _gameController;
+    private EnemyController _enemyController;
     private PlayerStats stats;
 
     public Slider rightSlider, leftSlider, upSlider, downSlider;
@@ -15,6 +16,7 @@ public class Tracker : MonoBehaviour
     public Text displayText;
     [FormerlySerializedAs("powerText")] public Text restartText;
     public Text deathsText;
+    public Text enemyRemainingText;
 
     public float lerpScale = 5; // scale for background drain interpolation
     public float snapDistance = 0.3f; // snap the background to the meter location if within this distance
@@ -26,6 +28,7 @@ public class Tracker : MonoBehaviour
     {
         stats = PlayerStats.instance;
         _gameController = GameController.instance;
+        _enemyController = EnemyController.instance;
         // upParticles.SetActive(false);
         // upParticleSystem = upParticles.GetComponent<ParticleSystem>();
     }
@@ -44,6 +47,7 @@ public class Tracker : MonoBehaviour
         downSlider.value = Math.Min(0, verticalCharge) * -1;
 
         deathsText.text = "Deaths: " + _gameController.getDeaths();
+        enemyRemainingText.text = "Enemies left: " + _enemyController.GetEnemies();
 
         if (Time.time - stats.lastUpAttackTime > drainDelay)
         {
