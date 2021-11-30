@@ -15,6 +15,8 @@ public class MineBehaviour : MonoBehaviour
 
     private bool isActive = false;
     public Material activateMaterial;
+
+    public float deactivateTime = 30.0f;
     public float mineRange = 10;
     public Text armTimer;
     // Start is called before the first frame update
@@ -50,7 +52,7 @@ public class MineBehaviour : MonoBehaviour
         armTimer.enabled = false;
         //change mine colour when active
         GetComponent<Renderer>().material = activateMaterial;
-        StartCoroutine(DeactivateMine(30.0f));
+        StartCoroutine(DeactivateMine(deactivateTime));
 
         // Check for stuff currently in range
         Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, mineRange);
