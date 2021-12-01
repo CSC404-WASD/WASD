@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameController : MonoBehaviour
 {
     ControllerLayouts cLayout; 
+    TimeTracker tTracker;
 
     private static GameController _instance;
     public GameObject canvas;
@@ -36,10 +38,15 @@ public class GameController : MonoBehaviour
             _pauseUI = canvas.transform.Find("PauseUI").gameObject;
             _nonPauseUI = canvas.transform.Find("NonPauseUI").gameObject;
         }
+        tTracker = TimeTracker.instance;
     }
 
     public void WinLevel() {
         var levelList = FindObjectOfType<LevelSwitchController>();
+        if (tTracker != null) {
+            tTracker.RecordTime();
+            tTracker.SetTrack(false);
+        }
         if (levelList != null) {
             levelList.NextLevel();
             if (levelList.NoMoreLevels() || !levelList.onLevelSequence) {
@@ -139,4 +146,8 @@ public class GameController : MonoBehaviour
         deaths++;
         _isDead = true;
     }
+
+    public String GetLevelTime(bool total) {
+        return tTracker.GetLastTime(total);
+    }  
 }

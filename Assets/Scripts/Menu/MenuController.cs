@@ -127,6 +127,15 @@ public class MenuController : MonoBehaviour
     }
 
     void LoadScene(string levelName) {
+        var timeTracker = FindObjectOfType<TimeTracker>();
+        if (timeTracker != null) {
+            if (levelName != "MainMenuScene" && levelName != "WinScene" && levelName != "InBetweenLevelMenu") {
+                timeTracker.SetTrack(true);
+            } else {
+                timeTracker.SetTrack(false);
+            }
+        }
+        
         if (gController != null) {
             gController.LoadScene(levelName);
         } else {
