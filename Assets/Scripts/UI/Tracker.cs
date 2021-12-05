@@ -11,6 +11,7 @@ public class Tracker : MonoBehaviour
     private PlayerStats stats;
 
     public Slider rightSlider, leftSlider, upSlider, downSlider;
+    public Slider rightTicks, leftTicks, upTicks, downTicks;
     public Slider upSecondarySlider, downSecondarySlider, leftSecondarySlider, rightSecondarySlider;
     public Text displayText;
     [FormerlySerializedAs("powerText")] public Text restartText;
@@ -26,13 +27,40 @@ public class Tracker : MonoBehaviour
     {
         stats = PlayerStats.instance;
         _gameController = GameController.instance;
-        // upParticles.SetActive(false);
-        // upParticleSystem = upParticles.GetComponent<ParticleSystem>();
+
+        if (stats.upDisabled)
+        {
+            upSlider.gameObject.SetActive(false);
+            upSecondarySlider.gameObject.SetActive(false);
+            upTicks.gameObject.SetActive(false);
+        }
+        
+        if (stats.downDisabled)
+        {
+            downSlider.gameObject.SetActive(false);
+            downSecondarySlider.gameObject.SetActive(false);
+            downTicks.gameObject.SetActive(false);
+        }
+
+        if (stats.leftDisabled)
+        {
+            leftSlider.gameObject.SetActive(false);
+            leftSecondarySlider.gameObject.SetActive(false);
+            leftTicks.gameObject.SetActive(false);
+        }
+
+        if (stats.rightDisabled)
+        {
+            rightSlider.gameObject.SetActive(false);
+            rightSecondarySlider.gameObject.SetActive(false);
+            rightTicks.gameObject.SetActive(false);
+        }
     }
     
     // Update is called once per frame
     void Update()
     {
+        
         var horizontalCharge = stats.getHorizontalCharge();
         var verticalCharge = stats.getVerticalCharge();
         
