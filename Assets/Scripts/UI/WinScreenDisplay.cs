@@ -17,7 +17,7 @@ public class WinScreenDisplay : MonoBehaviour
         _gController = GameController.instance;
 
         if (deathsText != null) {
-            deathsText.text = "Deaths: " + _gController.getDeaths();
+            deathsText.text = "Deaths this level: " + _gController.getDeaths();
         }
         if (timeText != null) {   
             timeText.text = "Level time: " + _gController.GetLevelTime(false);

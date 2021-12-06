@@ -62,7 +62,7 @@ public class GameController : MonoBehaviour
     public void LoadScene(string level)
     {
         var curLevel = SceneManager.GetActiveScene().name;
-        if (level != "WinScene" && curLevel != level)
+        if (level != "WinScene" && level != "InBetweenLevelMenu" && curLevel != level)
         {
             deaths = 0;
         }
@@ -70,6 +70,8 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(level);
         if (level == "MainMenuScene") {
             var levelList = FindObjectOfType<LevelSwitchController>();
+            //empty times when going back to main menu, could also leave em in to signal whole time plaiyng but
+            tTracker.EmptyTimes();
             if (levelList != null) {
                 levelList.ResetLevelList();
             }

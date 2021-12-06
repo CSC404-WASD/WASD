@@ -83,4 +83,8 @@ public class TimeTracker : MonoBehaviour
         return ConvertTime(times[times.Count -1]);
     }
 
+    public void EmptyTimes() {
+        times.Clear();
+    }
+
 }
