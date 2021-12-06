@@ -2735,6 +2735,10 @@ MonoBehaviour:
   leftSlider: {fileID: 2391512056490247179}
   upSlider: {fileID: 7533794137494681610}
   downSlider: {fileID: 272808237825878777}
+  rightTicks: {fileID: 6291581509613592}
+  leftTicks: {fileID: 1836711115470047595}
+  upTicks: {fileID: 1616354628040789588}
+  downTicks: {fileID: 3262316240001200133}
   upSecondarySlider: {fileID: 4576817390863348730}
   downSecondarySlider: {fileID: 8215120046739763122}
   leftSecondarySlider: {fileID: 1690294050618415678}

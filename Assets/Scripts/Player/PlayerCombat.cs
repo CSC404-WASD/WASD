@@ -116,7 +116,10 @@ public class PlayerCombat : MonoBehaviour
     }
 
     private void PerformUpAttack() {
-
+        if (stats.upDisabled)
+        {
+            return;
+        }
         // check vertical charge
         float vCharge = stats.getVerticalCharge();
 
@@ -156,6 +159,10 @@ public class PlayerCombat : MonoBehaviour
     }
 
     private void PerformDownAttack() {
+        if (stats.downDisabled)
+        {
+            return;
+        }
         // check vertical charge and convert to positive (if in down) for easy use
         float vCharge = stats.getVerticalCharge() * -1;
         
@@ -186,6 +193,10 @@ public class PlayerCombat : MonoBehaviour
     }
 
     private void PerformADash() {
+        if (stats.leftDisabled)
+        {
+            return;
+        }
         // check horizontal charge
         var hCharge = -1 * stats.getHorizontalCharge();
 
@@ -224,6 +235,10 @@ public class PlayerCombat : MonoBehaviour
     
     private void PerformDKnockback()
     {
+        if (stats.rightDisabled)
+        {
+            return;
+        }
         var charge = stats.getHorizontalCharge();
 
         if (stats.spellsCostMeter && charge < stats.rightChargeConsumption * fartForgivenessFactor)
