@@ -19,7 +19,7 @@ public class ProjectileAudio : MonoBehaviour
             _audioSource.clip = _shootClip;
             _audioSource.loop = false;
             //this one allows multiple clips to be played from same audio source, not sure if we'll need
-            _audioSource.PlayOneShot(_audioSource.clip, 0.6f);
+            _audioSource.PlayOneShot(_audioSource.clip, 0.0f);
         }
     }
 }
