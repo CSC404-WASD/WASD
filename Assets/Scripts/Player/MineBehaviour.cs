@@ -13,7 +13,7 @@ public class MineBehaviour : MonoBehaviour
 
     public float armTime;
 
-    private bool isActive = false;
+    public bool isActive = false;
     public Material activateMaterial;
     public float mineRange = 10;
     public Text armTimer;
