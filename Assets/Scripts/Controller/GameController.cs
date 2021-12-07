@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameController : MonoBehaviour
 {
     ControllerLayouts cLayout; 
+    TimeTracker tTracker;
 
     private static GameController _instance;
     public GameObject canvas;
@@ -36,10 +38,15 @@ public class GameController : MonoBehaviour
             _pauseUI = canvas.transform.Find("PauseUI").gameObject;
             _nonPauseUI = canvas.transform.Find("NonPauseUI").gameObject;
         }
+        tTracker = TimeTracker.instance;
     }
 
     public void WinLevel() {
         var levelList = FindObjectOfType<LevelSwitchController>();
+        if (tTracker != null) {
+            tTracker.RecordTime();
+            tTracker.SetTrack(false);
+        }
         if (levelList != null) {
             levelList.NextLevel();
             if (levelList.NoMoreLevels() || !levelList.onLevelSequence) {
@@ -55,7 +62,7 @@ public class GameController : MonoBehaviour
     public void LoadScene(string level)
     {
         var curLevel = SceneManager.GetActiveScene().name;
-        if (level != "WinScene" && curLevel != level)
+        if (level != "WinScene" && level != "InBetweenLevelMenu" && curLevel != level)
         {
             deaths = 0;
         }
@@ -63,6 +70,8 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(level);
         if (level == "MainMenuScene") {
             var levelList = FindObjectOfType<LevelSwitchController>();
+            //empty times when going back to main menu, could also leave em in to signal whole time plaiyng but
+            tTracker.EmptyTimes();
             if (levelList != null) {
                 levelList.ResetLevelList();
             }
@@ -139,4 +148,8 @@ public class GameController : MonoBehaviour
         deaths++;
         _isDead = true;
     }
+
+    public String GetLevelTime(bool total) {
+        return tTracker.GetLastTime(total);
+    }  
 }

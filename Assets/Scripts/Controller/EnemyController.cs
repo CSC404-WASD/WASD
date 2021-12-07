@@ -34,4 +34,8 @@ public class EnemyController : MonoBehaviour
             gameController.WinLevel();
         }
     }    
+
+    public int GetEnemies() {
+        return numEnemies;
+    }
 }
