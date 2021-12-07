@@ -1538,11 +1538,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6709572340081239712, guid: 022f55d33254eb24f94c8d3a6b21074c, type: 3}
       propertyPath: walkMaxSpeed
-      value: 18
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 6709572340081239712, guid: 022f55d33254eb24f94c8d3a6b21074c, type: 3}
       propertyPath: walkVelocity
-      value: 18
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 022f55d33254eb24f94c8d3a6b21074c, type: 3}
@@ -9004,11 +9004,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6709572340081239712, guid: 022f55d33254eb24f94c8d3a6b21074c, type: 3}
       propertyPath: walkMaxSpeed
-      value: 18
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 6709572340081239712, guid: 022f55d33254eb24f94c8d3a6b21074c, type: 3}
       propertyPath: walkVelocity
-      value: 18
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 022f55d33254eb24f94c8d3a6b21074c, type: 3}
