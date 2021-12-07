@@ -11,9 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainScene.unity
     guid: 28baa82cb7ea11243b93fa1c346ea496
-  - enabled: 1
-    path: Assets/Scenes/WinScene.unity
-    guid: 53dd835dba7a14a33a806e6edaed260e
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/MineScene.unity
     guid: 897e799933c81458da8c1bb7e0a564fe
@@ -32,4 +32,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Down_Tutorial.unity
     guid: 1d6cf5eadd5d4b84d87cda54f93d41bb
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/InBetweenLevelMenu.unity
+    guid: 6373bad647ebb0446820acab3aded326
+  - enabled: 0
+    path: Assets/Scenes/RightTutorialScene.unity
+    guid: 7736b0d185ed646e69ee9f8420d0d868
+  - enabled: 0
+    path: Assets/Scenes/LeftTutorialScene.unity
+    guid: cb1d4b47b9bf54085a6cac44eb423bfe
   m_configObjects: {}

@@ -1428,10 +1428,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1703846969655273149, guid: 593137bc6f94c95468b52ebdbe31c96c, type: 3}
-      propertyPath: offset.y
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 4734283693004200384, guid: 593137bc6f94c95468b52ebdbe31c96c, type: 3}
       propertyPath: m_Name
       value: Sleepy Ranged Enemy (1)
@@ -4378,10 +4374,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1703846969655273149, guid: 593137bc6f94c95468b52ebdbe31c96c, type: 3}
-      propertyPath: offset.y
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 4734283693004200384, guid: 593137bc6f94c95468b52ebdbe31c96c, type: 3}
       propertyPath: m_Name
       value: Sleepy Ranged Enemy
