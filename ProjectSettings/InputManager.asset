@@ -294,11 +294,11 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Left Trigger
+    m_Name: Left Trigger PS4
     descriptiveName: PS4 Left Trigger
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: escape
+    positiveButton: 
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
@@ -310,11 +310,11 @@ InputManager:
     axis: 4
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Right Trigger
+    m_Name: Right Trigger PS4
     descriptiveName: PS4 Right Trigger
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: escape
+    positiveButton: 
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
@@ -326,7 +326,7 @@ InputManager:
     axis: 5
     joyNum: 0
   - serializedVersion: 3
-    m_Name: DpadYPS4
+    m_Name: Left Trigger XBOX
     descriptiveName: PS4 DPad Vertical
     descriptiveNegativeName: 
     negativeButton: 
@@ -339,10 +339,10 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
-    axis: 6
+    axis: 4
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Dpad Vertical XBOX360
+    m_Name: Right Trigger XBOX
     descriptiveName: XBOX360 Dpad Vertical
     descriptiveNegativeName: 
     negativeButton: 
@@ -355,7 +355,7 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
-    axis: 6
+    axis: 5
     joyNum: 0
   - serializedVersion: 3
     m_Name: Enable Debug Button 1

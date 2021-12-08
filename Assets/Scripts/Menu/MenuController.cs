@@ -16,6 +16,7 @@ public class MenuController : MonoBehaviour
     public GameObject parent;
     private int lastAxis = 0;
     ControllerLayouts clayout;
+    OptionsController oController;
     private float lastPress;
     public float maxFreq = 0.2f;
 
@@ -25,6 +26,7 @@ public class MenuController : MonoBehaviour
     void Start() {
         //find the menu options in the parent
         clayout = ControllerLayouts.instance;
+        oController = OptionsController.instance;
         levelList = LevelSwitchController.instance;
         LoadContainer(parent);
         lastPress = Time.unscaledTime;
@@ -123,6 +125,11 @@ public class MenuController : MonoBehaviour
             gController.RestartGame();
         } else if (menuOptionData.menuType == MenuType.ExitPause) {
             gController.TogglePause();
+        } else if (menuOptionData.menuType == MenuType.TriggerDeplete) {
+            if (oController != null) {
+                oController.ToggleTriggerDeplete();
+                options[currentOption].GetComponent<Text>().text = String.Format("Trigger Deplete: {0}", oController.IsTriggerDeplete()) ;
+            }
         }
     }
 
