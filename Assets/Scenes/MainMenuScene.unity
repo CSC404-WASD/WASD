@@ -2694,7 +2694,7 @@ MonoBehaviour:
   - Down_Tutorial
   - LeftTutorialScene
   - RightTutorialScene
-  - Intermediate Level
+  - IntermediateLevel
   - MainScene
   - Level3Scene
   onLevelSequence: 0
