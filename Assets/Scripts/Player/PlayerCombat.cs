@@ -90,7 +90,11 @@ public class PlayerCombat : MonoBehaviour
             //testing with ps4 controller on mac, button 6 = press left trigger button 7 = press right trigger
             // can also use axis 5 for a val between -1 and 1 (left trigger), or axis 6 for rt
             if (Input.GetKeyDown(KeyCode.U) && !stats.isAttacking && !stats.isDashing) {
-                PerformUpAttack();
+                if (oController.IsTriggerDeplete() && Input.GetKey(KeyCode.Space)) {
+                    DepleteMeter("up");
+                } else {
+                    PerformUpAttack();
+                }
             // button 3 is triangle on ps (up) and y on xbox360 (up)
             } else if (Input.GetKeyDown(cLayout.upButton()) && !stats.isAttacking && !stats.isDashing) {
                 if (oController != null && oController.IsTriggerDeplete() 
@@ -104,7 +108,11 @@ public class PlayerCombat : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.J) && !stats.isDashing)
             {
-                PerformDownAttack();
+                if (oController.IsTriggerDeplete() && Input.GetKey(KeyCode.Space)) {
+                    DepleteMeter("down");
+                } else {
+                    PerformDownAttack();
+                }
             }
             // button 3 is triangle on ps (up) and y on xbox360 (up)
             //joystick button 1 = x (down) for ps4 controller, b (right) for xbox360 thanks devs
@@ -120,10 +128,14 @@ public class PlayerCombat : MonoBehaviour
             //button 2 is right (circle) on ps4 and left (x) on xbox360
             if (Input.GetKeyDown(KeyCode.K) && !stats.isAttacking && !stats.isDashing)
             {
-                PerformDKnockback();
+                if (oController.IsTriggerDeplete() && Input.GetKey(KeyCode.Space)) {
+                    DepleteMeter("right");
+                } else {
+                    PerformDKnockback();
+                }
             } else if (Input.GetKeyDown(cLayout.rightButton()) && !stats.isAttacking && !stats.isDashing){
                 if (oController != null && oController.IsTriggerDeplete() 
-                    && (Input.GetAxisRaw(cLayout.leftTrigger()) > 0.8 || Input.GetAxisRaw(cLayout.rightTrigger()) > 0.8)) {
+                    && Input.GetAxisRaw(cLayout.leftTrigger()) > 0.8 && Input.GetAxisRaw(cLayout.rightTrigger()) > 0.8) {
                     DepleteMeter("right");
                 } else {
                     PerformDKnockback();
@@ -131,11 +143,15 @@ public class PlayerCombat : MonoBehaviour
             }
 
             if (Input.GetKeyDown(KeyCode.H) && !stats.isDashing && !stats.isAttacking) {
-                PerformADash();
+                if (oController.IsTriggerDeplete() && Input.GetKey(KeyCode.Space)) {
+                    DepleteMeter("left");
+                } else {
+                    PerformADash();
+                }
             //button 0 is left on ps4(square) and down (a) on xbox360
             } else if (Input.GetKeyDown(cLayout.leftButton()) && !stats.isDashing && !stats.isAttacking) {
                 if (oController != null && oController.IsTriggerDeplete() 
-                    && (Input.GetAxisRaw(cLayout.leftTrigger()) > 0.8 || Input.GetAxisRaw(cLayout.rightTrigger()) > 0.8)) {
+                    && Input.GetAxisRaw(cLayout.leftTrigger()) > 0.8 && Input.GetAxisRaw(cLayout.rightTrigger()) > 0.8) {
                     DepleteMeter("left");
                 } else {
                     PerformADash();
