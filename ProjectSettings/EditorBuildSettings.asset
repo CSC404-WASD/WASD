@@ -35,4 +35,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/InBetweenLevelMenu.unity
     guid: 6373bad647ebb0446820acab3aded326
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Up Tutorial.unity
+    guid: b06d947e11c64754cb351c238e46709a
+  - enabled: 1
+    path: Assets/Scenes/LeftTutorialScene.unity
+    guid: cb1d4b47b9bf54085a6cac44eb423bfe
+  - enabled: 1
+    path: Assets/Scenes/W_Tutorial_Pt2.unity
+    guid: ef0fc8a73a1f86044a687c55df39d461
+  - enabled: 1
+    path: Assets/Scenes/IntermediateLevel.unity
+    guid: 7062409fd7936a64ead18c20e74a8479
   m_configObjects: {}
