@@ -16,7 +16,6 @@ public class WallPassTrigger : MonoBehaviour
         {
             var stats = other.gameObject.GetComponent<PlayerStats>();
             if (stats.isDashing) {
-                Debug.Log("lmao");
                 SetPassable(true);
             }
         }
@@ -28,7 +27,6 @@ public class WallPassTrigger : MonoBehaviour
         {
             var stats = other.gameObject.GetComponent<PlayerStats>();
             if (stats.isDashing) {
-                Debug.Log("lmao");
                 SetPassable(true);
             }
         }

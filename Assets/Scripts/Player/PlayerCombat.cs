@@ -135,7 +135,7 @@ public class PlayerCombat : MonoBehaviour
                 }
             } else if (Input.GetKeyDown(cLayout.rightButton()) && !stats.isAttacking && !stats.isDashing){
                 if (oController != null && oController.IsTriggerDeplete() 
-                    && Input.GetAxisRaw(cLayout.leftTrigger()) > 0.8 && Input.GetAxisRaw(cLayout.rightTrigger()) > 0.8) {
+                    && Input.GetAxisRaw(cLayout.leftTrigger()) > 0.8 || Input.GetAxisRaw(cLayout.rightTrigger()) > 0.8) {
                     DepleteMeter("right");
                 } else {
                     PerformDKnockback();
@@ -151,7 +151,7 @@ public class PlayerCombat : MonoBehaviour
             //button 0 is left on ps4(square) and down (a) on xbox360
             } else if (Input.GetKeyDown(cLayout.leftButton()) && !stats.isDashing && !stats.isAttacking) {
                 if (oController != null && oController.IsTriggerDeplete() 
-                    && Input.GetAxisRaw(cLayout.leftTrigger()) > 0.8 && Input.GetAxisRaw(cLayout.rightTrigger()) > 0.8) {
+                    && Input.GetAxisRaw(cLayout.leftTrigger()) > 0.8 || Input.GetAxisRaw(cLayout.rightTrigger()) > 0.8) {
                     DepleteMeter("left");
                 } else {
                     PerformADash();

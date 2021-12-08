@@ -128,7 +128,12 @@ public class MenuController : MonoBehaviour
         } else if (menuOptionData.menuType == MenuType.TriggerDeplete) {
             if (oController != null) {
                 oController.ToggleTriggerDeplete();
-                options[currentOption].GetComponent<Text>().text = String.Format("Trigger Deplete: {0}", oController.IsTriggerDeplete()) ;
+                var component = options[currentOption].GetComponent<Text>();
+                if (oController.IsTriggerDeplete()) {
+                    component.text = component.text.Replace("Off", "On") ;
+                } else {
+                    component.text = component.text.Replace("On", "Off") ;
+                }
             }
         }
     }
