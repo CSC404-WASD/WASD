@@ -71,7 +71,7 @@ public class ControllerLayout
     public KeyCode pauseButton() { return pauseButtonMap; }
     public KeyCode restartButton() { return restartButtonMap; }
     public String leftTrigger() { return leftTriggerMap; }
-    public String rightTrigger() { return leftTriggerMap; }
+    public String rightTrigger() { return rightTriggerMap; }
 }
 
 public class Xbox360Layout : ControllerLayout {

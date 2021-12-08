@@ -6121,7 +6121,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3092681431596216057, guid: 34daeb362205fa94fbfd6f7bcd80fecc, type: 3}
       propertyPath: m_Name
-      value: Player Bot (2)
+      value: Player Bot
       objectReference: {fileID: 0}
     - target: {fileID: 3846801851237455523, guid: 34daeb362205fa94fbfd6f7bcd80fecc, type: 3}
       propertyPath: m_Convex
@@ -6159,6 +6159,18 @@ Rigidbody:
   m_CorrespondingSourceObject: {fileID: 6911353594610702922, guid: 34daeb362205fa94fbfd6f7bcd80fecc, type: 3}
   m_PrefabInstance: {fileID: 1641463254}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1641463257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641463255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cef4c9901f29c4531b3d3a5f18f993cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1654178300 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6112480730467209915, guid: 2a9e078d88d79574d9de1a53583c11b5, type: 3}

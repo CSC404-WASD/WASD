@@ -12,6 +12,8 @@ public class ImageRandomizer : MonoBehaviour
     public Boolean useRandom;
     public Boolean useProgressive;
     public int[] thresholds;
+    public String[] progressiveTexts;
+    public Text text;
 
     // Start is called before the first frame update
     void Start()
@@ -28,13 +30,19 @@ public class ImageRandomizer : MonoBehaviour
             if (_gController != null) {
                 var deaths = _gController.getDeaths();
                 int i = 0;
+                text = GetComponentInChildren<Text>();
                 foreach (var thresh in thresholds) {
                     if (deaths >= thresh) {
                         img.sprite = images[i];
+                        if (text != null) {
+                            text.text = progressiveTexts[i];
+                        }
                     }
                     i += 1;
+                    
                 }
             }
+
         }
         
     }
