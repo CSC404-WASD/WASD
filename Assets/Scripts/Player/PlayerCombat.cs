@@ -10,6 +10,7 @@ public class PlayerCombat : MonoBehaviour
     public Animator anim;
     PlayerStats stats;
     ControllerLayouts cLayout;
+    OptionsController oController;
 
     public Rigidbody rigidbody;
     private PlayerAudio _playerAudio;
@@ -44,10 +45,15 @@ public class PlayerCombat : MonoBehaviour
     {
         stats = PlayerStats.instance;
         cLayout = ControllerLayouts.instance;
+        oController = OptionsController.instance;
         if (cLayout == null) // If you are opening scenes from outside the menu. Debug.
         {
             cLayout = this.gameObject.AddComponent(typeof(ControllerLayouts)) as ControllerLayouts;
             cLayout.setLayout(ControllerType.XBOX360);
+        }
+        //it's annoying to do null checks so assume false if doesnt exist
+        if (oController == null) {
+            oController = this.gameObject.AddComponent(typeof(OptionsController)) as OptionsController;
         }
         rigidbody = GetComponent<Rigidbody>();
         _playerAudio = GetComponent<PlayerAudio>();
@@ -84,33 +90,72 @@ public class PlayerCombat : MonoBehaviour
             //testing with ps4 controller on mac, button 6 = press left trigger button 7 = press right trigger
             // can also use axis 5 for a val between -1 and 1 (left trigger), or axis 6 for rt
             if (Input.GetKeyDown(KeyCode.U) && !stats.isAttacking && !stats.isDashing) {
-                PerformUpAttack();
+                if (oController.IsTriggerDeplete() && Input.GetKey(KeyCode.Space)) {
+                    DepleteMeter("up");
+                } else {
+                    PerformUpAttack();
+                }
             // button 3 is triangle on ps (up) and y on xbox360 (up)
             } else if (Input.GetKeyDown(cLayout.upButton()) && !stats.isAttacking && !stats.isDashing) {
-                PerformUpAttack();
+                if (oController != null && oController.IsTriggerDeplete() 
+                    && (Input.GetAxisRaw(cLayout.leftTrigger()) > 0.8 || Input.GetAxisRaw(cLayout.rightTrigger()) > 0.8)) {
+                    DepleteMeter("up");
+                } else {
+                    PerformUpAttack();
+                }
+                
             }
 
             if (Input.GetKeyDown(KeyCode.J) && !stats.isDashing)
             {
-                PerformDownAttack();
+                if (oController.IsTriggerDeplete() && Input.GetKey(KeyCode.Space)) {
+                    DepleteMeter("down");
+                } else {
+                    PerformDownAttack();
+                }
             }
             // button 3 is triangle on ps (up) and y on xbox360 (up)
             //joystick button 1 = x (down) for ps4 controller, b (right) for xbox360 thanks devs
             else if (Input.GetKeyDown(cLayout.downButton()) && !stats.isDashing) {
-                PerformDownAttack();
+                if (oController != null && oController.IsTriggerDeplete() 
+                    && (Input.GetAxisRaw(cLayout.leftTrigger()) > 0.8 || Input.GetAxisRaw(cLayout.rightTrigger()) > 0.8)) {
+                    DepleteMeter("down");
+                } else {
+                    PerformDownAttack();
+                }
             }
 
             //button 2 is right (circle) on ps4 and left (x) on xbox360
-            if ((Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(cLayout.rightButton())) && !stats.isAttacking && !stats.isDashing)
+            if (Input.GetKeyDown(KeyCode.K) && !stats.isAttacking && !stats.isDashing)
             {
-                PerformDKnockback();
+                if (oController.IsTriggerDeplete() && Input.GetKey(KeyCode.Space)) {
+                    DepleteMeter("right");
+                } else {
+                    PerformDKnockback();
+                }
+            } else if (Input.GetKeyDown(cLayout.rightButton()) && !stats.isAttacking && !stats.isDashing){
+                if (oController != null && oController.IsTriggerDeplete() 
+                    && Input.GetAxisRaw(cLayout.leftTrigger()) > 0.8 && Input.GetAxisRaw(cLayout.rightTrigger()) > 0.8) {
+                    DepleteMeter("right");
+                } else {
+                    PerformDKnockback();
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.H) && !stats.isDashing && !stats.isAttacking) {
-                PerformADash();
+                if (oController.IsTriggerDeplete() && Input.GetKey(KeyCode.Space)) {
+                    DepleteMeter("left");
+                } else {
+                    PerformADash();
+                }
             //button 0 is left on ps4(square) and down (a) on xbox360
             } else if (Input.GetKeyDown(cLayout.leftButton()) && !stats.isDashing && !stats.isAttacking) {
-                PerformADash();
+                if (oController != null && oController.IsTriggerDeplete() 
+                    && Input.GetAxisRaw(cLayout.leftTrigger()) > 0.8 && Input.GetAxisRaw(cLayout.rightTrigger()) > 0.8) {
+                    DepleteMeter("left");
+                } else {
+                    PerformADash();
+                }
             }
         }
     }
@@ -125,6 +170,9 @@ public class PlayerCombat : MonoBehaviour
 
         if (stats.spellsCostMeter && vCharge < stats.upChargeConsumption * fartForgivenessFactor)
         {
+            if (oController.IsTriggerDeplete()) {
+                return;
+            }
             if (vCharge > 0)
             {
                 _playerAudio.PlayFartSound();
@@ -168,6 +216,9 @@ public class PlayerCombat : MonoBehaviour
         
         if (stats.spellsCostMeter && vCharge < stats.downChargeConsumption * fartForgivenessFactor)
         {
+            if (oController.IsTriggerDeplete()) {
+                return;
+            }
             if (vCharge > 0)
             {
                 _playerAudio.PlayFartSound();
@@ -202,6 +253,9 @@ public class PlayerCombat : MonoBehaviour
 
         if (stats.spellsCostMeter && hCharge < stats.leftChargeConsumption * fartForgivenessFactor)
         {
+            if (oController.IsTriggerDeplete()) {
+                return;
+            }
             if (hCharge > 0)
             {
                 _playerAudio.PlayFartSound();
@@ -243,6 +297,9 @@ public class PlayerCombat : MonoBehaviour
 
         if (stats.spellsCostMeter && charge < stats.rightChargeConsumption * fartForgivenessFactor)
         {
+            if (oController.IsTriggerDeplete()) {
+                return;
+            }
             if (charge > 0)
             {
                 _playerAudio.PlayFartSound();
@@ -288,6 +345,21 @@ public class PlayerCombat : MonoBehaviour
         // delay next knockback
         nextRightTime = Time.time + rightCooldown;
         stats.isAttacking = false;
+    }
+
+    private void DepleteMeter(String direction) {
+        float charge = 0;
+        if (direction == "up" || direction == "down") {
+            charge = stats.getVerticalCharge();
+        } else if (direction == "right" || direction == "left") {
+            charge = stats.getHorizontalCharge();
+        }
+
+        if ((charge > 0 && direction == "up") || (charge < 0 && direction == "down")) {
+            stats.setVerticalDiff(-1 * charge);
+        } else if ((charge > 0 && direction == "right") || (charge < 0 && direction == "left")) {
+            stats.setHorizontalDiff(-1 * charge);
+        }
     }
 
     void OnDrawGizmosSelected() {

@@ -19,6 +19,7 @@ namespace MenuTypes
         NextLevel,
         Back,
         Restart,
-        ExitPause
+        ExitPause,
+        TriggerDeplete
     }
 }
