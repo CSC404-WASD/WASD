@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class ControllerLayouts : MonoBehaviour
 {
@@ -47,6 +48,8 @@ public class ControllerLayouts : MonoBehaviour
     public KeyCode rightButton() { return layout.rightButton(); }
     public KeyCode pauseButton() { return layout.pauseButton(); }
     public KeyCode restartButton() { return layout.restartButton(); }
+    public String leftTrigger() { return layout.leftTrigger(); }
+    public String rightTrigger() { return layout.rightTrigger(); }
 }
 
 public class ControllerLayout
@@ -57,6 +60,9 @@ public class ControllerLayout
     protected KeyCode downButtonMap;
     protected KeyCode pauseButtonMap;
     protected KeyCode restartButtonMap;
+    protected String leftTriggerMap;
+    protected String rightTriggerMap;
+
 
     public KeyCode upButton() { return upButtonMap; }
     public KeyCode downButton() { return downButtonMap; }
@@ -64,6 +70,8 @@ public class ControllerLayout
     public KeyCode rightButton() { return rightButtonMap; }
     public KeyCode pauseButton() { return pauseButtonMap; }
     public KeyCode restartButton() { return restartButtonMap; }
+    public String leftTrigger() { return leftTriggerMap; }
+    public String rightTrigger() { return rightTriggerMap; }
 }
 
 public class Xbox360Layout : ControllerLayout {
@@ -74,7 +82,10 @@ public class Xbox360Layout : ControllerLayout {
         downButtonMap = KeyCode.JoystickButton0;
 
         pauseButtonMap = KeyCode.JoystickButton6;
-        restartButtonMap = KeyCode.JoystickButton7;    
+        restartButtonMap = KeyCode.JoystickButton7;
+
+        leftTriggerMap = "Left Trigger XBOX";
+        rightTriggerMap = "Right Trigger XBOX";    
     }
 
 }
@@ -88,6 +99,9 @@ public class PS4Layout: ControllerLayout {
 
         pauseButtonMap = KeyCode.JoystickButton8;
         restartButtonMap = KeyCode.JoystickButton9;
+
+        leftTriggerMap = "Left Trigger PS4";
+        rightTriggerMap = "Right Trigger PS4";   
     }
 
 }

@@ -106,6 +106,16 @@ public class PlayerStats : MonoBehaviour
         {
             horCharge = -maxHorCharge;
         }
+
+        if (upDisabled && verCharge > 0 || downDisabled && verCharge < 0)
+        {
+            verCharge = 0;
+        }
+
+        if (leftDisabled && horCharge < 0 || rightDisabled && horCharge > 0)
+        {
+            horCharge = 0;
+        }
      
         IndicateChargeGain(prevVerCharge, prevHorCharge);
     }
