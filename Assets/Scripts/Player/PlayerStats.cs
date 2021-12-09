@@ -18,6 +18,11 @@ public class PlayerStats : MonoBehaviour
     public bool isDashing = false;
     public float maxVerCharge = 1.0f;
     public float maxHorCharge = 1.0f;
+
+    public bool upDisabled = false;
+    public bool downDisabled = false;
+    public bool leftDisabled = false;
+    public bool rightDisabled = false;
     
     public float leftChargeConsumption = 0.3f;
     public float rightChargeConsumption = 0.3f;
@@ -101,6 +106,16 @@ public class PlayerStats : MonoBehaviour
         {
             horCharge = -maxHorCharge;
         }
+
+        if (upDisabled && verCharge > 0 || downDisabled && verCharge < 0)
+        {
+            verCharge = 0;
+        }
+
+        if (leftDisabled && horCharge < 0 || rightDisabled && horCharge > 0)
+        {
+            horCharge = 0;
+        }
      
         IndicateChargeGain(prevVerCharge, prevHorCharge);
     }
@@ -141,7 +156,7 @@ public class PlayerStats : MonoBehaviour
     private void IndicateChargeGain(float prevVerCharge, float prevHorCharge)
     {
         // up
-        if (verCharge > 0)
+        if (verCharge > 0 && !upDisabled)
         {
             var prevCharges = prevVerCharge > 0 ? Math.Floor(prevVerCharge / upChargeConsumption) : 0;
             var newCharges = Math.Floor(verCharge / upChargeConsumption);
@@ -163,7 +178,7 @@ public class PlayerStats : MonoBehaviour
             }
         }
         // down
-        else
+        else if (!downDisabled)
         {
             var prevCharges = prevVerCharge < 0 ? Math.Ceiling(prevVerCharge / downChargeConsumption) : 0;
             var newCharges = Math.Ceiling(verCharge / downChargeConsumption);
@@ -187,7 +202,7 @@ public class PlayerStats : MonoBehaviour
         }
 
         // right
-        if (horCharge > 0)
+        if (horCharge > 0 && !rightDisabled)
         {
             var prevCharges = prevHorCharge > 0 ? Math.Floor(prevHorCharge / rightChargeConsumption) : 0;
             var newCharges = Math.Floor(horCharge / rightChargeConsumption);
@@ -208,7 +223,7 @@ public class PlayerStats : MonoBehaviour
             }
         }
         // left
-        else
+        else if (!leftDisabled)
         {
             var prevCharges = prevHorCharge < 0 ? Math.Ceiling(prevHorCharge / leftChargeConsumption) : 0;
             var newCharges = Math.Ceiling(horCharge / leftChargeConsumption);

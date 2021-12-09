@@ -16,6 +16,7 @@ public class MenuController : MonoBehaviour
     public GameObject parent;
     private int lastAxis = 0;
     ControllerLayouts clayout;
+    OptionsController oController;
     private float lastPress;
     public float maxFreq = 0.2f;
 
@@ -25,6 +26,7 @@ public class MenuController : MonoBehaviour
     void Start() {
         //find the menu options in the parent
         clayout = ControllerLayouts.instance;
+        oController = OptionsController.instance;
         levelList = LevelSwitchController.instance;
         LoadContainer(parent);
         lastPress = Time.unscaledTime;
@@ -123,10 +125,29 @@ public class MenuController : MonoBehaviour
             gController.RestartGame();
         } else if (menuOptionData.menuType == MenuType.ExitPause) {
             gController.TogglePause();
+        } else if (menuOptionData.menuType == MenuType.TriggerDeplete) {
+            if (oController != null) {
+                oController.ToggleTriggerDeplete();
+                var component = options[currentOption].GetComponent<Text>();
+                if (oController.IsTriggerDeplete()) {
+                    component.text = component.text.Replace("Off", "On") ;
+                } else {
+                    component.text = component.text.Replace("On", "Off") ;
+                }
+            }
         }
     }
 
     void LoadScene(string levelName) {
+        var timeTracker = FindObjectOfType<TimeTracker>();
+        if (timeTracker != null) {
+            if (levelName != "MainMenuScene" && levelName != "WinScene" && levelName != "InBetweenLevelMenu") {
+                timeTracker.SetTrack(true);
+            } else {
+                timeTracker.SetTrack(false);
+            }
+        }
+        
         if (gController != null) {
             gController.LoadScene(levelName);
         } else {
