@@ -163,6 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 0
   alertText: {fileID: 6551776884401774047}
+  animator: {fileID: 0}
   step_delay: 0.25
   walkVelocity: 8
   walkMaxSpeed: 8
@@ -199,6 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 572828782583823250, guid: 866bee2e683c6a74bb58c78ce11fc184, type: 3}
   _spawnPeriod: 2.5
+  offset: {x: 0, y: 0.8, z: 0}
   rotationX: 0
   rotationY: 180
   rotationZ: 0
